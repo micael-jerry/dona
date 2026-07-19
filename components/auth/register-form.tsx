@@ -10,11 +10,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PasswordStrengthIndicator } from '@/components/auth/password-strength-indicator';
+import { signUp } from '@/lib/api';
+import { useRouter } from '@/i18n/routing';
 
 export function RegisterForm() {
 	const t = useTranslations('RegisterPage');
+	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [formError, setFormError] = useState<string | null>(null);
 
 	const registerSchema = createRegisterSchema({
 		pseudoMin: t('validation.pseudoMin'),
@@ -41,10 +45,24 @@ export function RegisterForm() {
 
 	async function onSubmit(values: RegisterFormValues) {
 		setIsSubmitting(true);
+		setFormError(null);
 		try {
-			// TODO: appel API
-			console.log(values);
-			await new Promise((r) => setTimeout(r, 1000));
+			const res = await signUp({ body: values });
+			if (res.error) {
+				const errMsg = res.error.message;
+				if (Array.isArray(errMsg)) {
+					setFormError(errMsg.join(', '));
+				} else if (typeof errMsg === 'string') {
+					setFormError(errMsg);
+				} else {
+					setFormError(t('validation.genericError') || 'Une erreur inattendue est survenue.');
+				}
+			} else {
+				router.push('/login');
+			}
+		} catch (err) {
+			console.error(err);
+			setFormError('Erreur de connexion avec le serveur.');
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -52,6 +70,11 @@ export function RegisterForm() {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+			{formError && (
+				<div className="animate-in rounded-xl border border-destructive/20 bg-destructive/10 p-4 text-sm font-semibold text-destructive duration-300 fade-in-50">
+					{formError}
+				</div>
+			)}
 			{/* Pseudo + Name row */}
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 				<div className="space-y-2">

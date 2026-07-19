@@ -27,7 +27,7 @@ export function LanguageSwitcher() {
 						<ul className="flex min-w-40 flex-col gap-0.5 p-1">
 							{LOCALES.map(({ code, label, flag, href }) => (
 								<li key={code}>
-									{/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+									{}
 									<a
 										href={href}
 										className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
