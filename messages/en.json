@@ -6,5 +6,10 @@
     "playNow": "Open Map",
     "features": "Features",
     "about": "About"
+  },
+  "NotFound": {
+    "title": "Oops! There is nothing here.",
+    "description": "It looks like you've gone off route. The page you are looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home"
   }
 }

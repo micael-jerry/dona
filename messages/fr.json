@@ -6,5 +6,10 @@
     "playNow": "Ouvrir la Carte",
     "features": "Fonctionnalités",
     "about": "À propos"
+  },
+  "NotFound": {
+    "title": "Oups ! Il n'y a rien ici.",
+    "description": "Il semble que vous ayez quitté l'itinéraire. La page que vous cherchez n'existe pas ou a été déplacée.",
+    "backHome": "Retour à l'accueil"
   }
 }

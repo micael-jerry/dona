@@ -6,5 +6,10 @@
     "playNow": "Abrir Mapa",
     "features": "Características",
     "about": "Acerca de"
+  },
+  "NotFound": {
+    "title": "¡Vaya! No hay nada aquí.",
+    "description": "Parece que te has salido de la ruta. La página que buscas no existe o ha sido movida.",
+    "backHome": "Volver al inicio"
   }
 }
