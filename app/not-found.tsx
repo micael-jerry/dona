@@ -41,7 +41,7 @@ export default async function NotFound() {
 							<MapPinOff className="h-8 w-8 text-primary" />
 						</div>
 
-						<h1 className="mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-8xl font-bold tracking-tighter text-transparent">
+						<h1 className="mb-4 bg-linear-to-r from-primary to-accent bg-clip-text text-8xl font-bold tracking-tighter text-transparent">
 							404
 						</h1>
 
