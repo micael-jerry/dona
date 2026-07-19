@@ -18,11 +18,12 @@ const geistMono = Geist_Mono({
 export default async function NotFound() {
 	const cookieStore = await cookies();
 	const locale = cookieStore.get('NEXT_LOCALE')?.value || routing.defaultLocale;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let messages: any;
 
 	try {
 		messages = (await import(`../messages/${locale}.json`)).default;
-	} catch (error) {
+	} catch {
 		messages = (await import(`../messages/${routing.defaultLocale}.json`)).default;
 	}
 

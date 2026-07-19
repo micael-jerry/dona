@@ -11,5 +11,58 @@
     "title": "Oups ! Il n'y a rien ici.",
     "description": "Il semble que vous ayez quitté l'itinéraire. La page que vous cherchez n'existe pas ou a été déplacée.",
     "backHome": "Retour à l'accueil"
+  },
+  "LoginPage": {
+    "title": "Bon retour !",
+    "description": "Connectez-vous pour voir les alertes autour de vous.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "nom@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "submit": "Se connecter",
+    "orContinueWith": "Ou continuer avec",
+    "googleButton": "Continuer avec Google",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "registerLink": "Inscrivez-vous",
+    "validation": {
+      "emailInvalid": "Adresse email invalide.",
+      "passwordMin": "Le mot de passe doit faire au moins 8 caractères.",
+      "passwordMax": "Le mot de passe est trop long."
+    }
+  },
+  "RegisterPage": {
+    "title": "Rejoindre Dona",
+    "description": "Créez votre compte pour signaler et commenter les événements.",
+    "pseudoLabel": "Pseudo",
+    "pseudoPlaceholder": "johndoe_99",
+    "nameLabel": "Nom complet",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Email",
+    "emailPlaceholder": "nom@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "submit": "Créer mon compte",
+    "hasAccount": "Vous avez déjà un compte ?",
+    "loginLink": "Connectez-vous",
+    "passwordStrength": {
+      "label": "Force du mot de passe",
+      "weak": "Faible",
+      "medium": "Moyen",
+      "strong": "Fort"
+    },
+    "validation": {
+      "pseudoMin": "Le pseudo doit faire au moins 5 caractères.",
+      "pseudoMax": "Le pseudo ne peut excéder 25 caractères.",
+      "pseudoRegex": "Le pseudo ne peut contenir que des lettres, chiffres et tirets du bas.",
+      "nameMin": "Le nom doit faire au moins 3 caractères.",
+      "nameMax": "Le nom ne peut excéder 100 caractères.",
+      "emailInvalid": "Adresse email invalide.",
+      "passwordMin": "Le mot de passe doit faire au moins 8 caractères.",
+      "passwordMax": "Le mot de passe est trop long."
+    }
   }
 }

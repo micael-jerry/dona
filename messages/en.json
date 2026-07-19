@@ -11,5 +11,58 @@
     "title": "Oops! There is nothing here.",
     "description": "It looks like you've gone off route. The page you are looking for doesn't exist or has been moved.",
     "backHome": "Back to Home"
+  },
+  "LoginPage": {
+    "title": "Welcome back!",
+    "description": "Log in to see alerts around you.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "submit": "Log in",
+    "orContinueWith": "Or continue with",
+    "googleButton": "Continue with Google",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Sign up",
+    "validation": {
+      "emailInvalid": "Invalid email address.",
+      "passwordMin": "Password must be at least 8 characters.",
+      "passwordMax": "Password is too long."
+    }
+  },
+  "RegisterPage": {
+    "title": "Join Dona",
+    "description": "Create your account to report and comment on events.",
+    "pseudoLabel": "Username",
+    "pseudoPlaceholder": "johndoe_99",
+    "nameLabel": "Full name",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "submit": "Create account",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Log in",
+    "passwordStrength": {
+      "label": "Password strength",
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong"
+    },
+    "validation": {
+      "pseudoMin": "Username must be at least 5 characters.",
+      "pseudoMax": "Username cannot exceed 25 characters.",
+      "pseudoRegex": "Username can only contain letters, numbers, and underscores.",
+      "nameMin": "Name must be at least 3 characters.",
+      "nameMax": "Name cannot exceed 100 characters.",
+      "emailInvalid": "Invalid email address.",
+      "passwordMin": "Password must be at least 8 characters.",
+      "passwordMax": "Password is too long."
+    }
   }
 }

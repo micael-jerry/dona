@@ -11,5 +11,58 @@
     "title": "¡Vaya! No hay nada aquí.",
     "description": "Parece que te has salido de la ruta. La página que buscas no existe o ha sido movida.",
     "backHome": "Volver al inicio"
+  },
+  "LoginPage": {
+    "title": "¡Bienvenido de nuevo!",
+    "description": "Inicia sesión para ver las alertas a tu alrededor.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "nombre@ejemplo.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "submit": "Iniciar sesión",
+    "orContinueWith": "O continuar con",
+    "googleButton": "Continuar con Google",
+    "noAccount": "¿No tienes una cuenta?",
+    "registerLink": "Regístrate",
+    "validation": {
+      "emailInvalid": "Dirección de correo inválida.",
+      "passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+      "passwordMax": "La contraseña es demasiado larga."
+    }
+  },
+  "RegisterPage": {
+    "title": "Únete a Dona",
+    "description": "Crea tu cuenta para reportar y comentar eventos.",
+    "pseudoLabel": "Usuario",
+    "pseudoPlaceholder": "johndoe_99",
+    "nameLabel": "Nombre completo",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "nombre@ejemplo.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "submit": "Crear cuenta",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "loginLink": "Inicia sesión",
+    "passwordStrength": {
+      "label": "Fortaleza de la contraseña",
+      "weak": "Débil",
+      "medium": "Media",
+      "strong": "Fuerte"
+    },
+    "validation": {
+      "pseudoMin": "El usuario debe tener al menos 5 caracteres.",
+      "pseudoMax": "El usuario no puede exceder 25 caracteres.",
+      "pseudoRegex": "El usuario solo puede contener letras, números y guiones bajos.",
+      "nameMin": "El nombre debe tener al menos 3 caracteres.",
+      "nameMax": "El nombre no puede exceder 100 caracteres.",
+      "emailInvalid": "Dirección de correo inválida.",
+      "passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+      "passwordMax": "La contraseña es demasiado larga."
+    }
   }
 }
