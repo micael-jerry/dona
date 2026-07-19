@@ -1,0 +1,10 @@
+{
+  "HomePage": {
+    "title": "Bienvenue sur Dona",
+    "description": "La plateforme communautaire ultime pour signaler les événements routiers. Naviguez sereinement avec des alertes en temps réel, des commentaires et un chat géolocalisé.",
+    "login": "Se connecter",
+    "playNow": "Ouvrir la Carte",
+    "features": "Fonctionnalités",
+    "about": "À propos"
+  }
+}

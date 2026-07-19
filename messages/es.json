@@ -1,0 +1,10 @@
+{
+  "HomePage": {
+    "title": "Bienvenido a Dona",
+    "description": "La plataforma comunitaria definitiva para señalar eventos viales. Navega seguro con alertas en tiempo real, comentarios y chat geolocalizado.",
+    "login": "Iniciar sesión",
+    "playNow": "Abrir Mapa",
+    "features": "Características",
+    "about": "Acerca de"
+  }
+}

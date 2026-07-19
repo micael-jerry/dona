@@ -1,0 +1,10 @@
+{
+  "HomePage": {
+    "title": "Welcome to Dona",
+    "description": "The ultimate community platform for road event signaling. Navigate safely with real-time alerts, comments, and geo-located live chat.",
+    "login": "Login",
+    "playNow": "Open Map",
+    "features": "Features",
+    "about": "About"
+  }
+}
