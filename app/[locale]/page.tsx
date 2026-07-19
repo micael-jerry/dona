@@ -19,12 +19,15 @@ export default function HomePage() {
 				</Link>
 				<nav className="ml-auto flex items-center gap-4 sm:gap-6">
 					<div className="mr-4 hidden gap-4 sm:flex">
+						{/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
 						<a className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/en">
 							EN
 						</a>
+						{/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
 						<a className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/">
 							FR
 						</a>
+						{/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
 						<a className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" href="/es">
 							ES
 						</a>
