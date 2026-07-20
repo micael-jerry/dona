@@ -64,5 +64,15 @@
       "passwordMin": "Le mot de passe doit faire au moins 8 caractères.",
       "passwordMax": "Le mot de passe est trop long."
     }
+  },
+  "VerifyEmailPage": {
+    "title": "Vérification de l'adresse email",
+    "loading": "Vérification de votre adresse email en cours...",
+    "successTitle": "Compte vérifié avec succès !",
+    "successDescription": "Votre adresse email a été confirmée. Vous pouvez maintenant fermer cette page et vous connecter à l'application.",
+    "errorTitle": "Échec de la vérification",
+    "errorDescription": "Le jeton de vérification est invalide, expiré ou a déjà été utilisé.",
+    "closeButton": "Fermer la page",
+    "invalidToken": "Jeton de vérification manquant."
   }
 }

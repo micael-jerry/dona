@@ -64,5 +64,15 @@
       "passwordMin": "La contraseña debe tener al menos 8 caracteres.",
       "passwordMax": "La contraseña es demasiado larga."
     }
+  },
+  "VerifyEmailPage": {
+    "title": "Verificación de correo electrónico",
+    "loading": "Verificando su dirección de correo electrónico...",
+    "successTitle": "¡Cuenta verificada con éxito!",
+    "successDescription": "Su dirección de correo electrónico ha sido confirmada. Ahora puede cerrar esta página e iniciar sesión en la aplicación.",
+    "errorTitle": "Error de verificación",
+    "errorDescription": "El token de verificación no es válido, ha expirado o ya se ha utilizado.",
+    "closeButton": "Cerrar página",
+    "invalidToken": "Falta el token de verificación."
   }
 }

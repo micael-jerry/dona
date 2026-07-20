@@ -64,5 +64,15 @@
       "passwordMin": "Password must be at least 8 characters.",
       "passwordMax": "Password is too long."
     }
+  },
+  "VerifyEmailPage": {
+    "title": "Email Verification",
+    "loading": "Verifying your email address...",
+    "successTitle": "Account verified successfully!",
+    "successDescription": "Your email address has been confirmed. You can now close this page and log into the application.",
+    "errorTitle": "Verification failed",
+    "errorDescription": "The verification token is invalid, expired, or has already been used.",
+    "closeButton": "Close page",
+    "invalidToken": "Missing verification token."
   }
 }
