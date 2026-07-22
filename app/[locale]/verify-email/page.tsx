@@ -1,5 +1,5 @@
 import { verifyEmail } from '@/lib/api';
-import { Mail, CheckCircle, XCircle } from 'lucide-react';
+import { Mail, CheckCircle2, XCircle } from 'lucide-react';
 import { AuthCard } from '@/components/auth/auth-card';
 import { CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { getTranslations } from 'next-intl/server';
@@ -45,42 +45,52 @@ export default async function VerifyEmailPage({
 
 	return (
 		<AuthCard variant="login">
-			<CardHeader className="space-y-3 pb-6 text-center">
+			<CardHeader className="space-y-3 pb-4 text-center">
 				<div className="mb-2 flex justify-center">
-					<div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-						<Mail className="h-6 w-6 text-primary" />
+					<div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-sky-500/20 bg-sky-500/10 shadow-md">
+						<Mail className="h-7 w-7 text-sky-500" />
 					</div>
 				</div>
-				<CardTitle className="text-3xl font-bold tracking-tight">{t('title')}</CardTitle>
+				<CardTitle className="text-3xl font-black tracking-tight text-foreground">{t('title')}</CardTitle>
 			</CardHeader>
 
-			<CardContent className="flex min-h-37.5 flex-col items-center justify-center py-6 text-center">
+			<CardContent className="flex min-h-44 flex-col items-center justify-center py-6 text-center">
 				{status === 'success' && (
 					<div className="flex flex-col items-center space-y-4">
-						<CheckCircle className="h-14 w-14 text-green-500" />
+						<div className="flex h-16 w-16 items-center justify-center rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-500 shadow-lg shadow-emerald-500/20">
+							<CheckCircle2 className="h-9 w-9" />
+						</div>
 						<h3 className="text-xl font-bold text-foreground">{t('successTitle')}</h3>
-						<p className="max-w-sm font-medium text-muted-foreground">{t('successDescription')}</p>
+						<p className="max-w-sm text-sm leading-relaxed font-medium text-muted-foreground">
+							{t('successDescription')}
+						</p>
 					</div>
 				)}
 
 				{status === 'error' && (
 					<div className="flex flex-col items-center space-y-4">
-						<XCircle className="h-14 w-14 text-destructive" />
+						<div className="flex h-16 w-16 items-center justify-center rounded-full border border-rose-500/20 bg-rose-500/10 text-rose-500 shadow-lg shadow-rose-500/20">
+							<XCircle className="h-9 w-9" />
+						</div>
 						<h3 className="text-xl font-bold text-foreground">{t('errorTitle')}</h3>
-						<p className="max-w-sm font-medium text-muted-foreground">{t('errorDescription')}</p>
+						<p className="max-w-sm text-sm leading-relaxed font-medium text-muted-foreground">
+							{t('errorDescription')}
+						</p>
 					</div>
 				)}
 
 				{status === 'invalid' && (
 					<div className="flex flex-col items-center space-y-4">
-						<XCircle className="h-14 w-14 text-destructive" />
+						<div className="flex h-16 w-16 items-center justify-center rounded-full border border-rose-500/20 bg-rose-500/10 text-rose-500 shadow-lg shadow-rose-500/20">
+							<XCircle className="h-9 w-9" />
+						</div>
 						<h3 className="text-xl font-bold text-foreground">{t('errorTitle')}</h3>
-						<p className="max-w-sm font-medium text-muted-foreground">{t('invalidToken')}</p>
+						<p className="max-w-sm text-sm leading-relaxed font-medium text-muted-foreground">{t('invalidToken')}</p>
 					</div>
 				)}
 			</CardContent>
 
-			<CardFooter className="flex flex-col justify-center gap-3 border-t border-border/30 pt-6 pb-8">
+			<CardFooter className="flex flex-col justify-center gap-3 border-t border-border/30 pt-6 pb-6">
 				<CloseWindowButton label={t('closeButton')} />
 			</CardFooter>
 		</AuthCard>

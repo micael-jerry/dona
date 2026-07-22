@@ -4,8 +4,29 @@
     "description": "La plateforme communautaire ultime pour signaler les événements routiers. Naviguez sereinement avec des alertes en temps réel, des commentaires et un chat géolocalisé.",
     "login": "Se connecter",
     "playNow": "Ouvrir la Carte",
-    "features": "Fonctionnalités",
-    "about": "À propos"
+    "joinNetwork": "Rejoindre le Réseau Dona",
+    "announcement": "Alertes Routières Participatives en Temps Réel & Navigation IA",
+    "headlineFirst": "Conduisez en Toute Sécurité avec",
+    "headlineSecond": "l'Intelligence Routière en Direct",
+    "heroDescription": "Signalez des dangers, vérifiez les signaux de la communauté avec des scores de véracité en direct, discutez dans des canaux géolocalisés et laissez l'IA vous réorienter loin des zones à risque.",
+    "feedPreviewTitle": "Aperçu des Alertes en Direct",
+    "feedPreviewSubtitle": "Flux en temps réel dans votre rayon de proximité",
+    "tabs": {
+      "all": "Tous les Événements",
+      "accidents": "Accidents",
+      "police": "Contrôles",
+      "hazards": "Dangers"
+    },
+    "features": {
+      "signalingTitle": "Signalement Instantané",
+      "signalingDesc": "Signalez accidents, radars et obstacles directement depuis votre position GPS en direct avec preuves médias.",
+      "veracityTitle": "Évaluation de Véracité",
+      "veracityDesc": "Votes participatifs, réactions et validations officielles évaluent chaque événement de 0% à 100%.",
+      "reroutingTitle": "Reroutage IA Anti-Dangers",
+      "reroutingDesc": "L'IA analyse les photos et le routage intelligent calcule des trajets plus sûrs autour des zones confirmées à risque.",
+      "chatTitle": "Chat Géolocalisé en Direct",
+      "chatDesc": "Rejoignez des salons de discussion en direct liés aux points d'incident pour échanger avec les usagers proches."
+    }
   },
   "NotFound": {
     "title": "Oups ! Il n'y a rien ici.",

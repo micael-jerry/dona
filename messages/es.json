@@ -4,8 +4,29 @@
     "description": "La plataforma comunitaria definitiva para señalar eventos viales. Navega seguro con alertas en tiempo real, comentarios y chat geolocalizado.",
     "login": "Iniciar sesión",
     "playNow": "Abrir Mapa",
-    "features": "Características",
-    "about": "Acerca de"
+    "joinNetwork": "Unirse a la Red Dona",
+    "announcement": "Alertas Viales Colaborativas en Tiempo Real y Navegación con IA",
+    "headlineFirst": "Conduce con Mayor Seguridad con",
+    "headlineSecond": "Inteligencia Vial en Vivo",
+    "heroDescription": "Reporta peligros, verifica señales comunitarias con puntuaciones de veracidad en tiempo real, chatea en canales geolocalizados y permite que la IA te desvíe de zonas peligrosas.",
+    "feedPreviewTitle": "Vista Previa de Alertas en Vivo",
+    "feedPreviewSubtitle": "Canal en tiempo real en tu radio de proximidad",
+    "tabs": {
+      "all": "Todos los Eventos",
+      "accidents": "Accidentes",
+      "police": "Controles",
+      "hazards": "Peligros"
+    },
+    "features": {
+      "signalingTitle": "Señalización Instantánea",
+      "signalingDesc": "Reporta accidentes, controles de velocidad y obstáculos directamente desde tu ubicación GPS en vivo con prueba multimedia.",
+      "veracityTitle": "Evaluaciones de Veracidad",
+      "veracityDesc": "Votos comunitarios, reacciones y validaciones oficiales evalúan cada evento del 0% al 100%.",
+      "reroutingTitle": "Desvío de Peligros con IA",
+      "reroutingDesc": "La IA analiza las fotos y el enrutamiento inteligente calcula rutas más seguras alrededor de zonas confirmadas de alto riesgo.",
+      "chatTitle": "Chat en Vivo Geolocalizado",
+      "chatDesc": "Únete a canales de chat vinculados a puntos de incidentes activos para hablar directamente con conductores cercanos."
+    }
   },
   "NotFound": {
     "title": "¡Vaya! No hay nada aquí.",
