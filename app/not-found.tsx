@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 import { Button } from '@/components/ui/button';
-import { MapPinOff } from 'lucide-react';
+import { MapPinOff, ArrowLeft } from 'lucide-react';
 import { cookies } from 'next/headers';
 import { routing } from '@/i18n/routing';
 
@@ -28,37 +28,40 @@ export default async function NotFound() {
 	}
 
 	return (
-		<html lang={locale}>
-			<body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans antialiased`}>
-				<main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
-					{/* Background decorative blobs */}
-					<div className="absolute top-1/4 left-1/4 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-[100px]" />
-					<div className="absolute right-1/4 bottom-1/4 h-96 w-96 translate-x-1/2 translate-y-1/2 rounded-full bg-accent/20 blur-[100px]" />
+		<html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} bg-grid-pattern min-h-screen bg-background font-sans antialiased selection:bg-primary/20`}
+			>
+				<main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-4">
+					{/* Background decorative ambient lighting */}
+					<div className="pointer-events-none absolute top-1/3 left-1/2 h-150 w-150 -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-tr from-sky-500/20 via-cyan-400/10 to-indigo-600/15 blur-[140px]" />
 
-					{/* Content Card */}
-					<div className="relative z-10 mx-4 flex w-full max-w-lg flex-col items-center rounded-3xl border border-border bg-background/50 p-8 text-center shadow-2xl backdrop-blur-md">
-						<div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-							<MapPinOff className="h-8 w-8 text-primary" />
+					{/* Glass Card Container */}
+					<div className="relative z-10 flex w-full max-w-md flex-col items-center rounded-3xl border border-border/60 bg-card/80 p-8 text-center shadow-2xl backdrop-blur-2xl transition-all">
+						<div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-sky-500/20 bg-sky-500/10 shadow-md">
+							<MapPinOff className="h-8 w-8 text-sky-500" />
 						</div>
 
-						<h1 className="mb-4 bg-linear-to-r from-primary to-accent bg-clip-text text-8xl font-bold tracking-tighter text-transparent">
+						<span className="mb-2 bg-linear-to-r from-sky-400 via-cyan-400 to-indigo-500 bg-clip-text text-6xl font-black tracking-tight text-transparent sm:text-7xl">
 							404
-						</h1>
+						</span>
 
-						<h2 className="mb-2 text-2xl font-semibold text-foreground">{messages.NotFound?.title || 'Not Found'}</h2>
+						<h1 className="mb-2 text-2xl font-bold text-foreground">{messages.NotFound?.title || 'Off Route'}</h1>
 
-						<p className="mb-8 text-balance text-muted-foreground">
-							{messages.NotFound?.description || 'Page not found.'}
+						<p className="mb-8 text-sm leading-relaxed text-muted-foreground">
+							{messages.NotFound?.description ||
+								"It looks like you've gone off route. The page you are looking for doesn't exist."}
 						</p>
 
-						<div className="flex gap-4">
+						<div className="w-full">
 							{/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-							<a href="/">
+							<a href="/" className="block w-full">
 								<Button
 									size="lg"
-									className="rounded-full font-semibold shadow-lg transition-transform duration-300 hover:scale-105"
+									className="h-12 w-full rounded-xl bg-linear-to-r from-sky-500 to-indigo-600 font-bold text-white shadow-lg shadow-sky-500/25 transition-all hover:scale-[1.02] hover:from-sky-400 hover:to-indigo-500 active:scale-[0.98]"
 								>
-									{messages.NotFound?.backHome || 'Back'}
+									<ArrowLeft className="mr-2 h-4 w-4" />
+									{messages.NotFound?.backHome || 'Back to Home'}
 								</Button>
 							</a>
 						</div>

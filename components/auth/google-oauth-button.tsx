@@ -10,7 +10,7 @@ export function GoogleOAuthButton() {
 		<Button
 			variant="outline"
 			type="button"
-			className="flex h-12 w-full items-center gap-3 rounded-xl border-border/50 bg-background/50 font-medium transition-colors hover:bg-muted"
+			className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-border/60 bg-background/50 font-semibold text-foreground shadow-xs transition-all duration-300 hover:scale-[1.01] hover:border-border hover:bg-muted"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5 shrink-0">
 				<path

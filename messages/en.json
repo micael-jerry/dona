@@ -4,8 +4,29 @@
     "description": "The ultimate community platform for road event signaling. Navigate safely with real-time alerts, comments, and geo-located live chat.",
     "login": "Login",
     "playNow": "Open Map",
-    "features": "Features",
-    "about": "About"
+    "joinNetwork": "Join Dona Network",
+    "announcement": "Real-Time Crowdsourced Road Alerts & AI Navigation",
+    "headlineFirst": "Drive Safer with",
+    "headlineSecond": "Live Signal Intelligence",
+    "heroDescription": "Report hazards, verify community signals with live veracity scores, chat in location-bound channels, and let AI reroute you away from dangerous zones.",
+    "feedPreviewTitle": "Live Alert Feed Preview",
+    "feedPreviewSubtitle": "Real-time feed in your proximity radius",
+    "tabs": {
+      "all": "All Events",
+      "accidents": "Accidents",
+      "police": "Police",
+      "hazards": "Hazards"
+    },
+    "features": {
+      "signalingTitle": "Instant Signaling",
+      "signalingDesc": "Report accidents, speed traps, and road obstacles directly from your live GPS location with media proof.",
+      "veracityTitle": "Veracity Ratings",
+      "veracityDesc": "Crowdsourced upvotes, status reactions, and official entity validations score every event from 0% to 100%.",
+      "reroutingTitle": "AI Hazard Rerouting",
+      "reroutingDesc": "Vision AI checks event photos while intelligent routing calculates safer paths around confirmed high-risk zones.",
+      "chatTitle": "Location Live Chat",
+      "chatDesc": "Join real-time chat channels pinned to active incident points to talk directly with nearby commuters."
+    }
   },
   "NotFound": {
     "title": "Oops! There is nothing here.",

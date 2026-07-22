@@ -12,22 +12,25 @@ export default function LoginPage() {
 		<AuthCard variant="login">
 			<CardHeader className="space-y-3 pb-6 text-center">
 				<div className="mb-2 flex justify-center">
-					<div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-						<MapPin className="h-6 w-6 text-primary" />
+					<div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-sky-500/20 bg-sky-500/10 shadow-md">
+						<MapPin className="h-7 w-7 text-sky-500" />
 					</div>
 				</div>
-				<CardTitle className="text-3xl font-bold tracking-tight">{t('title')}</CardTitle>
-				<CardDescription className="font-medium text-muted-foreground">{t('description')}</CardDescription>
+				<CardTitle className="text-3xl font-black tracking-tight text-foreground">{t('title')}</CardTitle>
+				<CardDescription className="text-sm font-medium text-muted-foreground">{t('description')}</CardDescription>
 			</CardHeader>
 
 			<CardContent className="space-y-6">
 				<LoginForm />
 			</CardContent>
 
-			<CardFooter className="flex justify-center border-t border-border/30 pt-6 pb-8">
+			<CardFooter className="flex justify-center border-t border-border/30 pt-6 pb-4">
 				<p className="text-sm font-medium text-muted-foreground">
 					{t('noAccount')}{' '}
-					<Link href="/register" className="font-semibold text-primary hover:underline">
+					<Link
+						href="/register"
+						className="font-bold text-sky-500 transition-colors hover:text-sky-400 hover:underline"
+					>
 						{t('registerLink')}
 					</Link>
 				</p>

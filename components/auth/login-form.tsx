@@ -105,7 +105,7 @@ export function LoginForm() {
 			<Button
 				type="submit"
 				disabled={isSubmitting}
-				className="h-12 w-full rounded-xl font-semibold shadow-lg transition-transform duration-300 hover:scale-[1.02] disabled:scale-100"
+				className="h-12 w-full rounded-xl bg-linear-to-r from-sky-500 to-indigo-600 font-bold text-white shadow-lg shadow-sky-500/25 transition-all duration-300 hover:scale-[1.02] hover:from-sky-400 hover:to-indigo-500 active:scale-[0.98] disabled:scale-100"
 			>
 				{isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 				{t('submit')}
