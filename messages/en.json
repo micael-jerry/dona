@@ -36,7 +36,9 @@
 	"Auth": {
 		"invalidCredentials": "Invalid email or password.",
 		"genericError": "An unexpected error occurred.",
-		"logout": "Log out"
+		"logout": "Log out",
+		"checkingSession": "Checking session...",
+		"accessRestricted": "Access restricted. Redirecting to login page..."
 	},
 	"LoginPage": {
 		"title": "Welcome back!",
@@ -88,7 +90,9 @@
 			"nameMax": "Name cannot exceed 100 characters.",
 			"emailInvalid": "Invalid email address.",
 			"passwordMin": "Password must be at least 8 characters.",
-			"passwordMax": "Password is too long."
+			"passwordMax": "Password is too long.",
+			"genericError": "An unexpected error occurred.",
+			"serverError": "Server connection error."
 		}
 	},
 	"VerifyEmailPage": {
@@ -100,5 +104,27 @@
 		"errorDescription": "The verification token is invalid, expired, or has already been used.",
 		"closeButton": "Close page",
 		"invalidToken": "Missing verification token."
+	},
+	"DashboardPage": {
+		"title": "Personal Workspace",
+		"welcome": "Welcome,",
+		"subtitle": "Here are your account details and secure access information.",
+		"profileCardTitle": "User Profile",
+		"roleLabel": "Role",
+		"emailVerified": "Email verified",
+		"emailNotVerified": "Email unverified",
+		"pseudoLabel": "Username",
+		"nameLabel": "Full Name",
+		"emailLabel": "Email Address",
+		"createdAtLabel": "Member since",
+		"updatedAtLabel": "Last updated",
+		"authProviderLabel": "Auth Provider",
+		"standardAuth": "Email & Password",
+		"googleAuth": "Google OAuth Account",
+		"statusLabel": "Account Status",
+		"activeStatus": "Active & Secure Account",
+		"backHome": "Back to Map",
+		"verificationLabel": "Verification",
+		"sessionLabel": "Session Status"
 	}
 }

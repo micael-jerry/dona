@@ -22,7 +22,10 @@ export function UserNav() {
 	if (isAuthenticated && user) {
 		return (
 			<div className="flex items-center gap-3">
-				<div className="flex items-center gap-2.5 rounded-xl border border-sky-500/20 bg-sky-500/10 px-3 py-1.5 shadow-xs">
+				<Link
+					href="/dashboard"
+					className="flex items-center gap-2.5 rounded-xl border border-sky-500/20 bg-sky-500/10 px-3 py-1.5 shadow-xs transition-all hover:scale-[1.02] hover:border-sky-500/40"
+				>
 					<div className="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-500 text-xs font-bold text-white uppercase">
 						{user.pseudo ? user.pseudo.charAt(0) : <User className="h-3.5 w-3.5" />}
 					</div>
@@ -30,7 +33,7 @@ export function UserNav() {
 						<span className="text-xs leading-tight font-bold text-foreground">{user.pseudo}</span>
 						<span className="text-[10px] font-medium text-muted-foreground">{user.email}</span>
 					</div>
-				</div>
+				</Link>
 
 				<Button
 					variant="ghost"

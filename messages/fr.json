@@ -36,7 +36,9 @@
 	"Auth": {
 		"invalidCredentials": "Email ou mot de passe incorrect.",
 		"genericError": "Une erreur inattendue est survenue.",
-		"logout": "Se déconnecter"
+		"logout": "Se déconnecter",
+		"checkingSession": "Vérification de la session en cours...",
+		"accessRestricted": "Accès restreint. Redirection vers la page de connexion..."
 	},
 	"LoginPage": {
 		"title": "Bon retour !",
@@ -88,7 +90,9 @@
 			"nameMax": "Le nom ne peut excéder 100 caractères.",
 			"emailInvalid": "Adresse email invalide.",
 			"passwordMin": "Le mot de passe doit faire au moins 8 caractères.",
-			"passwordMax": "Le mot de passe est trop long."
+			"passwordMax": "Le mot de passe est trop long.",
+			"genericError": "Une erreur inattendue est survenue.",
+			"serverError": "Erreur de connexion avec le serveur."
 		}
 	},
 	"VerifyEmailPage": {
@@ -100,5 +104,27 @@
 		"errorDescription": "Le jeton de vérification est invalide, expiré ou a déjà été utilisé.",
 		"closeButton": "Fermer la page",
 		"invalidToken": "Jeton de vérification manquant."
+	},
+	"DashboardPage": {
+		"title": "Espace Personnel",
+		"welcome": "Bienvenue,",
+		"subtitle": "Voici les détails de votre compte et vos informations d'accès sécurisé.",
+		"profileCardTitle": "Profil Utilisateur",
+		"roleLabel": "Rôle",
+		"emailVerified": "Email vérifié",
+		"emailNotVerified": "Email non vérifié",
+		"pseudoLabel": "Pseudo",
+		"nameLabel": "Nom complet",
+		"emailLabel": "Adresse Email",
+		"createdAtLabel": "Membre depuis",
+		"updatedAtLabel": "Dernière mise à jour",
+		"authProviderLabel": "Fournisseur d'authentification",
+		"standardAuth": "Identifiant & Mot de passe",
+		"googleAuth": "Compte Google OAuth",
+		"statusLabel": "Statut du compte",
+		"activeStatus": "Compte Actif & Sécurisé",
+		"backHome": "Retour à la Carte",
+		"verificationLabel": "Vérification",
+		"sessionLabel": "Statut de Session"
 	}
 }

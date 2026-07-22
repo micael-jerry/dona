@@ -48,7 +48,7 @@ export function LoginForm() {
 			if (!res.success) {
 				setApiError(res.error || tAuth('invalidCredentials'));
 			} else {
-				router.push('/');
+				router.push('/dashboard');
 				router.refresh();
 			}
 		} catch (err: unknown) {

@@ -1,1 +1,2 @@
-export { useAuth, AuthProvider, type AuthContextType, type AuthResult } from '@/components/providers/auth-provider';
+export { useAuth } from '@/hooks/use-auth';
+export { useAuthStore, type AuthState, type AuthResult } from '@/store/use-auth-store';

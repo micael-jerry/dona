@@ -55,14 +55,14 @@ export function RegisterForm() {
 				} else if (typeof errMsg === 'string') {
 					setFormError(errMsg);
 				} else {
-					setFormError(t('validation.genericError') || 'Une erreur inattendue est survenue.');
+					setFormError(t('validation.genericError'));
 				}
 			} else {
 				router.push('/login');
 			}
 		} catch (err) {
 			console.error(err);
-			setFormError('Erreur de connexion avec le serveur.');
+			setFormError(t('validation.serverError'));
 		} finally {
 			setIsSubmitting(false);
 		}

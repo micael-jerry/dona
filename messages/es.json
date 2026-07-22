@@ -36,7 +36,9 @@
 	"Auth": {
 		"invalidCredentials": "Correo electrónico o contraseña incorrectos.",
 		"genericError": "Ocurrió un error inesperado.",
-		"logout": "Cerrar sesión"
+		"logout": "Cerrar sesión",
+		"checkingSession": "Verificando sesión...",
+		"accessRestricted": "Acceso restringido. Redirigiendo a la página de inicio de sesión..."
 	},
 	"LoginPage": {
 		"title": "¡Bienvenido de nuevo!",
@@ -88,7 +90,9 @@
 			"nameMax": "El nombre no puede exceder 100 caracteres.",
 			"emailInvalid": "Dirección de correo inválida.",
 			"passwordMin": "La contraseña debe tener al menos 8 caracteres.",
-			"passwordMax": "La contraseña es demasiado larga."
+			"passwordMax": "La contraseña es demasiado larga.",
+			"genericError": "Ocurrió un error inesperado.",
+			"serverError": "Error de conexión con el servidor."
 		}
 	},
 	"VerifyEmailPage": {
@@ -100,5 +104,27 @@
 		"errorDescription": "El token de verificación no es válido, ha expirado o ya se ha utilizado.",
 		"closeButton": "Cerrar página",
 		"invalidToken": "Falta el token de verificación."
+	},
+	"DashboardPage": {
+		"title": "Espacio Personal",
+		"welcome": "Bienvenido,",
+		"subtitle": "Aquí están los detalles de su cuenta e información de acceso seguro.",
+		"profileCardTitle": "Perfil de Usuario",
+		"roleLabel": "Rol",
+		"emailVerified": "Correo verificado",
+		"emailNotVerified": "Correo no verificado",
+		"pseudoLabel": "Usuario",
+		"nameLabel": "Nombre completo",
+		"emailLabel": "Correo electrónico",
+		"createdAtLabel": "Miembro desde",
+		"updatedAtLabel": "Última actualización",
+		"authProviderLabel": "Proveedor de autenticación",
+		"standardAuth": "Correo y Contraseña",
+		"googleAuth": "Cuenta Google OAuth",
+		"statusLabel": "Estado de la cuenta",
+		"activeStatus": "Cuenta Activa y Segura",
+		"backHome": "Volver al Mapa",
+		"verificationLabel": "Verificación",
+		"sessionLabel": "Estado de Sesión"
 	}
 }
