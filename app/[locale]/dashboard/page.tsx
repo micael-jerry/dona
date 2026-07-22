@@ -5,7 +5,9 @@ import { useAuth } from '@/hooks/use-auth';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { User, ShieldCheck, Calendar, MapPin, Sparkles, Clock, CheckCircle2, XCircle } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { ShieldCheck, Calendar, MapPin, Sparkles, Clock, CheckCircle2, XCircle } from 'lucide-react';
 
 export default function DashboardPage() {
 	const t = useTranslations('DashboardPage');
@@ -16,6 +18,8 @@ export default function DashboardPage() {
 
 	const formattedCreatedAt = user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A';
 	const formattedUpdatedAt = user.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'N/A';
+	const avatarUrl = typeof user.avatar === 'string' ? user.avatar : undefined;
+	const fallbackLetter = user.pseudo ? user.pseudo.charAt(0).toUpperCase() : 'U';
 
 	return (
 		<div className="mx-auto max-w-6xl space-y-8 py-4">
@@ -24,18 +28,25 @@ export default function DashboardPage() {
 				<div className="absolute top-0 right-0 -mt-10 -mr-10 h-48 w-48 rounded-full bg-sky-500/10 blur-3xl" />
 				<div className="relative z-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
 					<div className="flex items-center gap-4">
-						<div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-sky-500/30 bg-sky-500/20 text-2xl font-black text-sky-400 uppercase shadow-inner">
-							{user.pseudo ? user.pseudo.charAt(0) : <User className="h-8 w-8" />}
-						</div>
+						<Avatar className="h-16 w-16 rounded-2xl border border-sky-500/30 shadow-inner">
+							<AvatarImage src={avatarUrl} alt={user.pseudo} />
+							<AvatarFallback className="rounded-2xl bg-sky-500/20 text-2xl font-black text-sky-400">
+								{fallbackLetter}
+							</AvatarFallback>
+						</Avatar>
+
 						<div className="space-y-1">
 							<div className="flex items-center gap-2">
 								<h1 className="text-2xl font-black tracking-tight text-foreground sm:text-3xl">
 									{t('welcome')} {user.pseudo || user.name}!
 								</h1>
-								<span className="inline-flex items-center gap-1 rounded-full border border-sky-500/30 bg-sky-500/15 px-2.5 py-0.5 text-xs font-bold text-sky-400">
+								<Badge
+									variant="outline"
+									className="gap-1 rounded-full border-sky-500/30 bg-sky-500/15 text-xs font-bold text-sky-400"
+								>
 									<Sparkles className="h-3 w-3" />
 									{user.role}
-								</span>
+								</Badge>
 							</div>
 							<p className="text-sm font-medium text-muted-foreground">{t('subtitle')}</p>
 						</div>
@@ -65,7 +76,10 @@ export default function DashboardPage() {
 				<Card className="rounded-2xl border-border/40 bg-card/60 shadow-md backdrop-blur-xl transition-all hover:border-sky-500/30">
 					<CardHeader className="flex flex-row items-center justify-between pb-3">
 						<CardTitle className="text-base font-bold text-foreground">{t('profileCardTitle')}</CardTitle>
-						<User className="h-5 w-5 text-sky-500" />
+						<Avatar className="h-6 w-6">
+							<AvatarImage src={avatarUrl} alt={user.pseudo} />
+							<AvatarFallback className="bg-sky-500 text-[10px] font-bold text-white">{fallbackLetter}</AvatarFallback>
+						</Avatar>
 					</CardHeader>
 					<CardContent className="space-y-4 text-sm">
 						<div className="flex justify-between border-b border-border/30 pb-2.5">
@@ -78,9 +92,9 @@ export default function DashboardPage() {
 						</div>
 						<div className="flex justify-between border-b border-border/30 pb-2.5">
 							<span className="font-medium text-muted-foreground">{t('roleLabel')}</span>
-							<span className="rounded-md border border-primary/20 bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">
+							<Badge variant="outline" className="border-primary/20 bg-primary/10 text-xs font-bold text-primary">
 								{user.role}
-							</span>
+							</Badge>
 						</div>
 						<div className="flex justify-between pt-1">
 							<span className="font-medium text-muted-foreground">ID</span>
@@ -107,15 +121,21 @@ export default function DashboardPage() {
 						<div className="flex items-center justify-between border-b border-border/30 pb-2.5">
 							<span className="font-medium text-muted-foreground">{t('verificationLabel')}</span>
 							{user.isEmailVerified ? (
-								<span className="inline-flex items-center gap-1 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-xs font-bold text-emerald-500">
+								<Badge
+									variant="outline"
+									className="gap-1 border-emerald-500/30 bg-emerald-500/10 text-xs font-bold text-emerald-500"
+								>
 									<CheckCircle2 className="h-3.5 w-3.5" />
 									{t('emailVerified')}
-								</span>
+								</Badge>
 							) : (
-								<span className="inline-flex items-center gap-1 rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-xs font-bold text-amber-500">
+								<Badge
+									variant="outline"
+									className="gap-1 border-amber-500/30 bg-amber-500/10 text-xs font-bold text-amber-500"
+								>
 									<XCircle className="h-3.5 w-3.5" />
 									{t('emailNotVerified')}
-								</span>
+								</Badge>
 							)}
 						</div>
 						<div className="flex justify-between pt-1">
@@ -150,10 +170,13 @@ export default function DashboardPage() {
 						</div>
 						<div className="flex items-center justify-between pt-1">
 							<span className="font-medium text-muted-foreground">{t('sessionLabel')}</span>
-							<span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-500">
+							<Badge
+								variant="outline"
+								className="gap-1.5 border-emerald-500/30 bg-emerald-500/10 text-xs font-bold text-emerald-500"
+							>
 								<span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
 								{t('activeStatus')}
-							</span>
+							</Badge>
 						</div>
 					</CardContent>
 				</Card>

@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm, useWatch } from 'react-hook-form';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { zodV4Resolver } from '@/lib/resolvers';
 import { createRegisterSchema, type RegisterFormValues } from '@/lib/schemas/auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { PasswordStrengthIndicator } from '@/components/auth/password-strength-indicator';
 import { signUp } from '@/lib/api';
 import { useRouter } from '@/i18n/routing';
@@ -64,9 +65,10 @@ export function RegisterForm() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
 			{formError && (
-				<div className="animate-in rounded-xl border border-destructive/20 bg-destructive/10 p-4 text-sm font-semibold text-destructive duration-300 fade-in-50">
-					{formError}
-				</div>
+				<Alert variant="destructive" className="rounded-xl border-destructive/30 bg-destructive/10">
+					<AlertCircle className="h-4 w-4" />
+					<AlertDescription className="font-medium text-destructive">{formError}</AlertDescription>
+				</Alert>
 			)}
 			{/* Pseudo + Name row */}
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

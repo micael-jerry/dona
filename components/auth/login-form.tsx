@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { GoogleOAuthButton } from '@/components/auth/google-oauth-button';
 import { useAuth } from '@/hooks/use-auth';
 import { Link, useRouter } from '@/i18n/routing';
@@ -63,10 +64,10 @@ export function LoginForm() {
 		<form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
 			{/* API Error Alert */}
 			{apiError && (
-				<div className="flex items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/10 p-3.5 text-sm font-medium text-destructive">
-					<AlertCircle className="h-5 w-5 shrink-0" />
-					<span>{apiError}</span>
-				</div>
+				<Alert variant="destructive" className="rounded-xl border-destructive/30 bg-destructive/10">
+					<AlertCircle className="h-4 w-4" />
+					<AlertDescription className="font-medium text-destructive">{apiError}</AlertDescription>
+				</Alert>
 			)}
 
 			{/* Fields */}

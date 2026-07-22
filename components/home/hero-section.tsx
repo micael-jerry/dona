@@ -4,6 +4,8 @@ import * as React from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
 	AlertTriangle,
 	ArrowRight,
@@ -46,7 +48,7 @@ export function HeroSection({ t: propT }: HeroSectionProps = {}) {
 			official: false,
 			aiVerified: true,
 			badge: 'High Impact',
-			badgeColor: 'bg-rose-500/10 text-rose-500 border-rose-500/20',
+			badgeColor: 'border-rose-500/30 bg-rose-500/10 text-rose-500',
 		},
 		{
 			id: 2,
@@ -62,7 +64,7 @@ export function HeroSection({ t: propT }: HeroSectionProps = {}) {
 			official: true,
 			aiVerified: false,
 			badge: 'Official Validation',
-			badgeColor: 'bg-sky-500/10 text-sky-500 border-sky-500/20',
+			badgeColor: 'border-sky-500/30 bg-sky-500/10 text-sky-500',
 		},
 		{
 			id: 3,
@@ -78,7 +80,7 @@ export function HeroSection({ t: propT }: HeroSectionProps = {}) {
 			official: false,
 			aiVerified: true,
 			badge: 'Reroute Active',
-			badgeColor: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+			badgeColor: 'border-amber-500/30 bg-amber-500/10 text-amber-500',
 		},
 	];
 
@@ -93,14 +95,17 @@ export function HeroSection({ t: propT }: HeroSectionProps = {}) {
 			<div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
 				{/* Top Announcement Badge */}
 				<div className="mb-6 flex justify-center">
-					<div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1.5 text-xs font-semibold text-sky-600 shadow-sm backdrop-blur-md transition-all hover:border-sky-500/50 hover:bg-sky-500/15 sm:text-sm dark:text-sky-300">
+					<Badge
+						variant="outline"
+						className="inline-flex items-center gap-2 rounded-full border-sky-500/30 bg-sky-500/10 px-4 py-1.5 text-xs font-semibold text-sky-600 shadow-xs backdrop-blur-md transition-all hover:border-sky-500/50 hover:bg-sky-500/15 sm:text-sm dark:text-sky-300"
+					>
 						<span className="relative flex h-2 w-2">
 							<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
 							<span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500" />
 						</span>
 						<span>{t('announcement')}</span>
 						<Sparkles className="h-3.5 w-3.5 text-amber-400" />
-					</div>
+					</Badge>
 				</div>
 
 				{/* Main Headline */}
@@ -153,27 +158,26 @@ export function HeroSection({ t: propT }: HeroSectionProps = {}) {
 							</div>
 						</div>
 
-						{/* Category Tabs */}
-						<div className="flex flex-wrap items-center gap-1.5 rounded-xl bg-muted/60 p-1">
-							{[
-								{ id: 'all', label: t('tabs.all') },
-								{ id: 'accidents', label: t('tabs.accidents') },
-								{ id: 'police', label: t('tabs.police') },
-								{ id: 'hazards', label: t('tabs.hazards') },
-							].map((tab) => (
-								<button
-									key={tab.id}
-									onClick={() => setActiveTab(tab.id as 'all' | 'accidents' | 'hazards' | 'police')}
-									className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
-										activeTab === tab.id
-											? 'bg-background text-foreground shadow-xs'
-											: 'text-muted-foreground hover:text-foreground'
-									}`}
-								>
-									{tab.label}
-								</button>
-							))}
-						</div>
+						{/* Category Tabs using shadcn Tabs */}
+						<Tabs
+							value={activeTab}
+							onValueChange={(val) => setActiveTab(val as 'all' | 'accidents' | 'hazards' | 'police')}
+						>
+							<TabsList className="h-9 rounded-xl bg-muted/60 p-1">
+								<TabsTrigger value="all" className="rounded-lg text-xs font-semibold">
+									{t('tabs.all')}
+								</TabsTrigger>
+								<TabsTrigger value="accidents" className="rounded-lg text-xs font-semibold">
+									{t('tabs.accidents')}
+								</TabsTrigger>
+								<TabsTrigger value="police" className="rounded-lg text-xs font-semibold">
+									{t('tabs.police')}
+								</TabsTrigger>
+								<TabsTrigger value="hazards" className="rounded-lg text-xs font-semibold">
+									{t('tabs.hazards')}
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
 					</div>
 
 					{/* Event Items List */}
@@ -194,11 +198,12 @@ export function HeroSection({ t: propT }: HeroSectionProps = {}) {
 										<div>
 											<div className="flex flex-wrap items-center gap-2">
 												<h4 className="text-sm font-bold text-foreground sm:text-base">{event.title}</h4>
-												<span
-													className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-bold ${event.badgeColor}`}
+												<Badge
+													variant="outline"
+													className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${event.badgeColor}`}
 												>
 													{event.badge}
-												</span>
+												</Badge>
 											</div>
 											<p className="mt-0.5 text-xs text-muted-foreground">{event.location}</p>
 

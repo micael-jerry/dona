@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Progress } from '@/components/ui/progress';
 
 type PasswordStrength = 'weak' | 'medium' | 'strong';
 
@@ -16,16 +17,16 @@ function computeStrength(password: string): PasswordStrength {
 	return 'strong';
 }
 
-const strengthConfig: Record<PasswordStrength, { segments: number; color: string }> = {
-	weak: { segments: 1, color: 'bg-destructive' },
-	medium: { segments: 2, color: 'bg-accent' },
-	strong: { segments: 3, color: 'bg-green-500' },
+const strengthConfig: Record<PasswordStrength, { percentage: number; colorClass: string }> = {
+	weak: { percentage: 33, colorClass: '[&>div]:bg-destructive' },
+	medium: { percentage: 66, colorClass: '[&>div]:bg-amber-500' },
+	strong: { percentage: 100, colorClass: '[&>div]:bg-emerald-500' },
 };
 
 const strengthTextColor: Record<PasswordStrength, string> = {
 	weak: 'text-destructive',
-	medium: 'text-accent',
-	strong: 'text-green-500',
+	medium: 'text-amber-500',
+	strong: 'text-emerald-500',
 };
 
 interface PasswordStrengthIndicatorProps {
@@ -38,30 +39,13 @@ export function PasswordStrengthIndicator({ password }: PasswordStrengthIndicato
 	if (password.length === 0) return null;
 
 	const strength = computeStrength(password);
-	const { segments, color } = strengthConfig[strength];
+	const { percentage, colorClass } = strengthConfig[strength];
 
 	return (
-		<div id="password-strength" aria-live="polite" className="space-y-1.5">
-			<div
-				className="flex gap-1.5"
-				role="meter"
-				aria-valuemin={0}
-				aria-valuemax={3}
-				aria-valuenow={segments}
-				aria-label={t('label')}
-			>
-				{[1, 2, 3].map((seg) => (
-					<div
-						key={seg}
-						className={[
-							'h-1.5 flex-1 rounded-full transition-all duration-300',
-							seg <= segments ? color : 'bg-border',
-						].join(' ')}
-					/>
-				))}
-			</div>
+		<div id="password-strength" aria-live="polite" className="space-y-1.5 pt-1">
+			<Progress value={percentage} className={`h-1.5 bg-border/40 ${colorClass}`} />
 			<p className="text-xs font-medium text-muted-foreground">
-				{t('label')} : <span className={strengthTextColor[strength]}>{t(strength)}</span>
+				{t('label')} : <span className={`font-bold ${strengthTextColor[strength]}`}>{t(strength)}</span>
 			</p>
 		</div>
 	);

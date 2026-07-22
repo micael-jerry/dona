@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AuthProvider } from '@/components/providers/auth-provider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 const geistSans = Geist({
 	variable: '--font-sans',
@@ -47,7 +48,9 @@ export default async function RootLayout({
 			>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<NextIntlClientProvider messages={messages}>
-						<AuthProvider>{children}</AuthProvider>
+						<TooltipProvider>
+							<AuthProvider>{children}</AuthProvider>
+						</TooltipProvider>
 					</NextIntlClientProvider>
 				</ThemeProvider>
 			</body>
