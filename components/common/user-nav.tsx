@@ -61,17 +61,22 @@ export function UserNav() {
 					className="w-56 rounded-2xl border-border/50 bg-card/95 shadow-xl backdrop-blur-xl"
 					align="end"
 				>
-					<DropdownMenuLabel className="font-normal">
-						<div className="flex flex-col space-y-1">
-							<div className="flex items-center justify-between">
-								<p className="text-sm leading-none font-bold text-foreground">{user.pseudo}</p>
-								<Badge variant="outline" className="border-sky-500/30 bg-sky-500/10 text-[10px] font-bold text-sky-400">
-									{user.role}
-								</Badge>
+					<DropdownMenuGroup>
+						<DropdownMenuLabel className="font-normal">
+							<div className="flex flex-col space-y-1">
+								<div className="flex items-center justify-between">
+									<p className="text-sm leading-none font-bold text-foreground">{user.pseudo}</p>
+									<Badge
+										variant="outline"
+										className="border-sky-500/30 bg-sky-500/10 text-[10px] font-bold text-sky-400"
+									>
+										{user.role}
+									</Badge>
+								</div>
+								<p className="truncate text-xs leading-none text-muted-foreground">{user.email}</p>
 							</div>
-							<p className="truncate text-xs leading-none text-muted-foreground">{user.email}</p>
-						</div>
-					</DropdownMenuLabel>
+						</DropdownMenuLabel>
+					</DropdownMenuGroup>
 
 					<DropdownMenuSeparator className="bg-border/40" />
 

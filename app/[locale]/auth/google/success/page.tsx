@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState, use } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/store/use-auth-store';
 import { setAuthToken } from '@/lib/token';
 import { setAuthCookieAction } from '@/app/actions/auth';
 import { whoami as apiWhoami } from '@/lib/api';
 import { Loader2, ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/routing';
+import { Link, useRouter } from '@/i18n/routing';
 
 export default function GoogleSuccessPage({
 	searchParams,
@@ -17,8 +17,7 @@ export default function GoogleSuccessPage({
 }) {
 	const tAuth = useTranslations('Auth');
 	const tLogin = useTranslations('LoginPage');
-	const locale = useLocale();
-
+	const router = useRouter();
 	const resolvedSearchParams = use(searchParams);
 
 	const [status, setStatus] = useState<'verifying' | 'error'>('verifying');
@@ -54,7 +53,7 @@ export default function GoogleSuccessPage({
 				// 2. Verify token against whoami endpoint
 				const res = await apiWhoami();
 
-				if (res.data) {
+				if (res.data && 'id' in res.data && !res.error) {
 					// 3. Store cookie permanently in Next.js Server Action
 					await setAuthCookieAction(token).catch(() => {});
 
@@ -66,9 +65,9 @@ export default function GoogleSuccessPage({
 						isLoading: false,
 					});
 
-					// 5. Navigate directly to dashboard via full window location to guarantee cookies are attached to middleware request
+					// 5. Navigate directly to dashboard via router
 					if (isMounted) {
-						window.location.href = `/${locale}/dashboard`;
+						router.replace('/dashboard');
 					}
 				} else {
 					if (isMounted) {
@@ -90,7 +89,8 @@ export default function GoogleSuccessPage({
 		return () => {
 			isMounted = false;
 		};
-	}, [resolvedSearchParams, locale, tAuth]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [resolvedSearchParams, tAuth]);
 
 	if (status === 'verifying') {
 		return (

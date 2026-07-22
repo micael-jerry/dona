@@ -96,7 +96,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
 		try {
 			const res = await apiWhoami();
-			if (res.data) {
+			if (res.data && 'id' in res.data && !res.error) {
 				set({
 					user: res.data,
 					token: storedToken,
