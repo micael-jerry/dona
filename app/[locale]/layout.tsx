@@ -6,6 +6,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { ThemeProvider } from '@/components/theme-provider';
+import { AuthProvider } from '@/components/providers/auth-provider';
 
 const geistSans = Geist({
 	variable: '--font-sans',
@@ -44,7 +45,9 @@ export default async function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} bg-grid-pattern bg-background text-foreground antialiased selection:bg-primary/20`}
 			>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-					<NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+					<NextIntlClientProvider messages={messages}>
+						<AuthProvider>{children}</AuthProvider>
+					</NextIntlClientProvider>
 				</ThemeProvider>
 			</body>
 		</html>

@@ -4,6 +4,7 @@ import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/common/language-switcher';
 import { ThemeToggle } from '@/components/common/theme-toggle';
+import { UserNav } from '@/components/common/user-nav';
 import { MapPin } from 'lucide-react';
 
 export function AppHeader() {
@@ -36,11 +37,8 @@ export function AppHeader() {
 
 				<div className="mx-1 hidden h-4 w-px bg-border/60 sm:block" />
 
-				<Link href="/login" className="hidden sm:inline-flex">
-					<Button variant="ghost" className="font-semibold text-muted-foreground hover:text-foreground">
-						{t('login')}
-					</Button>
-				</Link>
+				<UserNav />
+
 				<Link href="/map">
 					<Button className="rounded-xl bg-linear-to-r from-sky-500 to-indigo-600 px-5 font-bold text-white shadow-lg shadow-sky-500/25 transition-all hover:scale-[1.02] hover:from-sky-400 hover:to-indigo-500 active:scale-[0.98]">
 						<MapPin className="mr-1.5 h-4 w-4" />

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { zodV4Resolver } from '@/lib/resolvers';
 import { createLoginSchema, type LoginFormValues } from '@/lib/schemas/auth';
 import { Button } from '@/components/ui/button';
@@ -11,11 +11,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { GoogleOAuthButton } from '@/components/auth/google-oauth-button';
+import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from '@/i18n/routing';
 
 export function LoginForm() {
 	const t = useTranslations('LoginPage');
+	const tAuth = useTranslations('Auth');
+	const { login } = useAuth();
+	const router = useRouter();
+
 	const [showPassword, setShowPassword] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [apiError, setApiError] = useState<string | null>(null);
 
 	const loginSchema = createLoginSchema({
 		emailInvalid: t('validation.emailInvalid'),
@@ -34,10 +41,19 @@ export function LoginForm() {
 
 	async function onSubmit(values: LoginFormValues) {
 		setIsSubmitting(true);
+		setApiError(null);
+
 		try {
-			// TODO: appel API
-			console.log(values);
-			await new Promise((r) => setTimeout(r, 1000));
+			const res = await login(values);
+			if (!res.success) {
+				setApiError(res.error || tAuth('invalidCredentials'));
+			} else {
+				router.push('/');
+				router.refresh();
+			}
+		} catch (err: unknown) {
+			const error = err as { message?: string };
+			setApiError(error?.message || tAuth('genericError'));
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -45,6 +61,14 @@ export function LoginForm() {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+			{/* API Error Alert */}
+			{apiError && (
+				<div className="flex items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/10 p-3.5 text-sm font-medium text-destructive">
+					<AlertCircle className="h-5 w-5 shrink-0" />
+					<span>{apiError}</span>
+				</div>
+			)}
+
 			{/* Fields */}
 			<div className="space-y-4">
 				{/* Email */}

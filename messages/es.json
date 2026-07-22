@@ -1,99 +1,104 @@
 {
-  "HomePage": {
-    "title": "Bienvenido a Dona",
-    "description": "La plataforma comunitaria definitiva para señalar eventos viales. Navega seguro con alertas en tiempo real, comentarios y chat geolocalizado.",
-    "login": "Iniciar sesión",
-    "playNow": "Abrir Mapa",
-    "joinNetwork": "Unirse a la Red Dona",
-    "announcement": "Alertas Viales Colaborativas en Tiempo Real y Navegación con IA",
-    "headlineFirst": "Conduce con Mayor Seguridad con",
-    "headlineSecond": "Inteligencia Vial en Vivo",
-    "heroDescription": "Reporta peligros, verifica señales comunitarias con puntuaciones de veracidad en tiempo real, chatea en canales geolocalizados y permite que la IA te desvíe de zonas peligrosas.",
-    "feedPreviewTitle": "Vista Previa de Alertas en Vivo",
-    "feedPreviewSubtitle": "Canal en tiempo real en tu radio de proximidad",
-    "tabs": {
-      "all": "Todos los Eventos",
-      "accidents": "Accidentes",
-      "police": "Controles",
-      "hazards": "Peligros"
-    },
-    "features": {
-      "signalingTitle": "Señalización Instantánea",
-      "signalingDesc": "Reporta accidentes, controles de velocidad y obstáculos directamente desde tu ubicación GPS en vivo con prueba multimedia.",
-      "veracityTitle": "Evaluaciones de Veracidad",
-      "veracityDesc": "Votos comunitarios, reacciones y validaciones oficiales evalúan cada evento del 0% al 100%.",
-      "reroutingTitle": "Desvío de Peligros con IA",
-      "reroutingDesc": "La IA analiza las fotos y el enrutamiento inteligente calcula rutas más seguras alrededor de zonas confirmadas de alto riesgo.",
-      "chatTitle": "Chat en Vivo Geolocalizado",
-      "chatDesc": "Únete a canales de chat vinculados a puntos de incidentes activos para hablar directamente con conductores cercanos."
-    }
-  },
-  "NotFound": {
-    "title": "¡Vaya! No hay nada aquí.",
-    "description": "Parece que te has salido de la ruta. La página que buscas no existe o ha sido movida.",
-    "backHome": "Volver al inicio"
-  },
-  "LoginPage": {
-    "title": "¡Bienvenido de nuevo!",
-    "description": "Inicia sesión para ver las alertas a tu alrededor.",
-    "emailLabel": "Correo electrónico",
-    "emailPlaceholder": "nombre@ejemplo.com",
-    "passwordLabel": "Contraseña",
-    "passwordPlaceholder": "••••••••",
-    "showPassword": "Mostrar contraseña",
-    "hidePassword": "Ocultar contraseña",
-    "submit": "Iniciar sesión",
-    "orContinueWith": "O continuar con",
-    "googleButton": "Continuar con Google",
-    "noAccount": "¿No tienes una cuenta?",
-    "registerLink": "Regístrate",
-    "validation": {
-      "emailInvalid": "Dirección de correo inválida.",
-      "passwordMin": "La contraseña debe tener al menos 8 caracteres.",
-      "passwordMax": "La contraseña es demasiado larga."
-    }
-  },
-  "RegisterPage": {
-    "title": "Únete a Dona",
-    "description": "Crea tu cuenta para reportar y comentar eventos.",
-    "pseudoLabel": "Usuario",
-    "pseudoPlaceholder": "johndoe_99",
-    "nameLabel": "Nombre completo",
-    "namePlaceholder": "John Doe",
-    "emailLabel": "Correo electrónico",
-    "emailPlaceholder": "nombre@ejemplo.com",
-    "passwordLabel": "Contraseña",
-    "passwordPlaceholder": "••••••••",
-    "showPassword": "Mostrar contraseña",
-    "hidePassword": "Ocultar contraseña",
-    "submit": "Crear cuenta",
-    "hasAccount": "¿Ya tienes una cuenta?",
-    "loginLink": "Inicia sesión",
-    "passwordStrength": {
-      "label": "Fortaleza de la contraseña",
-      "weak": "Débil",
-      "medium": "Media",
-      "strong": "Fuerte"
-    },
-    "validation": {
-      "pseudoMin": "El usuario debe tener al menos 5 caracteres.",
-      "pseudoMax": "El usuario no puede exceder 25 caracteres.",
-      "pseudoRegex": "El usuario solo puede contener letras, números y guiones bajos.",
-      "nameMin": "El nombre debe tener al menos 3 caracteres.",
-      "nameMax": "El nombre no puede exceder 100 caracteres.",
-      "emailInvalid": "Dirección de correo inválida.",
-      "passwordMin": "La contraseña debe tener al menos 8 caracteres.",
-      "passwordMax": "La contraseña es demasiado larga."
-    }
-  },
-  "VerifyEmailPage": {
-    "title": "Verificación de correo electrónico",
-    "loading": "Verificando su dirección de correo electrónico...",
-    "successTitle": "¡Cuenta verificada con éxito!",
-    "successDescription": "Su dirección de correo electrónico ha sido confirmada. Ahora puede cerrar esta página e iniciar sesión en la aplicación.",
-    "errorTitle": "Error de verificación",
-    "errorDescription": "El token de verificación no es válido, ha expirado o ya se ha utilizado.",
-    "closeButton": "Cerrar página",
-    "invalidToken": "Falta el token de verificación."
-  }
+	"HomePage": {
+		"title": "Bienvenido a Dona",
+		"description": "La plataforma comunitaria definitiva para señalar eventos viales. Navega seguro con alertas en tiempo real, comentarios y chat geolocalizado.",
+		"login": "Iniciar sesión",
+		"playNow": "Abrir Mapa",
+		"joinNetwork": "Unirse a la Red Dona",
+		"announcement": "Alertas Viales Colaborativas en Tiempo Real y Navegación con IA",
+		"headlineFirst": "Conduce con Mayor Seguridad con",
+		"headlineSecond": "Inteligencia Vial en Vivo",
+		"heroDescription": "Reporta peligros, verifica señales comunitarias con puntuaciones de veracidad en tiempo real, chatea en canales geolocalizados y permite que la IA te desvíe de zonas peligrosas.",
+		"feedPreviewTitle": "Vista Previa de Alertas en Vivo",
+		"feedPreviewSubtitle": "Canal en tiempo real en tu radio de proximidad",
+		"tabs": {
+			"all": "Todos los Eventos",
+			"accidents": "Accidentes",
+			"police": "Controles",
+			"hazards": "Peligros"
+		},
+		"features": {
+			"signalingTitle": "Señalización Instantánea",
+			"signalingDesc": "Reporta accidentes, controles de velocidad y obstáculos directamente desde tu ubicación GPS en vivo con prueba multimedia.",
+			"veracityTitle": "Evaluaciones de Veracidad",
+			"veracityDesc": "Votos comunitarios, reacciones y validaciones oficiales evalúan cada evento del 0% al 100%.",
+			"reroutingTitle": "Desvío de Peligros con IA",
+			"reroutingDesc": "La IA analiza las fotos y el enrutamiento inteligente calcula rutas más seguras alrededor de zonas confirmadas de alto riesgo.",
+			"chatTitle": "Chat en Vivo Geolocalizado",
+			"chatDesc": "Únete a canales de chat vinculados a puntos de incidentes activos para hablar directamente con conductores cercanos."
+		}
+	},
+	"NotFound": {
+		"title": "¡Vaya! No hay nada aquí.",
+		"description": "Parece que te has salido de la ruta. La página que buscas no existe o ha sido movida.",
+		"backHome": "Volver al inicio"
+	},
+	"Auth": {
+		"invalidCredentials": "Correo electrónico o contraseña incorrectos.",
+		"genericError": "Ocurrió un error inesperado.",
+		"logout": "Cerrar sesión"
+	},
+	"LoginPage": {
+		"title": "¡Bienvenido de nuevo!",
+		"description": "Inicia sesión para ver las alertas a tu alrededor.",
+		"emailLabel": "Correo electrónico",
+		"emailPlaceholder": "nombre@ejemplo.com",
+		"passwordLabel": "Contraseña",
+		"passwordPlaceholder": "••••••••",
+		"showPassword": "Mostrar contraseña",
+		"hidePassword": "Ocultar contraseña",
+		"submit": "Iniciar sesión",
+		"orContinueWith": "O continuar con",
+		"googleButton": "Continuar con Google",
+		"noAccount": "¿No tienes una cuenta?",
+		"registerLink": "Regístrate",
+		"validation": {
+			"emailInvalid": "Dirección de correo inválida.",
+			"passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+			"passwordMax": "La contraseña es demasiado larga."
+		}
+	},
+	"RegisterPage": {
+		"title": "Únete a Dona",
+		"description": "Crea tu cuenta para reportar y comentar eventos.",
+		"pseudoLabel": "Usuario",
+		"pseudoPlaceholder": "johndoe_99",
+		"nameLabel": "Nombre completo",
+		"namePlaceholder": "John Doe",
+		"emailLabel": "Correo electrónico",
+		"emailPlaceholder": "nombre@ejemplo.com",
+		"passwordLabel": "Contraseña",
+		"passwordPlaceholder": "••••••••",
+		"showPassword": "Mostrar contraseña",
+		"hidePassword": "Ocultar contraseña",
+		"submit": "Crear cuenta",
+		"hasAccount": "¿Ya tienes una cuenta?",
+		"loginLink": "Inicia sesión",
+		"passwordStrength": {
+			"label": "Fortaleza de la contraseña",
+			"weak": "Débil",
+			"medium": "Media",
+			"strong": "Fuerte"
+		},
+		"validation": {
+			"pseudoMin": "El usuario debe tener al menos 5 caracteres.",
+			"pseudoMax": "El usuario no puede exceder 25 caracteres.",
+			"pseudoRegex": "El usuario solo puede contener letras, números y guiones bajos.",
+			"nameMin": "El nombre debe tener al menos 3 caracteres.",
+			"nameMax": "El nombre no puede exceder 100 caracteres.",
+			"emailInvalid": "Dirección de correo inválida.",
+			"passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+			"passwordMax": "La contraseña es demasiado larga."
+		}
+	},
+	"VerifyEmailPage": {
+		"title": "Verificación de correo electrónico",
+		"loading": "Verificando su dirección de correo electrónico...",
+		"successTitle": "¡Cuenta verificada con éxito!",
+		"successDescription": "Su dirección de correo electrónico ha sido confirmada. Ahora puede cerrar esta página e iniciar sesión en la aplicación.",
+		"errorTitle": "Error de verificación",
+		"errorDescription": "El token de verificación no es válido, ha expirado o ya se ha utilizado.",
+		"closeButton": "Cerrar página",
+		"invalidToken": "Falta el token de verificación."
+	}
 }
