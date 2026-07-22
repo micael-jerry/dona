@@ -5,6 +5,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { ThemeProvider } from '@/components/theme-provider';
+import { AuthProvider } from '@/components/providers/auth-provider';
 
 const geistSans = Geist({
 	variable: '--font-sans',
@@ -17,18 +19,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: 'Dona - ft_transcendence',
-	description: 'The ultimate ft_transcendence project.',
+	title: 'Dona - Real-Time Road Event Signaling & Smart Routing',
+	description:
+		'Crowdsourced road event signaling, live veracity ratings, geolocated chat, and AI hazard-aware route navigation.',
 };
 
 export default async function RootLayout({
 	children,
 	params,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-	params: Promise<{ locale: string }>;
-}>) {
-	const { locale } = await params;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	params: Promise<{ locale: string }> | Promise<any>;
+}) {
+	const { locale } = (await params) as { locale: string };
 
 	if (!(routing.locales as readonly string[]).includes(locale)) {
 		notFound();
@@ -37,9 +41,15 @@ export default async function RootLayout({
 	const messages = await getMessages();
 
 	return (
-		<html lang={locale} suppressHydrationWarning>
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+		<html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} bg-grid-pattern bg-background text-foreground antialiased selection:bg-primary/20`}
+			>
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+					<NextIntlClientProvider messages={messages}>
+						<AuthProvider>{children}</AuthProvider>
+					</NextIntlClientProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

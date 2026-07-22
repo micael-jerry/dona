@@ -1,0 +1,156 @@
+'use client';
+
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
+import { AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { zodV4Resolver } from '@/lib/resolvers';
+import { createLoginSchema, type LoginFormValues } from '@/lib/schemas/auth';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { GoogleOAuthButton } from '@/components/auth/google-oauth-button';
+import { useAuth } from '@/hooks/use-auth';
+import { Link, useRouter } from '@/i18n/routing';
+
+export function LoginForm() {
+	const t = useTranslations('LoginPage');
+	const tAuth = useTranslations('Auth');
+	const { login } = useAuth();
+	const router = useRouter();
+
+	const [showPassword, setShowPassword] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [apiError, setApiError] = useState<string | null>(null);
+
+	const loginSchema = createLoginSchema({
+		emailInvalid: t('validation.emailInvalid'),
+		passwordMin: t('validation.passwordMin'),
+		passwordMax: t('validation.passwordMax'),
+	});
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<LoginFormValues>({
+		resolver: zodV4Resolver(loginSchema),
+		defaultValues: { email: '', password: '' },
+	});
+
+	async function onSubmit(values: LoginFormValues) {
+		setIsSubmitting(true);
+		setApiError(null);
+
+		try {
+			const res = await login(values);
+			if (!res.success) {
+				setApiError(res.error || tAuth('invalidCredentials'));
+			} else {
+				router.push('/dashboard');
+				router.refresh();
+			}
+		} catch (err: unknown) {
+			const error = err as { message?: string };
+			setApiError(error?.message || tAuth('genericError'));
+		} finally {
+			setIsSubmitting(false);
+		}
+	}
+
+	return (
+		<form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
+			{/* API Error Alert */}
+			{apiError && (
+				<div className="flex items-center gap-3 rounded-xl border border-destructive/30 bg-destructive/10 p-3.5 text-sm font-medium text-destructive">
+					<AlertCircle className="h-5 w-5 shrink-0" />
+					<span>{apiError}</span>
+				</div>
+			)}
+
+			{/* Fields */}
+			<div className="space-y-4">
+				{/* Email */}
+				<div className="space-y-2">
+					<Label htmlFor="login-email" className="text-foreground/80">
+						{t('emailLabel')}
+					</Label>
+					<Input
+						id="login-email"
+						type="email"
+						autoComplete="email"
+						placeholder={t('emailPlaceholder')}
+						aria-invalid={!!errors.email}
+						aria-describedby={errors.email ? 'login-email-error' : undefined}
+						className="h-12 rounded-xl border-border/50 bg-background/50 transition-all focus-visible:ring-primary/50"
+						{...register('email')}
+					/>
+					{errors.email && (
+						<p id="login-email-error" role="alert" className="text-sm font-medium text-destructive">
+							{errors.email.message}
+						</p>
+					)}
+				</div>
+
+				{/* Password */}
+				<div className="space-y-2">
+					<div className="flex items-center justify-between">
+						<Label htmlFor="login-password" className="text-foreground/80">
+							{t('passwordLabel')}
+						</Label>
+						<Link
+							href="/forgot-password"
+							className="text-xs font-semibold text-sky-500 transition-colors hover:text-sky-400 hover:underline"
+						>
+							{t('forgotPasswordLink')}
+						</Link>
+					</div>
+					<div className="relative">
+						<Input
+							id="login-password"
+							type={showPassword ? 'text' : 'password'}
+							autoComplete="current-password"
+							placeholder={t('passwordPlaceholder')}
+							aria-invalid={!!errors.password}
+							aria-describedby={errors.password ? 'login-password-error' : undefined}
+							className="h-12 rounded-xl border-border/50 bg-background/50 pr-12 transition-all focus-visible:ring-primary/50"
+							{...register('password')}
+						/>
+						<button
+							type="button"
+							aria-label={showPassword ? t('hidePassword') : t('showPassword')}
+							onClick={() => setShowPassword((v) => !v)}
+							className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+						>
+							{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+						</button>
+					</div>
+					{errors.password && (
+						<p id="login-password-error" role="alert" className="text-sm font-medium text-destructive">
+							{errors.password.message}
+						</p>
+					)}
+				</div>
+			</div>
+
+			<Button
+				type="submit"
+				disabled={isSubmitting}
+				className="h-12 w-full rounded-xl bg-linear-to-r from-sky-500 to-indigo-600 font-bold text-white shadow-lg shadow-sky-500/25 transition-all duration-300 hover:scale-[1.02] hover:from-sky-400 hover:to-indigo-500 active:scale-[0.98] disabled:scale-100"
+			>
+				{isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+				{t('submit')}
+			</Button>
+
+			{/* OAuth separator */}
+			<div className="relative flex items-center gap-4">
+				<Separator className="flex-1 bg-border/50" />
+				<span className="text-xs font-semibold text-muted-foreground uppercase">{t('orContinueWith')}</span>
+				<Separator className="flex-1 bg-border/50" />
+			</div>
+
+			<GoogleOAuthButton />
+		</form>
+	);
+}
