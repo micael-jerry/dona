@@ -9,7 +9,7 @@ const intlMiddleware = createMiddleware(routing);
 const protectedRoutes = ['/dashboard'];
 
 // Routes only accessible to guests (unauthenticated users)
-const guestOnlyRoutes = ['/login', '/register'];
+const guestOnlyRoutes = ['/login', '/register', '/forgot-password', '/reset-password'];
 
 export default function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
@@ -32,7 +32,7 @@ export default function proxy(request: NextRequest) {
 		return NextResponse.redirect(loginUrl);
 	}
 
-	// 2. If authenticated user tries to access login or register -> Redirect to /dashboard
+	// 2. If authenticated user tries to access guest-only routes -> Redirect to /dashboard
 	if (isGuestOnlyRoute && token) {
 		return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
 	}

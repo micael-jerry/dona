@@ -47,6 +47,7 @@
 		"emailPlaceholder": "name@example.com",
 		"passwordLabel": "Password",
 		"passwordPlaceholder": "••••••••",
+		"forgotPasswordLink": "Forgot password?",
 		"showPassword": "Show password",
 		"hidePassword": "Hide password",
 		"submit": "Log in",
@@ -93,6 +94,39 @@
 			"passwordMax": "Password is too long.",
 			"genericError": "An unexpected error occurred.",
 			"serverError": "Server connection error."
+		}
+	},
+	"ForgotPasswordPage": {
+		"title": "Forgot password?",
+		"description": "Enter your email address to receive a password reset link.",
+		"emailLabel": "Email address",
+		"emailPlaceholder": "name@example.com",
+		"submit": "Send reset link",
+		"successTitle": "Request sent!",
+		"successDescription": "If this email address is correct and associated with an account, you will receive an email with password reset instructions shortly.",
+		"backToLogin": "Back to login",
+		"validation": {
+			"emailInvalid": "Invalid email address."
+		}
+	},
+	"ResetPasswordPage": {
+		"title": "Set New Password",
+		"description": "Choose a new secure password for your account.",
+		"newPasswordLabel": "New password",
+		"newPasswordPlaceholder": "••••••••",
+		"confirmPasswordLabel": "Confirm password",
+		"confirmPasswordPlaceholder": "••••••••",
+		"submit": "Reset password",
+		"successTitle": "Password updated!",
+		"successDescription": "Your password has been changed successfully. You can now log in.",
+		"invalidTokenTitle": "Invalid or expired link",
+		"invalidTokenDescription": "The reset token is missing, invalid, or expired. Please request a new link.",
+		"requestNewLink": "Request a new link",
+		"loginLink": "Log in",
+		"validation": {
+			"passwordMin": "Password must be at least 8 characters.",
+			"passwordMax": "Password is too long.",
+			"passwordsDontMatch": "Passwords do not match."
 		}
 	},
 	"VerifyEmailPage": {

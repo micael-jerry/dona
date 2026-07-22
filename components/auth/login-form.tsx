@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { GoogleOAuthButton } from '@/components/auth/google-oauth-button';
 import { useAuth } from '@/hooks/use-auth';
-import { useRouter } from '@/i18n/routing';
+import { Link, useRouter } from '@/i18n/routing';
 
 export function LoginForm() {
 	const t = useTranslations('LoginPage');
@@ -95,9 +95,17 @@ export function LoginForm() {
 
 				{/* Password */}
 				<div className="space-y-2">
-					<Label htmlFor="login-password" className="text-foreground/80">
-						{t('passwordLabel')}
-					</Label>
+					<div className="flex items-center justify-between">
+						<Label htmlFor="login-password" className="text-foreground/80">
+							{t('passwordLabel')}
+						</Label>
+						<Link
+							href="/forgot-password"
+							className="text-xs font-semibold text-sky-500 transition-colors hover:text-sky-400 hover:underline"
+						>
+							{t('forgotPasswordLink')}
+						</Link>
+					</div>
 					<div className="relative">
 						<Input
 							id="login-password"

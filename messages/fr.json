@@ -47,6 +47,7 @@
 		"emailPlaceholder": "nom@exemple.com",
 		"passwordLabel": "Mot de passe",
 		"passwordPlaceholder": "••••••••",
+		"forgotPasswordLink": "Mot de passe oublié ?",
 		"showPassword": "Afficher le mot de passe",
 		"hidePassword": "Masquer le mot de passe",
 		"submit": "Se connecter",
@@ -93,6 +94,39 @@
 			"passwordMax": "Le mot de passe est trop long.",
 			"genericError": "Une erreur inattendue est survenue.",
 			"serverError": "Erreur de connexion avec le serveur."
+		}
+	},
+	"ForgotPasswordPage": {
+		"title": "Mot de passe oublié ?",
+		"description": "Entrez votre adresse email pour recevoir un lien de réinitialisation.",
+		"emailLabel": "Adresse email",
+		"emailPlaceholder": "nom@exemple.com",
+		"submit": "Envoyer le lien",
+		"successTitle": "Demande envoyée !",
+		"successDescription": "Si cette adresse email est correcte et qu'un compte y est associé, vous recevrez un email avec les instructions de réinitialisation d'ici quelques instants.",
+		"backToLogin": "Retour à la connexion",
+		"validation": {
+			"emailInvalid": "Adresse email invalide."
+		}
+	},
+	"ResetPasswordPage": {
+		"title": "Réinitialisation du mot de passe",
+		"description": "Choisissez un nouveau mot de passe sécurisé pour votre compte.",
+		"newPasswordLabel": "Nouveau mot de passe",
+		"newPasswordPlaceholder": "••••••••",
+		"confirmPasswordLabel": "Confirmer le mot de passe",
+		"confirmPasswordPlaceholder": "••••••••",
+		"submit": "Réinitialiser le mot de passe",
+		"successTitle": "Mot de passe mis à jour !",
+		"successDescription": "Votre mot de passe a été modifié avec succès. Vous pouvez maintenant vous connecter.",
+		"invalidTokenTitle": "Jeton invalide ou expiré",
+		"invalidTokenDescription": "Le jeton de réinitialisation est manquant, invalide ou expiré. Veuillez refaire une demande.",
+		"requestNewLink": "Demander un nouveau lien",
+		"loginLink": "Se connecter",
+		"validation": {
+			"passwordMin": "Le mot de passe doit faire au moins 8 caractères.",
+			"passwordMax": "Le mot de passe est trop long.",
+			"passwordsDontMatch": "Les mots de passe ne correspondent pas."
 		}
 	},
 	"VerifyEmailPage": {

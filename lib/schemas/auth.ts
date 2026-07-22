@@ -44,3 +44,39 @@ export function createRegisterSchema(messages: RegisterMessages) {
 }
 
 export type RegisterFormValues = z.infer<ReturnType<typeof createRegisterSchema>>;
+
+// ─── Forgot Password ──────────────────────────────────────────────────────────
+
+export interface ForgotPasswordMessages {
+	emailInvalid: string;
+}
+
+export function createForgotPasswordSchema(messages: ForgotPasswordMessages) {
+	return z.object({
+		email: z.string().email({ message: messages.emailInvalid }),
+	});
+}
+
+export type ForgotPasswordFormValues = z.infer<ReturnType<typeof createForgotPasswordSchema>>;
+
+// ─── Reset Password ───────────────────────────────────────────────────────────
+
+export interface ResetPasswordMessages {
+	passwordMin: string;
+	passwordMax: string;
+	passwordsDontMatch: string;
+}
+
+export function createResetPasswordSchema(messages: ResetPasswordMessages) {
+	return z
+		.object({
+			newPassword: z.string().min(8, { message: messages.passwordMin }).max(100, { message: messages.passwordMax }),
+			confirmPassword: z.string(),
+		})
+		.refine((data) => data.newPassword === data.confirmPassword, {
+			message: messages.passwordsDontMatch,
+			path: ['confirmPassword'],
+		});
+}
+
+export type ResetPasswordFormValues = z.infer<ReturnType<typeof createResetPasswordSchema>>;
