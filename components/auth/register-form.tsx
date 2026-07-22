@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { PasswordStrengthIndicator } from '@/components/auth/password-strength-indicator';
 import { signUp } from '@/lib/api';
 import { useRouter } from '@/i18n/routing';
+import { extractErrorMessage } from '@/lib/errors';
 
 export function RegisterForm() {
 	const t = useTranslations('RegisterPage');
@@ -49,20 +50,12 @@ export function RegisterForm() {
 		try {
 			const res = await signUp({ body: values });
 			if (res.error) {
-				const errMsg = res.error.message;
-				if (Array.isArray(errMsg)) {
-					setFormError(errMsg.join(', '));
-				} else if (typeof errMsg === 'string') {
-					setFormError(errMsg);
-				} else {
-					setFormError(t('validation.genericError'));
-				}
+				setFormError(extractErrorMessage(res.error, t('validation.genericError')));
 			} else {
 				router.push('/login');
 			}
 		} catch (err) {
-			console.error(err);
-			setFormError(t('validation.serverError'));
+			setFormError(extractErrorMessage(err, t('validation.serverError')));
 		} finally {
 			setIsSubmitting(false);
 		}

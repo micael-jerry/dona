@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { login as apiLogin, whoami as apiWhoami, type UserResponse, type LoginRequest } from '@/lib/api';
 import { getAuthToken, setAuthToken, removeAuthToken } from '@/lib/token';
 import { setAuthCookieAction, removeAuthCookieAction } from '@/app/actions/auth';
+import { extractErrorMessage } from '@/lib/errors';
 
 export interface AuthResult {
 	success: boolean;
@@ -30,8 +31,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 			const res = await apiLogin({ body: credentials });
 
 			if (res.error || !res.data?.token) {
-				const errorObj = res.error as { message?: string } | undefined;
-				return { success: false, error: errorObj?.message };
+				const errorMsg = extractErrorMessage(res.error, 'Invalid credentials');
+				return { success: false, error: errorMsg };
 			}
 
 			const { token: newToken, user: userData } = res.data;
@@ -48,8 +49,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
 			return { success: true, user: userData };
 		} catch (err: unknown) {
-			const axiosErr = err as { response?: { data?: { message?: string } }; message?: string };
-			const message = axiosErr?.response?.data?.message || axiosErr?.message;
+			const message = extractErrorMessage(err, 'Authentication failed');
 			return { success: false, error: message };
 		}
 	},
@@ -77,7 +77,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 				setAuthToken(urlToken);
 				await setAuthCookieAction(urlToken).catch(() => {});
 
-				// Remove token parameter from URL bar without reloading
 				urlParams.delete('token');
 				const newSearch = urlParams.toString();
 				const newUrl = window.location.pathname + (newSearch ? `?${newSearch}` : '') + window.location.hash;

@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { resetPasswordRequest } from '@/lib/api';
 import { Link } from '@/i18n/routing';
+import { extractErrorMessage } from '@/lib/errors';
 
 export function ForgotPasswordForm() {
 	const t = useTranslations('ForgotPasswordPage');
@@ -44,20 +45,12 @@ export function ForgotPasswordForm() {
 			});
 
 			if (res.error) {
-				const errMsg = res.error.message;
-				if (Array.isArray(errMsg)) {
-					setApiError(errMsg.join(', '));
-				} else if (typeof errMsg === 'string') {
-					setApiError(errMsg);
-				} else {
-					setApiError(tAuth('genericError'));
-				}
+				setApiError(extractErrorMessage(res.error, tAuth('genericError')));
 			} else {
 				setIsSuccess(true);
 			}
 		} catch (err: unknown) {
-			const error = err as { message?: string };
-			setApiError(error?.message || tAuth('genericError'));
+			setApiError(extractErrorMessage(err, tAuth('genericError')));
 		} finally {
 			setIsSubmitting(false);
 		}
