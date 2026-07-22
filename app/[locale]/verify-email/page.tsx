@@ -8,10 +8,11 @@ import { CloseWindowButton } from '@/components/auth/close-window-button';
 export default async function VerifyEmailPage({
 	searchParams,
 }: {
-	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }> | Promise<any>;
 }) {
 	const t = await getTranslations('VerifyEmailPage');
-	const params = await searchParams;
+	const params = (await searchParams) as { [key: string]: string | string[] | undefined };
 	let token = typeof params.token === 'string' ? params.token : undefined;
 
 	if (!token) {

@@ -27,11 +27,12 @@ export const metadata: Metadata = {
 export default async function RootLayout({
 	children,
 	params,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-	params: Promise<{ locale: string }>;
-}>) {
-	const { locale } = await params;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	params: Promise<{ locale: string }> | Promise<any>;
+}) {
+	const { locale } = (await params) as { locale: string };
 
 	if (!(routing.locales as readonly string[]).includes(locale)) {
 		notFound();
