@@ -6,10 +6,16 @@ import { Button } from '@/components/ui/button';
 export function GoogleOAuthButton() {
 	const t = useTranslations('LoginPage');
 
+	const handleGoogleLogin = () => {
+		const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+		window.location.href = `${baseUrl}/auth/google/login`;
+	};
+
 	return (
 		<Button
 			variant="outline"
 			type="button"
+			onClick={handleGoogleLogin}
 			className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-border/60 bg-background/50 font-semibold text-foreground shadow-xs transition-all duration-300 hover:scale-[1.01] hover:border-border hover:bg-muted"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5 shrink-0">

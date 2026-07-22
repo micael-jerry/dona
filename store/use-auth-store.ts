@@ -66,7 +66,25 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 	},
 
 	initialize: async () => {
-		const storedToken = getAuthToken();
+		let storedToken = getAuthToken();
+
+		// Handle OAuth callback token from URL query params (e.g. ?token=jwt_token)
+		if (typeof window !== 'undefined') {
+			const urlParams = new URLSearchParams(window.location.search);
+			const urlToken = urlParams.get('token');
+			if (urlToken) {
+				storedToken = urlToken;
+				setAuthToken(urlToken);
+				await setAuthCookieAction(urlToken).catch(() => {});
+
+				// Remove token parameter from URL bar without reloading
+				urlParams.delete('token');
+				const newSearch = urlParams.toString();
+				const newUrl = window.location.pathname + (newSearch ? `?${newSearch}` : '') + window.location.hash;
+				window.history.replaceState({}, '', newUrl);
+			}
+		}
+
 		if (!storedToken) {
 			set({
 				user: null,
