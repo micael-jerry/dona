@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { LogOut, LayoutDashboard, Loader2 } from 'lucide-react';
+import { LogOut, LayoutDashboard, Loader2, User } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
@@ -85,6 +85,12 @@ export function UserNav() {
 							<Link href="/dashboard" className="flex w-full items-center gap-2">
 								<LayoutDashboard className="h-4 w-4 text-sky-500" />
 								<span>{tDash('title')}</span>
+							</Link>
+						</DropdownMenuItem>
+						<DropdownMenuItem className="cursor-pointer rounded-xl font-medium focus:bg-sky-500/10 focus:text-sky-500">
+							<Link href="/account" className="flex w-full items-center gap-2">
+								<User className="h-4 w-4 text-sky-500" />
+								<span>{tDash('accountButton')}</span>
 							</Link>
 						</DropdownMenuItem>
 					</DropdownMenuGroup>

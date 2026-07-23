@@ -159,6 +159,86 @@
 		"activeStatus": "Compte Actif & Sécurisé",
 		"backHome": "Retour à la Carte",
 		"verificationLabel": "Vérification",
-		"sessionLabel": "Statut de Session"
+		"sessionLabel": "Statut de Session",
+		"manageAccount": "Gérer mon compte",
+		"accountButton": "Mon compte"
+	},
+	"AccountPage": {
+		"title": "Gestion du compte",
+		"description": "Gérez vos informations personnelles, votre photo de profil et la sécurité de votre compte.",
+		"dashboardButton": "Espace Personnel",
+		"tabs": {
+			"profile": "Profil & Infos",
+			"avatar": "Photo de profil",
+			"security": "Sécurité",
+			"danger": "Zone de danger"
+		},
+		"profileCardTitle": "Informations de profil",
+		"profileCardDescription": "Mettez à jour votre nom complet, votre pseudonyme et votre adresse email.",
+		"profile": {
+			"pseudoLabel": "Pseudo",
+			"pseudoPlaceholder": "johndoe_99",
+			"nameLabel": "Nom complet",
+			"namePlaceholder": "John Doe",
+			"emailLabel": "Adresse email",
+			"emailPlaceholder": "nom@exemple.com",
+			"submit": "Enregistrer les modifications",
+			"saving": "Enregistrement...",
+			"successMessage": "Profil mis à jour avec succès !"
+		},
+		"avatarCardTitle": "Changer la photo de profil",
+		"avatarCardDescription": "Importez une nouvelle photo de profil ou renseignez l'URL d'une image.",
+		"avatar": {
+			"uploadTitle": "Importer une image",
+			"uploadDescription": "Sélectionnez un fichier image (JPG, PNG, GIF, WebP - max 5 Mo).",
+			"clickToUpload": "Cliquer pour changer",
+			"change": "Changer",
+			"uploadPhoto": "Choisir une photo",
+			"chooseFile": "Parcourir les fichiers...",
+			"orDirectUrl": "Ou coller l'URL directe d'une image",
+			"saveAvatar": "Appliquer la photo",
+			"saving": "Application...",
+			"successMessage": "Photo de profil mise à jour avec succès !",
+			"invalidFileType": "Le fichier sélectionné doit être une image.",
+			"fileTooLarge": "L'image ne doit pas dépasser 5 Mo.",
+			"emptyUrlError": "Veuillez choisir un fichier ou entrer une URL d'image valide."
+		},
+		"passwordCardTitle": "Sécurité du mot de passe",
+		"passwordCardDescription": "Modifiez votre mot de passe pour maintenir la sécurité de votre compte.",
+		"password": {
+			"currentPasswordLabel": "Mot de passe actuel",
+			"currentPasswordPlaceholder": "••••••••",
+			"newPasswordLabel": "Nouveau mot de passe",
+			"newPasswordPlaceholder": "••••••••",
+			"confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+			"confirmPasswordPlaceholder": "••••••••",
+			"showPassword": "Afficher le mot de passe",
+			"hidePassword": "Masquer le mot de passe",
+			"submit": "Mettre à jour le mot de passe",
+			"updating": "Mise à jour...",
+			"successMessage": "Votre mot de passe a été modifié avec succès !",
+			"currentPasswordRequired": "Le mot de passe actuel est requis.",
+			"googleOAuthNotice": "Vous êtes connecté via un compte Google OAuth. Votre mot de passe est géré directement par Google."
+		},
+		"emailVerification": {
+			"verified": "Email vérifié",
+			"unverified": "Email non vérifié",
+			"verifiedDescription": "Votre adresse email est confirmée. Vous bénéficiez de toutes les fonctionnalités de l'application.",
+			"unverifiedDescription": "Votre adresse email n'a pas encore été vérifiée. Envoyez un nouveau lien de confirmation pour débloquer toutes les fonctionnalités.",
+			"resendButton": "Renvoyer l'email de vérification",
+			"sending": "Envoi en cours...",
+			"sentSuccessMessage": "Un lien de vérification a été envoyé à votre adresse email !"
+		},
+		"dangerZone": {
+			"title": "Suppression permanente du compte",
+			"warningDescription": "La suppression de votre compte est irréversible. Toutes vos données, signalements et réactions seront définitivement effacés.",
+			"deleteButton": "Supprimer mon compte",
+			"dialogTitle": "Êtes-vous absolument sûr ?",
+			"dialogDescription": "Cette action est irréversible. Si vous confirmez, votre compte sera définitivement supprimé.",
+			"confirmPasswordLabel": "Entrez votre mot de passe pour confirmer",
+			"confirmDelete": "Confirmer la suppression",
+			"deleting": "Suppression...",
+			"cancel": "Annuler"
+		}
 	}
 }

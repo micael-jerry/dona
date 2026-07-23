@@ -159,6 +159,86 @@
 		"activeStatus": "Cuenta Activa y Segura",
 		"backHome": "Volver al Mapa",
 		"verificationLabel": "Verificación",
-		"sessionLabel": "Estado de Sesión"
+		"sessionLabel": "Estado de Sesión",
+		"manageAccount": "Gestionar cuenta",
+		"accountButton": "Mi cuenta"
+	},
+	"AccountPage": {
+		"title": "Gestión de la cuenta",
+		"description": "Administre su información personal, avatar de perfil y configuración de seguridad.",
+		"dashboardButton": "Espacio Personal",
+		"tabs": {
+			"profile": "Perfil e Info",
+			"avatar": "Foto de perfil",
+			"security": "Seguridad",
+			"danger": "Zona de peligro"
+		},
+		"profileCardTitle": "Información de perfil",
+		"profileCardDescription": "Actualice su nombre completo, nombre de usuario y correo electrónico.",
+		"profile": {
+			"pseudoLabel": "Usuario",
+			"pseudoPlaceholder": "johndoe_99",
+			"nameLabel": "Nombre completo",
+			"namePlaceholder": "John Doe",
+			"emailLabel": "Correo electrónico",
+			"emailPlaceholder": "nombre@ejemplo.com",
+			"submit": "Guardar cambios",
+			"saving": "Guardando...",
+			"successMessage": "¡Perfil actualizado con éxito!"
+		},
+		"avatarCardTitle": "Cambiar foto de perfil",
+		"avatarCardDescription": "Suba una nueva foto de perfil o ingrese la URL directa de una imagen.",
+		"avatar": {
+			"uploadTitle": "Subir imagen",
+			"uploadDescription": "Seleccione un archivo de imagen (JPG, PNG, GIF, WebP - máx. 5 MB).",
+			"clickToUpload": "Hacer clic para cambiar",
+			"change": "Cambiar",
+			"uploadPhoto": "Subir foto",
+			"chooseFile": "Buscar archivos...",
+			"orDirectUrl": "O pegar la URL directa de una imagen",
+			"saveAvatar": "Aplicar foto",
+			"saving": "Aplicando...",
+			"successMessage": "¡Foto de perfil actualizada con éxito!",
+			"invalidFileType": "El archivo seleccionado debe ser una imagen.",
+			"fileTooLarge": "La imagen no debe superar los 5 MB.",
+			"emptyUrlError": "Por favor elija un archivo o ingrese una URL de imagen válida."
+		},
+		"passwordCardTitle": "Seguridad de la contraseña",
+		"passwordCardDescription": "Cambie su contraseña para mantener segura su cuenta.",
+		"password": {
+			"currentPasswordLabel": "Contraseña actual",
+			"currentPasswordPlaceholder": "••••••••",
+			"newPasswordLabel": "Nueva contraseña",
+			"newPasswordPlaceholder": "••••••••",
+			"confirmPasswordLabel": "Confirmar nueva contraseña",
+			"confirmPasswordPlaceholder": "••••••••",
+			"showPassword": "Mostrar contraseña",
+			"hidePassword": "Ocultar contraseña",
+			"submit": "Actualizar contraseña",
+			"updating": "Actualizando...",
+			"successMessage": "¡Su contraseña ha sido cambiada con éxito!",
+			"currentPasswordRequired": "La contraseña actual es requerida.",
+			"googleOAuthNotice": "Inició sesión con una cuenta Google OAuth. Su contraseña es gestionada directamente por Google."
+		},
+		"emailVerification": {
+			"verified": "Correo verificado",
+			"unverified": "Correo no verificado",
+			"verifiedDescription": "Su correo electrónico está confirmado. Tiene acceso completo a todas las funciones.",
+			"unverifiedDescription": "Su correo electrónico aún no ha sido verificado. Envíe un nuevo enlace de confirmación para desbloquear todas las funciones.",
+			"resendButton": "Reenviar enlace de verificación",
+			"sending": "Enviando...",
+			"sentSuccessMessage": "¡Se ha enviado un enlace de verificación a su correo electrónico!"
+		},
+		"dangerZone": {
+			"title": "Eliminación permanente de la cuenta",
+			"warningDescription": "La eliminación de su cuenta es permanente. Todos sus datos, reportes y reacciones se borrarán definitivamente.",
+			"deleteButton": "Eliminar mi cuenta",
+			"dialogTitle": "¿Está absolutamente seguro?",
+			"dialogDescription": "Esta acción no se puede deshacer. Al confirmar, su cuenta será eliminada permanentemente.",
+			"confirmPasswordLabel": "Ingrese su contraseña para confirmar",
+			"confirmDelete": "Confirmar eliminación",
+			"deleting": "Eliminando...",
+			"cancel": "Cancelar"
+		}
 	}
 }

@@ -159,6 +159,86 @@
 		"activeStatus": "Active & Secure Account",
 		"backHome": "Back to Map",
 		"verificationLabel": "Verification",
-		"sessionLabel": "Session Status"
+		"sessionLabel": "Session Status",
+		"manageAccount": "Manage Account",
+		"accountButton": "My Account"
+	},
+	"AccountPage": {
+		"title": "Account Settings",
+		"description": "Manage your personal information, profile avatar, and security settings.",
+		"dashboardButton": "Personal Workspace",
+		"tabs": {
+			"profile": "Profile & Info",
+			"avatar": "Profile Avatar",
+			"security": "Security",
+			"danger": "Danger Zone"
+		},
+		"profileCardTitle": "Profile Information",
+		"profileCardDescription": "Update your full name, username, and email address.",
+		"profile": {
+			"pseudoLabel": "Username",
+			"pseudoPlaceholder": "johndoe_99",
+			"nameLabel": "Full Name",
+			"namePlaceholder": "John Doe",
+			"emailLabel": "Email Address",
+			"emailPlaceholder": "name@example.com",
+			"submit": "Save Changes",
+			"saving": "Saving...",
+			"successMessage": "Profile updated successfully!"
+		},
+		"avatarCardTitle": "Change Profile Avatar",
+		"avatarCardDescription": "Upload a new avatar picture or enter a direct image URL.",
+		"avatar": {
+			"uploadTitle": "Upload Image",
+			"uploadDescription": "Select an image file (JPG, PNG, GIF, WebP - max 5 MB).",
+			"clickToUpload": "Click to change",
+			"change": "Change",
+			"uploadPhoto": "Upload Photo",
+			"chooseFile": "Browse Files...",
+			"orDirectUrl": "Or paste direct image URL",
+			"saveAvatar": "Apply Avatar",
+			"saving": "Applying...",
+			"successMessage": "Profile avatar updated successfully!",
+			"invalidFileType": "The selected file must be an image.",
+			"fileTooLarge": "The image file must not exceed 5 MB.",
+			"emptyUrlError": "Please choose a file or enter a valid image URL."
+		},
+		"passwordCardTitle": "Password Security",
+		"passwordCardDescription": "Change your password to keep your account secure.",
+		"password": {
+			"currentPasswordLabel": "Current Password",
+			"currentPasswordPlaceholder": "••••••••",
+			"newPasswordLabel": "New Password",
+			"newPasswordPlaceholder": "••••••••",
+			"confirmPasswordLabel": "Confirm New Password",
+			"confirmPasswordPlaceholder": "••••••••",
+			"showPassword": "Show password",
+			"hidePassword": "Hide password",
+			"submit": "Update Password",
+			"updating": "Updating...",
+			"successMessage": "Your password has been changed successfully!",
+			"currentPasswordRequired": "Current password is required.",
+			"googleOAuthNotice": "You are logged in with a Google OAuth account. Your password is managed directly by Google."
+		},
+		"emailVerification": {
+			"verified": "Email verified",
+			"unverified": "Email unverified",
+			"verifiedDescription": "Your email address is confirmed. You have full access to all app features.",
+			"unverifiedDescription": "Your email address has not been verified yet. Send a new confirmation link to unlock all features.",
+			"resendButton": "Resend Verification Link",
+			"sending": "Sending...",
+			"sentSuccessMessage": "A verification link has been sent to your email address!"
+		},
+		"dangerZone": {
+			"title": "Permanent Account Deletion",
+			"warningDescription": "Deleting your account is permanent. All your data, reports, and reactions will be permanently deleted.",
+			"deleteButton": "Delete My Account",
+			"dialogTitle": "Are you absolutely sure?",
+			"dialogDescription": "This action cannot be undone. Confirming will permanently delete your account.",
+			"confirmPasswordLabel": "Enter your password to confirm",
+			"confirmDelete": "Confirm Deletion",
+			"deleting": "Deleting...",
+			"cancel": "Cancel"
+		}
 	}
 }
