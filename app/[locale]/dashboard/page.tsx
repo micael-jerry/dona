@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { ShieldCheck, Calendar, MapPin, Sparkles, Clock, CheckCircle2, XCircle } from 'lucide-react';
+import { ShieldCheck, Calendar, MapPin, Sparkles, Clock, CheckCircle2, XCircle, User } from 'lucide-react';
 
 export default function DashboardPage() {
 	const t = useTranslations('DashboardPage');
@@ -52,7 +52,16 @@ export default function DashboardPage() {
 						</div>
 					</div>
 
-					<div className="flex items-center gap-3">
+					<div className="flex flex-wrap items-center gap-3">
+						<Link href="/account">
+							<Button
+								variant="outline"
+								className="rounded-xl border-sky-500/30 bg-sky-500/10 font-bold text-sky-400 hover:bg-sky-500/20"
+							>
+								<User className="mr-2 h-4 w-4" />
+								{t('manageAccount')}
+							</Button>
+						</Link>
 						<Link href="/map">
 							<Button className="rounded-xl bg-linear-to-r from-sky-500 to-indigo-600 font-bold text-white shadow-lg shadow-sky-500/25 transition-all hover:scale-[1.02] hover:from-sky-400 hover:to-indigo-500 active:scale-[0.98]">
 								<MapPin className="mr-2 h-4 w-4" />

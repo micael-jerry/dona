@@ -15,6 +15,7 @@ export interface AuthState {
 	token: string | null;
 	isLoading: boolean;
 	isAuthenticated: boolean;
+	setUser: (user: UserResponse) => void;
 	login: (credentials: LoginRequest) => Promise<AuthResult>;
 	logout: () => void;
 	initialize: () => Promise<void>;
@@ -25,6 +26,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 	token: null,
 	isLoading: true,
 	isAuthenticated: false,
+
+	setUser: (user: UserResponse) => set({ user }),
 
 	login: async (credentials: LoginRequest): Promise<AuthResult> => {
 		try {

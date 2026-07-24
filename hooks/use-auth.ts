@@ -32,8 +32,9 @@ export function useAuthActions() {
 	const login = useAuthStore((s) => s.login);
 	const logout = useAuthStore((s) => s.logout);
 	const refreshUser = useAuthStore((s) => s.initialize);
+	const setUser = useAuthStore((s) => s.setUser);
 
-	return { login, logout, refreshUser };
+	return { login, logout, refreshUser, setUser };
 }
 
 /**
@@ -47,6 +48,7 @@ export function useAuth() {
 	const login = useAuthStore((s) => s.login);
 	const logout = useAuthStore((s) => s.logout);
 	const refreshUser = useAuthStore((s) => s.initialize);
+	const setUser = useAuthStore((s) => s.setUser);
 
 	return {
 		user,
@@ -56,6 +58,7 @@ export function useAuth() {
 		login,
 		logout,
 		refreshUser,
+		setUser,
 	};
 }
 
