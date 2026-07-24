@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { AlertCircle, Check, Eye, EyeOff, Loader2, KeyRound, ShieldAlert } from 'lucide-react';
 import { zodV4Resolver } from '@/lib/resolvers';
 import { createChangePasswordSchema, type ChangePasswordFormValues } from '@/lib/schemas/account';
@@ -41,7 +41,7 @@ export function PasswordForm({ user }: PasswordFormProps) {
 	const {
 		register,
 		handleSubmit,
-		watch,
+		control,
 		reset,
 		formState: { errors },
 	} = useForm<ChangePasswordFormValues>({
@@ -53,16 +53,16 @@ export function PasswordForm({ user }: PasswordFormProps) {
 		},
 	});
 
-	const watchedNewPassword = watch('newPassword');
+	const watchedNewPassword = useWatch({ control, name: 'newPassword' });
 
-	if (user.isOAuthGoogleProvider) {
-		return (
-			<Alert className="rounded-2xl border-amber-500/30 bg-amber-500/10 p-5 text-amber-500">
-				<ShieldAlert className="h-5 w-5" />
-				<AlertDescription className="text-sm leading-relaxed font-medium">{t('googleOAuthNotice')}</AlertDescription>
-			</Alert>
-		);
-	}
+	// if (user.isOAuthGoogleProvider) {
+	// 	return (
+	// 		<Alert className="rounded-2xl border-amber-500/30 bg-amber-500/10 p-5 text-amber-500">
+	// 			<ShieldAlert className="h-5 w-5" />
+	// 			<AlertDescription className="text-sm leading-relaxed font-medium">{t('googleOAuthNotice')}</AlertDescription>
+	// 		</Alert>
+	// 	);
+	// }
 
 	async function onSubmit(values: ChangePasswordFormValues) {
 		setIsSubmitting(true);

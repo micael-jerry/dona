@@ -58,7 +58,7 @@ export interface DeleteAccountMessages {
 	passwordRequired: string;
 }
 
-export function createDeleteAccountSchema(messages: DeleteAccountMessages) {
+export function createDeleteAccountSchema() {
 	return z.object({
 		password: z.string().optional(),
 	});

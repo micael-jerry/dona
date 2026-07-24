@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { updateProfile, type UserResponse } from '@/lib/api';
+import { updateAvatar, updateProfile, type UserResponse } from '@/lib/api';
 import { useAuth } from '@/hooks/use-auth';
 import { extractErrorMessage } from '@/lib/errors';
 
@@ -54,49 +54,55 @@ export function AvatarUploader({ user }: AvatarUploaderProps) {
 		reader.onload = () => {
 			const dataUrl = reader.result as string;
 			setPreviewUrl(dataUrl);
-			setUrlInput(dataUrl);
 		};
 		reader.readAsDataURL(file);
 	};
 
-	// Handle saving the avatar (ready for file upload service or direct URL)
+	// Handle saving the avatar (upload file to S3 via updateAvatar or update URL via updateProfile)
 	const handleSaveAvatar = async () => {
 		setIsSubmitting(true);
 		setErrorMsg(null);
 		setSuccessMsg(null);
 
 		try {
-			let finalAvatarUrl = urlInput.trim();
-
-			/**
-			 * NOTE / TODO FOR USER:
-			 * Here the file upload system is prepared. If a File object is selected (`selectedFile`),
-			 * you can replace the mock/DataURL below with your file upload endpoint:
-			 * e.g., const uploadedUrl = await uploadAvatarFile(selectedFile);
-			 */
 			if (selectedFile) {
-				// Currently using the read data URL as preview/payload until custom upload server endpoint is connected
-				finalAvatarUrl = previewUrl || urlInput;
-			}
+				const res = await updateAvatar({
+					body: {
+						file: selectedFile,
+					},
+				});
 
-			if (!finalAvatarUrl) {
-				setErrorMsg(t('emptyUrlError'));
-				setIsSubmitting(false);
-				return;
-			}
-
-			const res = await updateProfile({
-				body: {
-					avatar: finalAvatarUrl,
-				},
-			});
-
-			if (res.error || !res.data) {
-				setErrorMsg(extractErrorMessage(res.error, tCommon('genericError')));
+				if (res.error || !res.data) {
+					setErrorMsg(extractErrorMessage(res.error, tCommon('genericError')));
+				} else {
+					setUser(res.data);
+					setSuccessMsg(t('successMessage'));
+					setSelectedFile(null);
+					if (typeof res.data.avatar === 'string') {
+						setPreviewUrl(res.data.avatar);
+						setUrlInput(res.data.avatar);
+					}
+				}
 			} else {
-				setUser(res.data);
-				setSuccessMsg(t('successMessage'));
-				setSelectedFile(null);
+				const finalAvatarUrl = urlInput.trim();
+				if (!finalAvatarUrl) {
+					setErrorMsg(t('emptyUrlError'));
+					setIsSubmitting(false);
+					return;
+				}
+
+				const res = await updateProfile({
+					body: {
+						avatar: finalAvatarUrl,
+					},
+				});
+
+				if (res.error || !res.data) {
+					setErrorMsg(extractErrorMessage(res.error, tCommon('genericError')));
+				} else {
+					setUser(res.data);
+					setSuccessMsg(t('successMessage'));
+				}
 			}
 		} catch (err: unknown) {
 			setErrorMsg(extractErrorMessage(err, tCommon('genericError')));

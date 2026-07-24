@@ -73,15 +73,17 @@ export function DeleteAccountDialog({ user }: DeleteAccountDialogProps) {
 				</div>
 
 				<Dialog open={open} onOpenChange={setOpen}>
-					<DialogTrigger asChild>
-						<Button
-							variant="destructive"
-							className="h-10 rounded-xl bg-destructive font-bold text-white shadow-md shadow-destructive/20 hover:bg-destructive/90"
-						>
-							<Trash2 className="mr-2 h-4 w-4" />
-							{t('deleteButton')}
-						</Button>
-					</DialogTrigger>
+					<DialogTrigger
+						render={
+							<Button
+								variant="destructive"
+								className="h-10 rounded-xl bg-destructive font-bold text-white shadow-md shadow-destructive/20 hover:bg-destructive/90"
+							>
+								<Trash2 className="mr-2 h-4 w-4" />
+								{t('deleteButton')}
+							</Button>
+						}
+					/>
 
 					<DialogContent className="rounded-3xl border-destructive/30 bg-card/95 p-6 shadow-2xl backdrop-blur-xl sm:max-w-md">
 						<DialogHeader className="space-y-3 text-left">
