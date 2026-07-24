@@ -1,10 +1,244 @@
 {
-  "HomePage": {
-    "title": "Bienvenido a Dona",
-    "description": "La plataforma comunitaria definitiva para señalar eventos viales. Navega seguro con alertas en tiempo real, comentarios y chat geolocalizado.",
-    "login": "Iniciar sesión",
-    "playNow": "Abrir Mapa",
-    "features": "Características",
-    "about": "Acerca de"
-  }
+	"HomePage": {
+		"title": "Bienvenido a Dona",
+		"description": "La plataforma comunitaria definitiva para señalar eventos viales. Navega seguro con alertas en tiempo real, comentarios y chat geolocalizado.",
+		"login": "Iniciar sesión",
+		"playNow": "Abrir Mapa",
+		"joinNetwork": "Unirse a la Red Dona",
+		"announcement": "Alertas Viales Colaborativas en Tiempo Real y Navegación con IA",
+		"headlineFirst": "Conduce con Mayor Seguridad con",
+		"headlineSecond": "Inteligencia Vial en Vivo",
+		"heroDescription": "Reporta peligros, verifica señales comunitarias con puntuaciones de veracidad en tiempo real, chatea en canales geolocalizados y permite que la IA te desvíe de zonas peligrosas.",
+		"feedPreviewTitle": "Vista Previa de Alertas en Vivo",
+		"feedPreviewSubtitle": "Canal en tiempo real en tu radio de proximidad",
+		"tabs": {
+			"all": "Todos los Eventos",
+			"accidents": "Accidents",
+			"police": "Controles",
+			"hazards": "Peligros"
+		},
+		"features": {
+			"signalingTitle": "Señalización Instantánea",
+			"signalingDesc": "Reporta accidentes, controles de velocidad y obstáculos directamente desde tu ubicación GPS en vivo con prueba multimedia.",
+			"veracityTitle": "Evaluaciones de Veracidad",
+			"veracityDesc": "Votos comunitarios, reacciones y validaciones oficiales evalúan cada evento del 0% al 100%.",
+			"reroutingTitle": "Desvío de Peligros con IA",
+			"reroutingDesc": "La IA analiza las fotos y el enrutamiento inteligente calcula rutas más seguras alrededor de zonas confirmadas de alto riesgo.",
+			"chatTitle": "Chat en Vivo Geolocalizado",
+			"chatDesc": "Únete a canales de chat vinculados a puntos de incidentes activos para hablar directamente con conductores cercanos."
+		}
+	},
+	"NotFound": {
+		"title": "¡Vaya! No hay nada aquí.",
+		"description": "Parece que te has salido de la ruta. La página que buscas no existe o ha sido movida.",
+		"backHome": "Volver al inicio"
+	},
+	"Auth": {
+		"invalidCredentials": "Correo electrónico o contraseña incorrectos.",
+		"genericError": "Ocurrió un error inesperado.",
+		"logout": "Cerrar sesión",
+		"checkingSession": "Verificando sesión...",
+		"accessRestricted": "Acceso restringido. Redirigiendo a la página de inicio de sesión..."
+	},
+	"LoginPage": {
+		"title": "¡Bienvenido de nuevo!",
+		"description": "Inicia sesión para ver las alertas a tu alrededor.",
+		"emailLabel": "Correo electrónico",
+		"emailPlaceholder": "nombre@ejemplo.com",
+		"passwordLabel": "Contraseña",
+		"passwordPlaceholder": "••••••••",
+		"forgotPasswordLink": "¿Olvidaste tu contraseña?",
+		"showPassword": "Mostrar contraseña",
+		"hidePassword": "Ocultar contraseña",
+		"submit": "Iniciar sesión",
+		"orContinueWith": "O continuar con",
+		"googleButton": "Continuar con Google",
+		"noAccount": "¿No tienes una cuenta?",
+		"registerLink": "Regístrate",
+		"validation": {
+			"emailInvalid": "Dirección de correo inválida.",
+			"passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+			"passwordMax": "La contraseña es demasiado larga."
+		}
+	},
+	"RegisterPage": {
+		"title": "Únete a Dona",
+		"description": "Crea tu cuenta para reportar y comentar eventos.",
+		"pseudoLabel": "Usuario",
+		"pseudoPlaceholder": "johndoe_99",
+		"nameLabel": "Nombre completo",
+		"namePlaceholder": "John Doe",
+		"emailLabel": "Correo electrónico",
+		"emailPlaceholder": "nombre@ejemplo.com",
+		"passwordLabel": "Contraseña",
+		"passwordPlaceholder": "••••••••",
+		"showPassword": "Mostrar contraseña",
+		"hidePassword": "Ocultar contraseña",
+		"submit": "Crear cuenta",
+		"hasAccount": "¿Ya tienes una cuenta?",
+		"loginLink": "Inicia sesión",
+		"passwordStrength": {
+			"label": "Fortaleza de la contraseña",
+			"weak": "Débil",
+			"medium": "Media",
+			"strong": "Fuerte"
+		},
+		"validation": {
+			"pseudoMin": "El usuario debe tener al menos 5 caracteres.",
+			"pseudoMax": "El usuario no puede exceder 25 caracteres.",
+			"pseudoRegex": "El usuario solo puede contener letras, números y guiones bajos.",
+			"nameMin": "El nombre debe tener al menos 3 caracteres.",
+			"nameMax": "El nombre no puede exceder 100 caracteres.",
+			"emailInvalid": "Dirección de correo inválida.",
+			"passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+			"passwordMax": "La contraseña es demasiado larga.",
+			"genericError": "Ocurrió un error inesperado.",
+			"serverError": "Error de conexión con el servidor."
+		}
+	},
+	"ForgotPasswordPage": {
+		"title": "¿Olvidaste tu contraseña?",
+		"description": "Ingresa tu correo electrónico para recibir un enlace de restablecimiento.",
+		"emailLabel": "Correo electrónico",
+		"emailPlaceholder": "nombre@ejemplo.com",
+		"submit": "Enviar enlace",
+		"successTitle": "¡Solicitud enviada!",
+		"successDescription": "Si esta dirección de correo electrónico es correcta y está asociada a una cuenta, recibirás un correo electrónico con las instrucciones en unos momentos.",
+		"backToLogin": "Volver al inicio de sesión",
+		"validation": {
+			"emailInvalid": "Dirección de correo inválida."
+		}
+	},
+	"ResetPasswordPage": {
+		"title": "Restablecer contraseña",
+		"description": "Elige una nueva contraseña segura para tu cuenta.",
+		"newPasswordLabel": "Nueva contraseña",
+		"newPasswordPlaceholder": "••••••••",
+		"confirmPasswordLabel": "Confirmar contraseña",
+		"confirmPasswordPlaceholder": "••••••••",
+		"submit": "Restablecer contraseña",
+		"successTitle": "¡Contraseña actualizada!",
+		"successDescription": "Tu contraseña se ha modificado con éxito. Ahora puedes iniciar sesión.",
+		"invalidTokenTitle": "Enlace inválido o expirado",
+		"invalidTokenDescription": "El token de restablecimiento falta, es inválido o ha expirado. Solicita un nuevo enlace.",
+		"requestNewLink": "Solicitar nuevo enlace",
+		"loginLink": "Iniciar sesión",
+		"validation": {
+			"passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+			"passwordMax": "La contraseña es demasiado larga.",
+			"passwordsDontMatch": "Las contraseñas no coinciden."
+		}
+	},
+	"VerifyEmailPage": {
+		"title": "Verificación de correo electrónico",
+		"loading": "Verificando su dirección de correo electrónico...",
+		"successTitle": "¡Cuenta verificada con éxito!",
+		"successDescription": "Su dirección de correo electrónico ha sido confirmada. Ahora puede cerrar esta página e iniciar sesión en la aplicación.",
+		"errorTitle": "Error de verificación",
+		"errorDescription": "El token de verificación no es válido, ha expirado o ya se ha utilizado.",
+		"closeButton": "Cerrar página",
+		"invalidToken": "Falta el token de verificación."
+	},
+	"DashboardPage": {
+		"title": "Espacio Personal",
+		"welcome": "Bienvenido,",
+		"subtitle": "Aquí están los detalles de su cuenta e información de acceso seguro.",
+		"profileCardTitle": "Perfil de Usuario",
+		"roleLabel": "Rol",
+		"emailVerified": "Correo verificado",
+		"emailNotVerified": "Correo no verificado",
+		"pseudoLabel": "Usuario",
+		"nameLabel": "Nombre completo",
+		"emailLabel": "Correo electrónico",
+		"createdAtLabel": "Miembro desde",
+		"updatedAtLabel": "Última actualización",
+		"authProviderLabel": "Proveedor de autenticación",
+		"standardAuth": "Correo y Contraseña",
+		"googleAuth": "Cuenta Google OAuth",
+		"statusLabel": "Estado de la cuenta",
+		"activeStatus": "Cuenta Activa y Segura",
+		"backHome": "Volver al Mapa",
+		"verificationLabel": "Verificación",
+		"sessionLabel": "Estado de Sesión",
+		"manageAccount": "Gestionar cuenta",
+		"accountButton": "Mi cuenta"
+	},
+	"AccountPage": {
+		"title": "Gestión de la cuenta",
+		"description": "Administre su información personal, avatar de perfil y configuración de seguridad.",
+		"dashboardButton": "Espacio Personal",
+		"tabs": {
+			"profile": "Perfil e Info",
+			"avatar": "Foto de perfil",
+			"security": "Seguridad",
+			"danger": "Zona de peligro"
+		},
+		"profileCardTitle": "Información de perfil",
+		"profileCardDescription": "Actualice su nombre completo, nombre de usuario y correo electrónico.",
+		"profile": {
+			"pseudoLabel": "Usuario",
+			"pseudoPlaceholder": "johndoe_99",
+			"nameLabel": "Nombre completo",
+			"namePlaceholder": "John Doe",
+			"emailLabel": "Correo electrónico",
+			"emailPlaceholder": "nombre@ejemplo.com",
+			"submit": "Guardar cambios",
+			"saving": "Guardando...",
+			"successMessage": "¡Perfil actualizado con éxito!"
+		},
+		"avatarCardTitle": "Cambiar foto de perfil",
+		"avatarCardDescription": "Suba una nueva foto de perfil o ingrese la URL directa de una imagen.",
+		"avatar": {
+			"uploadTitle": "Subir imagen",
+			"uploadDescription": "Seleccione un archivo de imagen (JPG, PNG, GIF, WebP - máx. 5 MB).",
+			"clickToUpload": "Hacer clic para cambiar",
+			"change": "Cambiar",
+			"uploadPhoto": "Subir foto",
+			"chooseFile": "Buscar archivos...",
+			"orDirectUrl": "O pegar la URL directa de una imagen",
+			"saveAvatar": "Aplicar foto",
+			"saving": "Aplicando...",
+			"successMessage": "¡Foto de perfil actualizada con éxito!",
+			"invalidFileType": "El archivo seleccionado debe ser una imagen.",
+			"fileTooLarge": "La imagen no debe superar los 5 MB.",
+			"emptyUrlError": "Por favor elija un archivo o ingrese una URL de imagen válida."
+		},
+		"passwordCardTitle": "Seguridad de la contraseña",
+		"passwordCardDescription": "Cambie su contraseña para mantener segura su cuenta.",
+		"password": {
+			"currentPasswordLabel": "Contraseña actual",
+			"currentPasswordPlaceholder": "••••••••",
+			"newPasswordLabel": "Nueva contraseña",
+			"newPasswordPlaceholder": "••••••••",
+			"confirmPasswordLabel": "Confirmar nueva contraseña",
+			"confirmPasswordPlaceholder": "••••••••",
+			"showPassword": "Mostrar contraseña",
+			"hidePassword": "Ocultar contraseña",
+			"submit": "Actualizar contraseña",
+			"updating": "Actualizando...",
+			"successMessage": "¡Su contraseña ha sido cambiada con éxito!",
+			"currentPasswordRequired": "La contraseña actual es requerida.",
+			"googleOAuthNotice": "Inició sesión con una cuenta Google OAuth. Su contraseña es gestionada directamente por Google."
+		},
+		"emailVerification": {
+			"verified": "Correo verificado",
+			"unverified": "Correo no verificado",
+			"verifiedDescription": "Su correo electrónico está confirmado. Tiene acceso completo a todas las funciones.",
+			"unverifiedDescription": "Su correo electrónico aún no ha sido verificado. Envíe un nuevo enlace de confirmación para desbloquear todas las funciones.",
+			"resendButton": "Reenviar enlace de verificación",
+			"sending": "Enviando...",
+			"sentSuccessMessage": "¡Se ha enviado un enlace de verificación a su correo electrónico!"
+		},
+		"dangerZone": {
+			"title": "Eliminación permanente de la cuenta",
+			"warningDescription": "La eliminación de su cuenta es permanente. Todos sus datos, reportes y reacciones se borrarán definitivamente.",
+			"deleteButton": "Eliminar mi cuenta",
+			"dialogTitle": "¿Está absolutamente seguro?",
+			"dialogDescription": "Esta acción no se puede deshacer. Al confirmar, su cuenta será eliminada permanentemente.",
+			"confirmPasswordLabel": "Ingrese su contraseña para confirmar",
+			"confirmDelete": "Confirmar eliminación",
+			"deleting": "Eliminando...",
+			"cancel": "Cancelar"
+		}
+	}
 }

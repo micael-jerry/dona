@@ -1,10 +1,244 @@
 {
-  "HomePage": {
-    "title": "Welcome to Dona",
-    "description": "The ultimate community platform for road event signaling. Navigate safely with real-time alerts, comments, and geo-located live chat.",
-    "login": "Login",
-    "playNow": "Open Map",
-    "features": "Features",
-    "about": "About"
-  }
+	"HomePage": {
+		"title": "Welcome to Dona",
+		"description": "The ultimate community platform for road event signaling. Navigate safely with real-time alerts, comments, and geo-located live chat.",
+		"login": "Login",
+		"playNow": "Open Map",
+		"joinNetwork": "Join Dona Network",
+		"announcement": "Real-Time Crowdsourced Road Alerts & AI Navigation",
+		"headlineFirst": "Drive Safer with",
+		"headlineSecond": "Live Signal Intelligence",
+		"heroDescription": "Report hazards, verify community signals with live veracity scores, chat in location-bound channels, and let AI reroute you away from dangerous zones.",
+		"feedPreviewTitle": "Live Alert Feed Preview",
+		"feedPreviewSubtitle": "Real-time feed in your proximity radius",
+		"tabs": {
+			"all": "All Events",
+			"accidents": "Accidents",
+			"police": "Police",
+			"hazards": "Hazards"
+		},
+		"features": {
+			"signalingTitle": "Instant Signaling",
+			"signalingDesc": "Report accidents, speed traps, and road obstacles directly from your live GPS location with media proof.",
+			"veracityTitle": "Veracity Ratings",
+			"veracityDesc": "Crowdsourced upvotes, status reactions, and official entity validations score every event from 0% to 100%.",
+			"reroutingTitle": "AI Hazard Rerouting",
+			"reroutingDesc": "Vision AI checks event photos while intelligent routing calculates safer paths around confirmed high-risk zones.",
+			"chatTitle": "Location Live Chat",
+			"chatDesc": "Join real-time chat channels pinned to active incident points to talk directly with nearby commuters."
+		}
+	},
+	"NotFound": {
+		"title": "Oops! There is nothing here.",
+		"description": "It looks like you've gone off route. The page you are looking for doesn't exist or has been moved.",
+		"backHome": "Back to Home"
+	},
+	"Auth": {
+		"invalidCredentials": "Invalid email or password.",
+		"genericError": "An unexpected error occurred.",
+		"logout": "Log out",
+		"checkingSession": "Checking session...",
+		"accessRestricted": "Access restricted. Redirecting to login page..."
+	},
+	"LoginPage": {
+		"title": "Welcome back!",
+		"description": "Log in to see alerts around you.",
+		"emailLabel": "Email",
+		"emailPlaceholder": "name@example.com",
+		"passwordLabel": "Password",
+		"passwordPlaceholder": "••••••••",
+		"forgotPasswordLink": "Forgot password?",
+		"showPassword": "Show password",
+		"hidePassword": "Hide password",
+		"submit": "Log in",
+		"orContinueWith": "Or continue with",
+		"googleButton": "Continue with Google",
+		"noAccount": "Don't have an account?",
+		"registerLink": "Sign up",
+		"validation": {
+			"emailInvalid": "Invalid email address.",
+			"passwordMin": "Password must be at least 8 characters.",
+			"passwordMax": "Password is too long."
+		}
+	},
+	"RegisterPage": {
+		"title": "Join Dona",
+		"description": "Create your account to report and comment on events.",
+		"pseudoLabel": "Username",
+		"pseudoPlaceholder": "johndoe_99",
+		"nameLabel": "Full name",
+		"namePlaceholder": "John Doe",
+		"emailLabel": "Email",
+		"emailPlaceholder": "name@example.com",
+		"passwordLabel": "Password",
+		"passwordPlaceholder": "••••••••",
+		"showPassword": "Show password",
+		"hidePassword": "Hide password",
+		"submit": "Create account",
+		"hasAccount": "Already have an account?",
+		"loginLink": "Log in",
+		"passwordStrength": {
+			"label": "Password strength",
+			"weak": "Weak",
+			"medium": "Medium",
+			"strong": "Strong"
+		},
+		"validation": {
+			"pseudoMin": "Username must be at least 5 characters.",
+			"pseudoMax": "Username cannot exceed 25 characters.",
+			"pseudoRegex": "Username can only contain letters, numbers, and underscores.",
+			"nameMin": "Name must be at least 3 characters.",
+			"nameMax": "Name cannot exceed 100 characters.",
+			"emailInvalid": "Invalid email address.",
+			"passwordMin": "Password must be at least 8 characters.",
+			"passwordMax": "Password is too long.",
+			"genericError": "An unexpected error occurred.",
+			"serverError": "Server connection error."
+		}
+	},
+	"ForgotPasswordPage": {
+		"title": "Forgot password?",
+		"description": "Enter your email address to receive a password reset link.",
+		"emailLabel": "Email address",
+		"emailPlaceholder": "name@example.com",
+		"submit": "Send reset link",
+		"successTitle": "Request sent!",
+		"successDescription": "If this email address is correct and associated with an account, you will receive an email with password reset instructions shortly.",
+		"backToLogin": "Back to login",
+		"validation": {
+			"emailInvalid": "Invalid email address."
+		}
+	},
+	"ResetPasswordPage": {
+		"title": "Set New Password",
+		"description": "Choose a new secure password for your account.",
+		"newPasswordLabel": "New password",
+		"newPasswordPlaceholder": "••••••••",
+		"confirmPasswordLabel": "Confirm password",
+		"confirmPasswordPlaceholder": "••••••••",
+		"submit": "Reset password",
+		"successTitle": "Password updated!",
+		"successDescription": "Your password has been changed successfully. You can now log in.",
+		"invalidTokenTitle": "Invalid or expired link",
+		"invalidTokenDescription": "The reset token is missing, invalid, or expired. Please request a new link.",
+		"requestNewLink": "Request a new link",
+		"loginLink": "Log in",
+		"validation": {
+			"passwordMin": "Password must be at least 8 characters.",
+			"passwordMax": "Password is too long.",
+			"passwordsDontMatch": "Passwords do not match."
+		}
+	},
+	"VerifyEmailPage": {
+		"title": "Email Verification",
+		"loading": "Verifying your email address...",
+		"successTitle": "Account verified successfully!",
+		"successDescription": "Your email address has been confirmed. You can now close this page and log into the application.",
+		"errorTitle": "Verification failed",
+		"errorDescription": "The verification token is invalid, expired, or has already been used.",
+		"closeButton": "Close page",
+		"invalidToken": "Missing verification token."
+	},
+	"DashboardPage": {
+		"title": "Personal Workspace",
+		"welcome": "Welcome,",
+		"subtitle": "Here are your account details and secure access information.",
+		"profileCardTitle": "User Profile",
+		"roleLabel": "Role",
+		"emailVerified": "Email verified",
+		"emailNotVerified": "Email unverified",
+		"pseudoLabel": "Username",
+		"nameLabel": "Full Name",
+		"emailLabel": "Email Address",
+		"createdAtLabel": "Member since",
+		"updatedAtLabel": "Last updated",
+		"authProviderLabel": "Auth Provider",
+		"standardAuth": "Email & Password",
+		"googleAuth": "Google OAuth Account",
+		"statusLabel": "Account Status",
+		"activeStatus": "Active & Secure Account",
+		"backHome": "Back to Map",
+		"verificationLabel": "Verification",
+		"sessionLabel": "Session Status",
+		"manageAccount": "Manage Account",
+		"accountButton": "My Account"
+	},
+	"AccountPage": {
+		"title": "Account Settings",
+		"description": "Manage your personal information, profile avatar, and security settings.",
+		"dashboardButton": "Personal Workspace",
+		"tabs": {
+			"profile": "Profile & Info",
+			"avatar": "Profile Avatar",
+			"security": "Security",
+			"danger": "Danger Zone"
+		},
+		"profileCardTitle": "Profile Information",
+		"profileCardDescription": "Update your full name, username, and email address.",
+		"profile": {
+			"pseudoLabel": "Username",
+			"pseudoPlaceholder": "johndoe_99",
+			"nameLabel": "Full Name",
+			"namePlaceholder": "John Doe",
+			"emailLabel": "Email Address",
+			"emailPlaceholder": "name@example.com",
+			"submit": "Save Changes",
+			"saving": "Saving...",
+			"successMessage": "Profile updated successfully!"
+		},
+		"avatarCardTitle": "Change Profile Avatar",
+		"avatarCardDescription": "Upload a new avatar picture or enter a direct image URL.",
+		"avatar": {
+			"uploadTitle": "Upload Image",
+			"uploadDescription": "Select an image file (JPG, PNG, GIF, WebP - max 5 MB).",
+			"clickToUpload": "Click to change",
+			"change": "Change",
+			"uploadPhoto": "Upload Photo",
+			"chooseFile": "Browse Files...",
+			"orDirectUrl": "Or paste direct image URL",
+			"saveAvatar": "Apply Avatar",
+			"saving": "Applying...",
+			"successMessage": "Profile avatar updated successfully!",
+			"invalidFileType": "The selected file must be an image.",
+			"fileTooLarge": "The image file must not exceed 5 MB.",
+			"emptyUrlError": "Please choose a file or enter a valid image URL."
+		},
+		"passwordCardTitle": "Password Security",
+		"passwordCardDescription": "Change your password to keep your account secure.",
+		"password": {
+			"currentPasswordLabel": "Current Password",
+			"currentPasswordPlaceholder": "••••••••",
+			"newPasswordLabel": "New Password",
+			"newPasswordPlaceholder": "••••••••",
+			"confirmPasswordLabel": "Confirm New Password",
+			"confirmPasswordPlaceholder": "••••••••",
+			"showPassword": "Show password",
+			"hidePassword": "Hide password",
+			"submit": "Update Password",
+			"updating": "Updating...",
+			"successMessage": "Your password has been changed successfully!",
+			"currentPasswordRequired": "Current password is required.",
+			"googleOAuthNotice": "You are logged in with a Google OAuth account. Your password is managed directly by Google."
+		},
+		"emailVerification": {
+			"verified": "Email verified",
+			"unverified": "Email unverified",
+			"verifiedDescription": "Your email address is confirmed. You have full access to all app features.",
+			"unverifiedDescription": "Your email address has not been verified yet. Send a new confirmation link to unlock all features.",
+			"resendButton": "Resend Verification Link",
+			"sending": "Sending...",
+			"sentSuccessMessage": "A verification link has been sent to your email address!"
+		},
+		"dangerZone": {
+			"title": "Permanent Account Deletion",
+			"warningDescription": "Deleting your account is permanent. All your data, reports, and reactions will be permanently deleted.",
+			"deleteButton": "Delete My Account",
+			"dialogTitle": "Are you absolutely sure?",
+			"dialogDescription": "This action cannot be undone. Confirming will permanently delete your account.",
+			"confirmPasswordLabel": "Enter your password to confirm",
+			"confirmDelete": "Confirm Deletion",
+			"deleting": "Deleting...",
+			"cancel": "Cancel"
+		}
+	}
 }

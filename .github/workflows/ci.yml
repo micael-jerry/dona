@@ -2,40 +2,47 @@ name: CI
 
 on:
   push:
-    branches: [master, dev]
+    branches:
+      - main
+      - dev
   pull_request:
-    branches: [master, dev]
+    branches:
+      - main
+      - dev
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [24]
+    env:
+      NEXT_PUBLIC_API_BASE_URL: ${{ vars.NEXT_PUBLIC_API_BASE_URL }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 11
-
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          node-version: 24
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
 
       - name: Install dependencies
         run: pnpm install
 
-      - name: Gen client
+      - name: Generate API client
         run: pnpm gen-client
 
-      - name: Lint code
+      - name: Run typecheck
+        run: pnpm typecheck
+
+      - name: Run lint
         run: pnpm lint
 
-      - name: Run build
-        run: pnpm build
+      - name: Run codestyle check
+        run: pnpm format:check
+
+      - name: Build application
+        run: pnpm run build
