@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { GoogleOAuthButton } from '@/components/auth/google-oauth-button';
+import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { Link, useRouter } from '@/i18n/routing';
 
@@ -20,6 +21,7 @@ export function LoginForm() {
 	const tAuth = useTranslations('Auth');
 	const { login } = useAuth();
 	const router = useRouter();
+	const searchParams = useSearchParams();
 
 	const [showPassword, setShowPassword] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,7 +51,12 @@ export function LoginForm() {
 			if (!res.success) {
 				setApiError(res.error || tAuth('invalidCredentials'));
 			} else {
-				router.push('/dashboard');
+				const fromParam = searchParams.get('from');
+				const targetRoute =
+					fromParam && fromParam.startsWith('/') && !fromParam.startsWith('//')
+						? (fromParam as '/dashboard')
+						: '/dashboard';
+				router.push(targetRoute);
 				router.refresh();
 			}
 		} catch (err: unknown) {

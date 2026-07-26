@@ -1,5 +1,6 @@
+import { Suspense } from 'react';
 import { useTranslations } from 'next-intl';
-import { MapPin } from 'lucide-react';
+import { MapPin, Loader2 } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { AuthCard } from '@/components/auth/auth-card';
 import { LoginForm } from '@/components/auth/login-form';
@@ -21,7 +22,15 @@ export default function LoginPage() {
 			</CardHeader>
 
 			<CardContent className="space-y-6">
-				<LoginForm />
+				<Suspense
+					fallback={
+						<div className="flex h-64 items-center justify-center">
+							<Loader2 className="h-6 w-6 animate-spin text-sky-500" />
+						</div>
+					}
+				>
+					<LoginForm />
+				</Suspense>
 			</CardContent>
 
 			<CardFooter className="flex justify-center border-t border-border/30 pt-6 pb-4">
