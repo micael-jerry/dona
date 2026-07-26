@@ -240,5 +240,14 @@
 			"deleting": "Deleting...",
 			"cancel": "Cancel"
 		}
+	},
+	"Navigation": {
+		"mainGroup": "Navigation",
+		"adminGroup": "Administration",
+		"dashboard": "Personal Space",
+		"map": "Back to Map",
+		"account": "My Account",
+		"leaderboard": "Leaderboard",
+		"users": "Users"
 	}
 }
