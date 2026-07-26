@@ -240,5 +240,14 @@
 			"deleting": "Eliminando...",
 			"cancel": "Cancelar"
 		}
+	},
+	"Navigation": {
+		"mainGroup": "Navegación",
+		"adminGroup": "Administración",
+		"dashboard": "Espacio Personal",
+		"map": "Volver al Mapa",
+		"account": "Mi Cuenta",
+		"leaderboard": "Clasificación",
+		"users": "Usuarios"
 	}
 }

@@ -1,14 +1,19 @@
 import { ReactNode } from 'react';
-import { AppHeader } from '@/components/common/app-header';
 import { ProtectedRoute } from '@/components/auth/protected-route';
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
+import { DashboardSidebar } from '@/components/dashboard/dashboard-sidebar';
+import { DashboardNavbar } from '@/components/dashboard/dashboard-navbar';
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
 	return (
 		<ProtectedRoute>
-			<div className="flex min-h-screen flex-col bg-background text-foreground">
-				<AppHeader />
-				<main className="mt-20 flex-1 px-4 py-8 sm:px-6 lg:px-10">{children}</main>
-			</div>
+			<SidebarProvider>
+				<DashboardSidebar />
+				<SidebarInset className="flex min-h-svh flex-col bg-background">
+					<DashboardNavbar />
+					<main className="flex-1 overflow-auto p-6">{children}</main>
+				</SidebarInset>
+			</SidebarProvider>
 		</ProtectedRoute>
 	);
 }

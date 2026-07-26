@@ -240,5 +240,14 @@
 			"deleting": "Suppression...",
 			"cancel": "Annuler"
 		}
+	},
+	"Navigation": {
+		"mainGroup": "Navigation",
+		"adminGroup": "Administration",
+		"dashboard": "Espace Personnel",
+		"map": "Retour à la Carte",
+		"account": "Mon compte",
+		"leaderboard": "Classement",
+		"users": "Utilisateurs"
 	}
 }
