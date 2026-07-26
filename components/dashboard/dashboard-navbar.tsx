@@ -2,7 +2,6 @@
 
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
-import { LanguageSwitcher } from '@/components/common/language-switcher';
 import { UserNav } from '@/components/common/user-nav';
 
 export function DashboardNavbar() {
@@ -15,10 +14,8 @@ export function DashboardNavbar() {
 			{/* Spacer */}
 			<div className="flex-1" />
 
-			{/* Right side: lang + account */}
+			{/* Right side: account */}
 			<div className="flex items-center gap-2">
-				<LanguageSwitcher />
-				<Separator orientation="vertical" className="mx-1 h-4 bg-border/60" />
 				<UserNav />
 			</div>
 		</header>

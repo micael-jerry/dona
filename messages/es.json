@@ -248,6 +248,17 @@
 		"map": "Volver al Mapa",
 		"account": "Mi Cuenta",
 		"leaderboard": "Clasificación",
-		"users": "Usuarios"
+		"users": "Usuarios",
+		"settings": "Ajustes"
+	},
+	"Settings": {
+		"title": "Ajustes de pantalla",
+		"description": "Personaliza el idioma y el tema visual de la aplicación.",
+		"languageSection": "Idioma de pantalla",
+		"themeSection": "Tema visual",
+		"themeLight": "Claro",
+		"themeDark": "Oscuro",
+		"themeSystem": "Sistema",
+		"savedSuccess": "¡Ajustes guardados!"
 	}
 }

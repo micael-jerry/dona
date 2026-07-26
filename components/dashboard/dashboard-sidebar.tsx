@@ -21,7 +21,8 @@ import {
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { LogOut, Sparkles } from 'lucide-react';
+import { SettingsDialog } from '@/components/settings/settings-dialog';
+import { Settings, LogOut, Sparkles } from 'lucide-react';
 
 export function DashboardSidebar() {
 	const t = useTranslations('Navigation');
@@ -100,6 +101,20 @@ export function DashboardSidebar() {
 			{/* ── User footer ─────────────────────────────────────────────── */}
 			<SidebarFooter className="p-3">
 				<SidebarMenu>
+					{/* Settings */}
+					<SidebarMenuItem>
+						<SettingsDialog>
+							<SidebarMenuButton
+								tooltip={t('settings')}
+								className="rounded-xl font-medium text-muted-foreground hover:bg-sky-500/10 hover:text-sky-500"
+							>
+								<Settings className="h-4 w-4 shrink-0 text-sky-500" />
+								<span>{t('settings')}</span>
+							</SidebarMenuButton>
+						</SettingsDialog>
+					</SidebarMenuItem>
+
+					{/* Logout */}
 					<SidebarMenuItem>
 						<SidebarMenuButton
 							onClick={logout}

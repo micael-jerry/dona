@@ -9,6 +9,8 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { AuthProvider } from '@/components/providers/auth-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
+import { UserSettingsInitializer } from '@/components/settings/user-settings-initializer';
+
 const geistSans = Geist({
 	variable: '--font-sans',
 	subsets: ['latin'],
@@ -49,7 +51,9 @@ export default async function RootLayout({
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<NextIntlClientProvider messages={messages}>
 						<TooltipProvider>
-							<AuthProvider>{children}</AuthProvider>
+							<AuthProvider>
+								<UserSettingsInitializer>{children}</UserSettingsInitializer>
+							</AuthProvider>
 						</TooltipProvider>
 					</NextIntlClientProvider>
 				</ThemeProvider>
