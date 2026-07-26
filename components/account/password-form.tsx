@@ -55,14 +55,14 @@ export function PasswordForm({ user }: PasswordFormProps) {
 
 	const watchedNewPassword = useWatch({ control, name: 'newPassword' });
 
-	// if (user.isOAuthGoogleProvider) {
-	// 	return (
-	// 		<Alert className="rounded-2xl border-amber-500/30 bg-amber-500/10 p-5 text-amber-500">
-	// 			<ShieldAlert className="h-5 w-5" />
-	// 			<AlertDescription className="text-sm leading-relaxed font-medium">{t('googleOAuthNotice')}</AlertDescription>
-	// 		</Alert>
-	// 	);
-	// }
+	if (user.isOAuthGoogleProvider) {
+		return (
+			<Alert className="rounded-2xl border-amber-500/30 bg-amber-500/10 p-5 text-amber-500">
+				<ShieldAlert className="h-5 w-5" />
+				<AlertDescription className="text-sm leading-relaxed font-medium">{t('googleOAuthNotice')}</AlertDescription>
+			</Alert>
+		);
+	}
 
 	async function onSubmit(values: ChangePasswordFormValues) {
 		setIsSubmitting(true);
