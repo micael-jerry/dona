@@ -248,6 +248,17 @@
 		"map": "Back to Map",
 		"account": "My Account",
 		"leaderboard": "Leaderboard",
-		"users": "Users"
+		"users": "Users",
+		"settings": "Settings"
+	},
+	"Settings": {
+		"title": "Display Settings",
+		"description": "Customize the application language and visual theme.",
+		"languageSection": "Display Language",
+		"themeSection": "Visual Theme",
+		"themeLight": "Light",
+		"themeDark": "Dark",
+		"themeSystem": "System",
+		"savedSuccess": "Settings saved!"
 	}
 }

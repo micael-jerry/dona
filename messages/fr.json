@@ -248,6 +248,17 @@
 		"map": "Retour à la Carte",
 		"account": "Mon compte",
 		"leaderboard": "Classement",
-		"users": "Utilisateurs"
+		"users": "Utilisateurs",
+		"settings": "Paramètres"
+	},
+	"Settings": {
+		"title": "Paramètres d'affichage",
+		"description": "Personnalisez la langue et le thème visuel de l'application.",
+		"languageSection": "Langue d'affichage",
+		"themeSection": "Thème visuel",
+		"themeLight": "Clair",
+		"themeDark": "Sombre",
+		"themeSystem": "Système",
+		"savedSuccess": "Paramètres sauvegardés !"
 	}
 }
