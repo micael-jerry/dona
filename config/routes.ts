@@ -14,6 +14,7 @@
 export const PROTECTED_ROUTES: string[] = [
 	'/dashboard',
 	'/account',
+	'/map',
 	// Add new protected routes here, e.g.:
 	// '/leaderboard',
 	// '/admin',
