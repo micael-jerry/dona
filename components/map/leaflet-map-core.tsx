@@ -85,7 +85,7 @@ export function LeafletMapCore({ onMapReady, onMapClick, onBoundsChange }: Leafl
 			const map = L.map(containerRef.current, {
 				center: DEFAULT_CENTER,
 				zoom: DEFAULT_ZOOM,
-				zoomControl: true,
+				zoomControl: false,
 				attributionControl: true,
 				layers: [streetLayer],
 			});

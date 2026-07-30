@@ -4,7 +4,7 @@ import type { Map as LeafletMap } from 'leaflet';
 import { useMapContext } from './map-provider';
 import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
 import type { EventCategory } from '@/types/map';
-import { Search, Navigation, Plus, MapPin, X } from 'lucide-react';
+import { Search, Navigation, Plus, Minus, MapPin, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -37,6 +37,14 @@ export function MapControls({ map }: MapControlsProps) {
 		setNewLocation,
 	} = useMapContext();
 
+	const handleZoomIn = () => {
+		map?.zoomIn();
+	};
+
+	const handleZoomOut = () => {
+		map?.zoomOut();
+	};
+
 	const handleRecenterOnUser = () => {
 		if (!map) return;
 
@@ -59,9 +67,9 @@ export function MapControls({ map }: MapControlsProps) {
 	return (
 		<>
 			{/* ── Top Bar: Search & Category Filters ────────────────────────────────── */}
-			<div className="absolute top-4 right-16 left-4 z-20 flex flex-col gap-2.5 sm:max-w-xl">
+			<div className="pointer-events-none absolute top-4 right-16 left-4 z-[1001] flex flex-col gap-2.5 sm:max-w-md">
 				{/* Search input + Create button */}
-				<div className="flex items-center gap-2">
+				<div className="pointer-events-auto flex items-center gap-2">
 					<div className="relative flex-1">
 						<Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 						<Input
@@ -69,10 +77,11 @@ export function MapControls({ map }: MapControlsProps) {
 							placeholder="Rechercher un événement, lieu..."
 							value={filters.searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
-							className="h-10 border-border/50 bg-background/80 pr-8 pl-9 shadow-md backdrop-blur-md focus-visible:ring-sky-500"
+							className="h-10 border-border/50 bg-background/90 pr-8 pl-9 shadow-lg backdrop-blur-md focus-visible:ring-sky-500"
 						/>
 						{filters.searchQuery && (
 							<button
+								type="button"
 								onClick={() => setSearchQuery('')}
 								className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
 							>
@@ -85,7 +94,7 @@ export function MapControls({ map }: MapControlsProps) {
 						size="sm"
 						variant={isCreatingEvent ? 'destructive' : 'default'}
 						onClick={handleToggleCreateMode}
-						className="h-10 gap-1.5 rounded-xl px-3 font-semibold shadow-md transition-all"
+						className="h-10 shrink-0 gap-1.5 rounded-xl px-3 font-semibold shadow-md transition-all"
 					>
 						{isCreatingEvent ? (
 							<>
@@ -102,17 +111,18 @@ export function MapControls({ map }: MapControlsProps) {
 				</div>
 
 				{/* Category pills */}
-				<div className="flex scrollbar-none items-center gap-1.5 overflow-x-auto pb-1">
+				<div className="pointer-events-auto flex scrollbar-none items-center gap-1.5 overflow-x-auto pb-1.5">
 					{CATEGORY_ITEMS.map((item) => {
 						const isActive = filters.category === item.key;
 						return (
 							<button
 								key={item.key}
+								type="button"
 								onClick={() => setCategoryFilter(item.key)}
-								className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold backdrop-blur-md transition-all ${
+								className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold backdrop-blur-md transition-all ${
 									isActive
-										? 'border-primary bg-primary text-primary-foreground shadow-sm'
-										: 'border-border/60 bg-background/75 text-foreground hover:bg-background/90'
+										? 'scale-105 border-primary bg-primary text-primary-foreground shadow-md'
+										: 'border-border/70 bg-background/90 text-foreground hover:bg-background'
 								}`}
 							>
 								<span>{item.icon}</span>
@@ -123,13 +133,31 @@ export function MapControls({ map }: MapControlsProps) {
 				</div>
 			</div>
 
-			{/* ── Bottom Right: Action Controls (Recenter on User Position) ───────────── */}
-			<div className="absolute right-4 bottom-6 z-20 flex flex-col gap-2">
+			{/* ── Bottom Right: Action Controls (Zoom In, Zoom Out, Recenter) ────────── */}
+			<div className="pointer-events-auto absolute right-4 bottom-6 z-[1001] flex flex-col gap-1.5">
+				<Button
+					size="icon"
+					variant="outline"
+					onClick={handleZoomIn}
+					className="h-9 w-9 rounded-xl border-border/60 bg-background/90 shadow-lg backdrop-blur-md hover:bg-background"
+					title="Zoom avant"
+				>
+					<Plus className="h-4 w-4" />
+				</Button>
+				<Button
+					size="icon"
+					variant="outline"
+					onClick={handleZoomOut}
+					className="h-9 w-9 rounded-xl border-border/60 bg-background/90 shadow-lg backdrop-blur-md hover:bg-background"
+					title="Zoom arrière"
+				>
+					<Minus className="h-4 w-4" />
+				</Button>
 				<Button
 					size="icon"
 					variant="outline"
 					onClick={handleRecenterOnUser}
-					className="h-10 w-10 rounded-xl border-border/60 bg-background/85 shadow-lg backdrop-blur-md hover:bg-background hover:text-sky-500"
+					className="h-9 w-9 rounded-xl border-border/60 bg-background/90 shadow-lg backdrop-blur-md hover:bg-background hover:text-sky-500"
 					title="Centrer sur ma position GPS"
 				>
 					<Navigation className="h-4 w-4 text-sky-500" />
@@ -137,10 +165,10 @@ export function MapControls({ map }: MapControlsProps) {
 			</div>
 
 			{/* ── Bottom Left: Status counter & Creation Banner ─────────────────────── */}
-			<div className="absolute bottom-6 left-4 z-20 flex items-center gap-2">
+			<div className="pointer-events-auto absolute bottom-6 left-4 z-[1001] flex items-center gap-2">
 				<Badge
 					variant="outline"
-					className="border-border/60 bg-background/85 px-3 py-1.5 text-xs font-bold text-foreground shadow-lg backdrop-blur-md"
+					className="border-border/60 bg-background/90 px-3 py-1.5 text-xs font-bold text-foreground shadow-lg backdrop-blur-md"
 				>
 					<span className="mr-1.5 h-2 w-2 animate-pulse rounded-full bg-emerald-500"></span>
 					{filteredEvents.length} / {allEvents.length} événements
