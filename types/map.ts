@@ -11,6 +11,15 @@ export interface GeoLocation {
 	lng: number;
 }
 
+export interface UserLocationState {
+	coords: GeoLocation | null;
+	accuracy?: number;
+	heading?: number | null;
+	speed?: number | null;
+	isTracking: boolean;
+	error?: string | null;
+}
+
 export interface MapBounds {
 	northEast: GeoLocation;
 	southWest: GeoLocation;

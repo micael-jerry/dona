@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import type { Map as LeafletMap } from 'leaflet';
 import { useMapContext } from './map-provider';
 import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
@@ -28,36 +27,24 @@ export function MapControls({ map }: MapControlsProps) {
 		filteredEvents,
 		allEvents,
 		filters,
+		userLocation,
+		requestUserLocation,
 		setCategoryFilter,
 		setSearchQuery,
-		setUserLocation,
 		isCreatingEvent,
 		setIsCreatingEvent,
 		newLocation,
 		setNewLocation,
 	} = useMapContext();
 
-	const [isLocating, setIsLocating] = useState(false);
+	const handleRecenterOnUser = () => {
+		if (!map) return;
 
-	const handleLocateMe = () => {
-		if (!navigator.geolocation || !map) return;
-		setIsLocating(true);
-
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				const coords = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				};
-				setUserLocation(coords);
-				map.flyTo([coords.lat, coords.lng], 14, { duration: 1.5 });
-				setIsLocating(false);
-			},
-			() => {
-				setIsLocating(false);
-			},
-			{ timeout: 10000 },
-		);
+		if (userLocation) {
+			map.flyTo([userLocation.lat, userLocation.lng], 15, { duration: 1.5 });
+		} else {
+			requestUserLocation();
+		}
 	};
 
 	const handleToggleCreateMode = () => {
@@ -136,17 +123,16 @@ export function MapControls({ map }: MapControlsProps) {
 				</div>
 			</div>
 
-			{/* ── Bottom Right: Action Controls (Locate Me) ────────────────────────── */}
+			{/* ── Bottom Right: Action Controls (Recenter on User Position) ───────────── */}
 			<div className="absolute right-4 bottom-6 z-20 flex flex-col gap-2">
 				<Button
 					size="icon"
 					variant="outline"
-					onClick={handleLocateMe}
-					disabled={isLocating}
-					className="h-10 w-10 rounded-xl border-border/60 bg-background/85 shadow-lg backdrop-blur-md hover:bg-background"
-					title="Ma position"
+					onClick={handleRecenterOnUser}
+					className="h-10 w-10 rounded-xl border-border/60 bg-background/85 shadow-lg backdrop-blur-md hover:bg-background hover:text-sky-500"
+					title="Centrer sur ma position GPS"
 				>
-					<Navigation className={`h-4 w-4 text-sky-500 ${isLocating ? 'animate-spin' : ''}`} />
+					<Navigation className="h-4 w-4 text-sky-500" />
 				</Button>
 			</div>
 

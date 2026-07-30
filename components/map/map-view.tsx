@@ -7,6 +7,7 @@ import { Loader2 } from 'lucide-react';
 import { MapProvider, useMapContext } from './map-provider';
 import { MapControls } from './map-controls';
 import { MapEventsLayer } from './map-events-layer';
+import { MapUserLocationLayer } from './map-user-location-layer';
 import { EventDetailSheet } from './event-detail-sheet';
 import type { GeoLocation } from '@/types/map';
 
@@ -48,6 +49,7 @@ function MapViewContent() {
 			{/* ── Overlay Layers & Controls (once canvas is ready) ───────────── */}
 			{mapInstance && (
 				<>
+					<MapUserLocationLayer map={mapInstance} />
 					<MapEventsLayer map={mapInstance} />
 					<MapControls map={mapInstance} />
 					<EventDetailSheet />

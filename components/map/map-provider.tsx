@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
 import type { DonaEvent, EventCategory, MapFilterState, GeoLocation } from '@/types/map';
 import { MOCK_DONA_EVENTS } from '@/lib/mock-events';
+import { useUserLocation } from '@/hooks/use-user-location';
 
 interface MapContextValue {
 	// State
@@ -12,6 +13,9 @@ interface MapContextValue {
 	hoveredEventId: string | null;
 	filters: MapFilterState;
 	userLocation: GeoLocation | null;
+	userAccuracy?: number;
+	isTrackingUser: boolean;
+	locationError: string | null;
 	isCreatingEvent: boolean;
 	newLocation: GeoLocation | null;
 
@@ -20,9 +24,9 @@ interface MapContextValue {
 	setHoveredEventId: (id: string | null) => void;
 	setCategoryFilter: (category: EventCategory | 'all') => void;
 	setSearchQuery: (query: string) => void;
-	setUserLocation: (location: GeoLocation | null) => void;
 	setIsCreatingEvent: (active: boolean) => void;
 	setNewLocation: (location: GeoLocation | null) => void;
+	requestUserLocation: () => void;
 	resetFilters: () => void;
 }
 
@@ -32,9 +36,19 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 	const [allEvents] = useState<DonaEvent[]>(MOCK_DONA_EVENTS);
 	const [selectedEvent, setSelectedEvent] = useState<DonaEvent | null>(null);
 	const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
-	const [userLocation, setUserLocation] = useState<GeoLocation | null>(null);
 	const [isCreatingEvent, setIsCreatingEvent] = useState<boolean>(false);
 	const [newLocation, setNewLocation] = useState<GeoLocation | null>(null);
+
+	// Real-time geolocation tracking hook
+	const {
+		coords: userLocation,
+		accuracy: userAccuracy,
+		isTracking: isTrackingUser,
+		error: rawLocationError,
+		requestLocation: requestUserLocation,
+	} = useUserLocation();
+
+	const locationError = rawLocationError ?? null;
 
 	const [filters, setFilters] = useState<MapFilterState>({
 		category: 'all',
@@ -76,6 +90,9 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			hoveredEventId,
 			filters,
 			userLocation,
+			userAccuracy,
+			isTrackingUser,
+			locationError,
 			isCreatingEvent,
 			newLocation,
 
@@ -83,9 +100,9 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			setHoveredEventId,
 			setCategoryFilter,
 			setSearchQuery,
-			setUserLocation,
 			setIsCreatingEvent,
 			setNewLocation,
+			requestUserLocation,
 			resetFilters,
 		}),
 		[
@@ -95,10 +112,14 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			hoveredEventId,
 			filters,
 			userLocation,
+			userAccuracy,
+			isTrackingUser,
+			locationError,
 			isCreatingEvent,
 			newLocation,
 			setCategoryFilter,
 			setSearchQuery,
+			requestUserLocation,
 			resetFilters,
 		],
 	);
