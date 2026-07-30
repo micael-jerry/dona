@@ -1,9 +1,14 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import type { Map as LeafletMap } from 'leaflet';
 import { Loader2 } from 'lucide-react';
+import { MapProvider, useMapContext } from './map-provider';
+import { MapControls } from './map-controls';
+import { MapEventsLayer } from './map-events-layer';
+import { EventDetailSheet } from './event-detail-sheet';
+import type { GeoLocation } from '@/types/map';
 
 // ─── Dynamic import: Leaflet must never run on the server ─────────────────────
 const LeafletMapCore = dynamic(() => import('./leaflet-map-core').then((m) => m.LeafletMapCore), {
@@ -16,38 +21,50 @@ const LeafletMapCore = dynamic(() => import('./leaflet-map-core').then((m) => m.
 });
 
 /**
- * MapView
- *
- * Full-viewport, theme-aware map page component.
- *
- * Responsibility: orchestrate the map canvas and any overlays / controls
- * that belong to the map page (HUD, search bar, layer toggles, etc.).
- * Map-specific business logic (markers, GeoJSON sources, event handlers)
- * should be added here — accessing the Leaflet instance via `mapRef.current`.
- *
- * Keep this file as the single composition root for the map page.
+ * Inner Map composition component accessing MapContext
  */
-export function MapView() {
-	const mapRef = useRef<LeafletMap | null>(null);
-	const [isReady, setIsReady] = useState(false);
+function MapViewContent() {
+	const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
+	const { isCreatingEvent, setNewLocation } = useMapContext();
 
 	const handleMapReady = useCallback((map: LeafletMap) => {
-		mapRef.current = map;
-		setIsReady(true);
+		setMapInstance(map);
 	}, []);
+
+	const handleMapClick = useCallback(
+		(coords: GeoLocation) => {
+			if (isCreatingEvent) {
+				setNewLocation(coords);
+			}
+		},
+		[isCreatingEvent, setNewLocation],
+	);
 
 	return (
 		<div className="absolute inset-0">
-			{/* ── Map canvas ─────────────────────────────────────────────────── */}
-			<LeafletMapCore onMapReady={handleMapReady} />
+			{/* ── Core Leaflet Canvas ────────────────────────────────────────── */}
+			<LeafletMapCore onMapReady={handleMapReady} onMapClick={handleMapClick} />
 
-			{/* ── HUD overlay (rendered once map is ready) ───────────────────── */}
-			{isReady && (
+			{/* ── Overlay Layers & Controls (once canvas is ready) ───────────── */}
+			{mapInstance && (
 				<>
-					{/* Attribution override is handled by Leaflet itself. */}
-					{/* Add future overlays here: search bar, layer toggles, etc. */}
+					<MapEventsLayer map={mapInstance} />
+					<MapControls map={mapInstance} />
+					<EventDetailSheet />
 				</>
 			)}
 		</div>
+	);
+}
+
+/**
+ * MapView — Composition Root for the Map page.
+ * Encloses the map ecosystem within MapProvider for clean dependency inversion and state sharing.
+ */
+export function MapView() {
+	return (
+		<MapProvider>
+			<MapViewContent />
+		</MapProvider>
 	);
 }

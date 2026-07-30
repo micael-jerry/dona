@@ -1,50 +1,67 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
-import type { Map as LeafletMap, TileLayer as LeafletTileLayer } from 'leaflet';
+import { useEffect, useRef } from 'react';
+import type { Map as LeafletMap, LeafletMouseEvent } from 'leaflet';
+import type { GeoLocation, MapBounds } from '@/types/map';
 
-// ─── Tile layer (always light — map has no dark mode) ────────────────────────
-const TILE_LAYER = {
-	url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-};
+// ─── Base Tile Layers Config ──────────────────────────────────────────────────
+const TILE_LAYERS = {
+	street: {
+		url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+		maxZoom: 19,
+	},
+	satellite: {
+		url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+		attribution:
+			'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+		maxZoom: 18,
+	},
+} as const;
 
-// ─── Default center: Paris ────────────────────────────────────────────────────
 const DEFAULT_CENTER: [number, number] = [48.8566, 2.3522];
 const DEFAULT_ZOOM = 13;
 
-interface LeafletMapCoreProps {
-	/** Called with the Leaflet Map instance once it is ready. Use this to add markers, layers, etc. */
+export interface LeafletMapCoreProps {
+	/** Callback when Leaflet map instance is created and ready */
 	onMapReady?: (map: LeafletMap) => void;
+	/** Callback when the user clicks on an empty space on the map */
+	onMapClick?: (coords: GeoLocation) => void;
+	/** Callback when map view bounds change (pan/zoom) */
+	onBoundsChange?: (bounds: MapBounds) => void;
 }
 
 /**
  * LeafletMapCore
  *
- * Leaflet map rendered into a div via imperative API.
- * Loaded exclusively on the client side (see map-view.tsx for the dynamic wrapper).
- * Always uses the light (OpenStreetMap) tile layer regardless of the app theme.
- *
- * Design decisions:
- *  - Pure imperative Leaflet (no react-leaflet JSX) for full lifecycle control.
- *  - `onMapReady` callback exposes the raw `L.Map` so callers can attach any Leaflet
- *    primitive (markers, GeoJSON layers, WMS layers, custom controls, etc.).
+ * Core imperative Leaflet map container component.
+ * Responsible ONLY for initializing the canvas, setting tile layers, handling window/container
+ * resize, and dispatching raw map events (click, moveend).
  */
-export function LeafletMapCore({ onMapReady }: LeafletMapCoreProps) {
+export function LeafletMapCore({ onMapReady, onMapClick, onBoundsChange }: LeafletMapCoreProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const mapRef = useRef<LeafletMap | null>(null);
-	const tileRef = useRef<LeafletTileLayer | null>(null);
 
-	// ── initialise once ────────────────────────────────────────────────────────
+	// Keep event handlers refs up to date without triggering re-initialization
+	const onMapClickRef = useRef(onMapClick);
+	const onBoundsChangeRef = useRef(onBoundsChange);
+
+	useEffect(() => {
+		onMapClickRef.current = onMapClick;
+	}, [onMapClick]);
+
+	useEffect(() => {
+		onBoundsChangeRef.current = onBoundsChange;
+	}, [onBoundsChange]);
+
+	// ── Initialise Leaflet Map ─────────────────────────────────────────────────
 	useEffect(() => {
 		if (mapRef.current || !containerRef.current) return;
 
-		// Dynamic import keeps Leaflet 100 % client-side.
 		import('leaflet').then((L) => {
 			if (!containerRef.current || mapRef.current) return;
 
-			// Fix Leaflet's broken default icon paths when bundled by Next.js / webpack.
-			// Must be done before any icon is used.
+			// Fix Leaflet's default icon assets
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			delete (L.Icon.Default.prototype as any)._getIconUrl;
 			L.Icon.Default.mergeOptions({
@@ -53,41 +70,72 @@ export function LeafletMapCore({ onMapReady }: LeafletMapCoreProps) {
 				shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 			});
 
+			// Build base tile layers
+			const streetLayer = L.tileLayer(TILE_LAYERS.street.url, {
+				attribution: TILE_LAYERS.street.attribution,
+				maxZoom: TILE_LAYERS.street.maxZoom,
+			});
+
+			const satelliteLayer = L.tileLayer(TILE_LAYERS.satellite.url, {
+				attribution: TILE_LAYERS.satellite.attribution,
+				maxZoom: TILE_LAYERS.satellite.maxZoom,
+			});
+
+			// Initialize map
 			const map = L.map(containerRef.current, {
 				center: DEFAULT_CENTER,
 				zoom: DEFAULT_ZOOM,
 				zoomControl: true,
 				attributionControl: true,
+				layers: [streetLayer],
 			});
 
-			const tile = L.tileLayer(TILE_LAYER.url, {
-				attribution: TILE_LAYER.attribution,
-				maxZoom: 19,
+			// Layer selector control (top-right)
+			L.control
+				.layers(
+					{
+						'🗺️ Street': streetLayer,
+						'🛰️ Satellite': satelliteLayer,
+					},
+					{},
+					{ position: 'topright', collapsed: false },
+				)
+				.addTo(map);
+
+			// Attach map click listener
+			map.on('click', (e: LeafletMouseEvent) => {
+				if (onMapClickRef.current) {
+					onMapClickRef.current({ lat: e.latlng.lat, lng: e.latlng.lng });
+				}
 			});
-			tile.addTo(map);
+
+			// Attach moveend listener (bounds change)
+			map.on('moveend', () => {
+				if (onBoundsChangeRef.current) {
+					const b = map.getBounds();
+					onBoundsChangeRef.current({
+						northEast: { lat: b.getNorthEast().lat, lng: b.getNorthEast().lng },
+						southWest: { lat: b.getSouthWest().lat, lng: b.getSouthWest().lng },
+					});
+				}
+			});
 
 			mapRef.current = map;
-			tileRef.current = tile;
-
 			onMapReady?.(map);
 		});
 
 		return () => {
 			mapRef.current?.remove();
 			mapRef.current = null;
-			tileRef.current = null;
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	// ── invalidate map size on container resize (sidebar toggle, window resize…) ─
+	// ── ResizeObserver for smooth responsive recalculations ───────────────────
 	useEffect(() => {
 		const el = containerRef.current;
 		if (!el) return;
 
-		// ResizeObserver fires every time the container's bounding box changes,
-		// including during the 200 ms sidebar CSS transition.
-		// We call invalidateSize() so Leaflet recalculates its canvas dimensions.
 		const ro = new ResizeObserver(() => {
 			mapRef.current?.invalidateSize({ animate: false });
 		});
@@ -97,24 +145,4 @@ export function LeafletMapCore({ onMapReady }: LeafletMapCoreProps) {
 	}, []);
 
 	return <div ref={containerRef} className="h-full w-full" />;
-}
-
-/**
- * useLeafletMap
- *
- * Hook used by child components (markers, layers) to access the map instance
- * once it is mounted. Pass the callback you receive from onMapReady.
- *
- * Usage:
- *   const { mapRef, handleMapReady } = useLeafletMap();
- *   <LeafletMapCore onMapReady={handleMapReady} />
- */
-export function useLeafletMap() {
-	const mapRef = useRef<LeafletMap | null>(null);
-
-	const handleMapReady = useCallback((map: LeafletMap) => {
-		mapRef.current = map;
-	}, []);
-
-	return { mapRef, handleMapReady };
 }

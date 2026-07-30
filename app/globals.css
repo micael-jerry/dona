@@ -194,6 +194,12 @@
 .leaflet-control-zoom a {
   @apply bg-background/90! text-foreground! border-border/40! hover:bg-muted!;
 }
+.leaflet-control-layers {
+  @apply bg-background/90! text-foreground! border-border/40! rounded-xl! shadow-lg! backdrop-blur-md! p-2! border! font-sans! text-xs!;
+}
+.leaflet-control-layers-base label {
+  @apply flex! items-center! gap-2! cursor-pointer! py-1! px-2! rounded-lg! hover:bg-muted/80! transition-colors!;
+}
 .dark .leaflet-tile {
   filter: brightness(0.9) contrast(1.05) saturate(0.85);
 }
