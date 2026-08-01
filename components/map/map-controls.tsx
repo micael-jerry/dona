@@ -15,11 +15,11 @@ interface MapControlsProps {
 
 const CATEGORY_ITEMS: { key: EventCategory | 'all'; label: string; icon: string }[] = [
 	{ key: 'all', label: 'Tous', icon: '🌟' },
-	{ key: 'food_drive', label: 'Alimentaire', icon: CATEGORY_COLORS.food_drive.icon },
-	{ key: 'community', label: 'Communauté', icon: CATEGORY_COLORS.community.icon },
-	{ key: 'environment', label: 'Écologie', icon: CATEGORY_COLORS.environment.icon },
-	{ key: 'education', label: 'Éducation', icon: CATEGORY_COLORS.education.icon },
-	{ key: 'charity', label: 'Caritatif', icon: CATEGORY_COLORS.charity.icon },
+	{ key: 'accident', label: 'Accident', icon: CATEGORY_COLORS.accident.icon },
+	{ key: 'traffic_jam', label: 'Embouteillage', icon: CATEGORY_COLORS.traffic_jam.icon },
+	{ key: 'police', label: 'Police', icon: CATEGORY_COLORS.police.icon },
+	{ key: 'hazard', label: 'Danger', icon: CATEGORY_COLORS.hazard.icon },
+	{ key: 'closure', label: 'Fermeture', icon: CATEGORY_COLORS.closure.icon },
 ];
 
 export function MapControls({ map }: MapControlsProps) {
@@ -74,7 +74,7 @@ export function MapControls({ map }: MapControlsProps) {
 						<Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 						<Input
 							type="text"
-							placeholder="Rechercher un événement, lieu..."
+							placeholder="Rechercher accident, trafic, rue..."
 							value={filters.searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
 							className="h-10 border-border/50 bg-background/90 pr-8 pl-9 shadow-lg backdrop-blur-md focus-visible:ring-sky-500"
@@ -104,7 +104,7 @@ export function MapControls({ map }: MapControlsProps) {
 						) : (
 							<>
 								<Plus className="h-4 w-4" />
-								<span className="hidden sm:inline">Créer</span>
+								<span className="hidden sm:inline">Signaler</span>
 							</>
 						)}
 					</Button>
@@ -171,7 +171,7 @@ export function MapControls({ map }: MapControlsProps) {
 					className="border-border/60 bg-background/90 px-3 py-1.5 text-xs font-bold text-foreground shadow-lg backdrop-blur-md"
 				>
 					<span className="mr-1.5 h-2 w-2 animate-pulse rounded-full bg-emerald-500"></span>
-					{filteredEvents.length} / {allEvents.length} événements
+					{filteredEvents.length} / {allEvents.length} signalements routiers
 				</Badge>
 
 				{isCreatingEvent && (
@@ -181,8 +181,8 @@ export function MapControls({ map }: MapControlsProps) {
 					>
 						<MapPin className="mr-1.5 h-3.5 w-3.5" />
 						{newLocation
-							? `Position choisie (${newLocation.lat.toFixed(4)}, ${newLocation.lng.toFixed(4)})`
-							: 'Cliquez sur la carte pour choisir le lieu'}
+							? `Lieu du signalement fixé (${newLocation.lat.toFixed(4)}, ${newLocation.lng.toFixed(4)})`
+							: 'Cliquez sur la carte pour placer le signalement'}
 					</Badge>
 				)}
 			</div>

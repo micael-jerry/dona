@@ -26,7 +26,7 @@ const LeafletMapCore = dynamic(() => import('./leaflet-map-core').then((m) => m.
  */
 function MapViewContent() {
 	const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
-	const { isCreatingEvent, setNewLocation } = useMapContext();
+	const { isCreatingEvent, setNewLocation, userLocation } = useMapContext();
 
 	const handleMapReady = useCallback((map: LeafletMap) => {
 		setMapInstance(map);
@@ -44,12 +44,16 @@ function MapViewContent() {
 	return (
 		<div className="absolute inset-0">
 			{/* ── Core Leaflet Canvas ────────────────────────────────────────── */}
-			<LeafletMapCore onMapReady={handleMapReady} onMapClick={handleMapClick} />
+			<LeafletMapCore
+				initialCenter={userLocation ?? undefined}
+				onMapReady={handleMapReady}
+				onMapClick={handleMapClick}
+			/>
 
 			{/* ── Overlay Layers & Controls (once canvas is ready) ───────────── */}
 			{mapInstance && (
 				<>
-					<MapUserLocationLayer map={mapInstance} />
+					<MapUserLocationLayer map={mapInstance} showMarker={false} />
 					<MapEventsLayer map={mapInstance} />
 					<MapControls map={mapInstance} />
 					<EventDetailSheet />

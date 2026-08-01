@@ -1,9 +1,8 @@
 /**
- * ─── Map & Event Domain Types ────────────────────────────────────────────────
+ * ─── Dona Road Incident & Map Domain Types ────────────────────────────────────
  *
- * Strongly typed definitions for map coordinates, events, filters, and interaction states.
- * Designed following SOLID principles for easy extensibility when adding new layer
- * types, filters, or backend integrations.
+ * Strongly typed definitions for road events (Waze-style signaling),
+ * community veracity ratings, categories, and map interaction states.
  */
 
 export interface GeoLocation {
@@ -17,6 +16,7 @@ export interface UserLocationState {
 	heading?: number | null;
 	speed?: number | null;
 	isTracking: boolean;
+	isCustomPosition?: boolean;
 	error?: string | null;
 }
 
@@ -25,9 +25,14 @@ export interface MapBounds {
 	southWest: GeoLocation;
 }
 
-export type EventCategory = 'charity' | 'community' | 'food_drive' | 'environment' | 'education';
+/**
+ * Predefined Road Incident Categories (Waze-style)
+ */
+export type EventCategory = 'accident' | 'traffic_jam' | 'police' | 'hazard' | 'closure' | 'other';
 
-export type EventStatus = 'upcoming' | 'ongoing' | 'completed';
+export type EventSeverity = 'minor' | 'moderate' | 'major';
+
+export type EventStatus = 'active' | 'resolving' | 'expired';
 
 export interface DonaEvent {
 	id: string;
@@ -36,15 +41,18 @@ export interface DonaEvent {
 	location: GeoLocation;
 	addressName: string;
 	category: EventCategory;
+	severity: EventSeverity;
 	status: EventStatus;
-	date: string;
-	time: string;
-	organizer: {
+	veracityScore: number; // 0 to 100%
+	confirmationsCount: number; // "Still there" votes
+	resolutionsCount: number; // "Resolved" votes
+	isOfficialValidated?: boolean; // Validated by Traffic Police / Ministry
+	createdAt: string;
+	reportedBy: {
 		name: string;
 		avatarUrl?: string;
+		reputationScore?: number;
 	};
-	attendeesCount: number;
-	maxAttendees?: number;
 	imageUrl?: string;
 }
 

@@ -1,46 +1,53 @@
 import type { EventCategory } from '@/types/map';
 
 /**
- * Category color definitions for map markers.
+ * Road Incident Category Visual Config (Waze-style signaling)
  */
 export const CATEGORY_COLORS: Record<
 	EventCategory,
 	{ bg: string; border: string; text: string; label: string; icon: string }
 > = {
-	food_drive: {
+	accident: {
+		bg: '#ef4444', // red-500
+		border: '#b91c1c',
+		text: '#ffffff',
+		label: 'Accident',
+		icon: '🚗',
+	},
+	traffic_jam: {
 		bg: '#f97316', // orange-500
-		border: '#ea580c',
+		border: '#c2410c',
 		text: '#ffffff',
-		label: 'Banque Alimentaire',
-		icon: '🍲',
+		label: 'Embouteillage',
+		icon: '🚦',
 	},
-	community: {
-		bg: '#0284c7', // sky-600
-		border: '#0369a1',
+	police: {
+		bg: '#3b82f6', // blue-500
+		border: '#1d4ed8',
 		text: '#ffffff',
-		label: 'Communauté',
-		icon: '🤝',
+		label: 'Police / Radar',
+		icon: '👮',
 	},
-	environment: {
-		bg: '#10b981', // emerald-500
-		border: '#059669',
+	hazard: {
+		bg: '#f59e0b', // amber-500
+		border: '#b45309',
 		text: '#ffffff',
-		label: 'Écologie',
-		icon: '🌱',
+		label: 'Danger / Obstacle',
+		icon: '⚠️',
 	},
-	education: {
-		bg: '#8b5cf6', // violet-500
-		border: '#7c3aed',
+	closure: {
+		bg: '#dc2626', // red-600
+		border: '#991b1b',
 		text: '#ffffff',
-		label: 'Éducation',
-		icon: '📚',
+		label: 'Fermeture / Travaux',
+		icon: '🚧',
 	},
-	charity: {
-		bg: '#f43f5e', // rose-500
-		border: '#e11d48',
+	other: {
+		bg: '#6b7280', // gray-500
+		border: '#374151',
 		text: '#ffffff',
-		label: 'Caritatif & Dons',
-		icon: '❤️',
+		label: 'Autre Signalement',
+		icon: '❓',
 	},
 };
 
@@ -48,9 +55,9 @@ export const CATEGORY_COLORS: Record<
  * Generates custom HTML string for Leaflet L.divIcon marker elements.
  */
 export function createMarkerHtml(category: EventCategory, isSelected: boolean, isHovered: boolean): string {
-	const config = CATEGORY_COLORS[category] || CATEGORY_COLORS.community;
+	const config = CATEGORY_COLORS[category] || CATEGORY_COLORS.other;
 	const scale = isSelected ? 'scale-125 z-50' : isHovered ? 'scale-110 z-40' : 'scale-100';
-	const ring = isSelected ? 'ring-4 ring-white ring-offset-2 shadow-2xl' : 'shadow-lg hover:shadow-xl';
+	const ring = isSelected ? 'ring-4 ring-white ring-offset-2 shadow-2xl animate-pulse' : 'shadow-lg hover:shadow-xl';
 
 	return `
     <div class="relative flex items-center justify-center transition-all duration-200 ease-out transform ${scale}">

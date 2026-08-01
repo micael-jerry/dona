@@ -17,12 +17,20 @@ const TILE_LAYERS = {
 			'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
 		maxZoom: 18,
 	},
+	labels: {
+		// Esri World Boundaries and Places overlay for street & place name labels over satellite imagery
+		url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+		maxZoom: 18,
+	},
 } as const;
 
-const DEFAULT_CENTER: [number, number] = [48.8566, 2.3522];
+// Default center: Antananarivo, Madagascar (fallback when user location is unavailable)
+const DEFAULT_CENTER: [number, number] = [-18.8792, 47.5079];
 const DEFAULT_ZOOM = 13;
 
 export interface LeafletMapCoreProps {
+	/** Initial coordinates to center the map on mount */
+	initialCenter?: GeoLocation;
 	/** Callback when Leaflet map instance is created and ready */
 	onMapReady?: (map: LeafletMap) => void;
 	/** Callback when the user clicks on an empty space on the map */
@@ -35,10 +43,9 @@ export interface LeafletMapCoreProps {
  * LeafletMapCore
  *
  * Core imperative Leaflet map container component.
- * Responsible ONLY for initializing the canvas, setting tile layers, handling window/container
- * resize, and dispatching raw map events (click, moveend).
+ * Configured with street view and hybrid satellite view (satellite imagery + transparent place/street name labels overlay).
  */
-export function LeafletMapCore({ onMapReady, onMapClick, onBoundsChange }: LeafletMapCoreProps) {
+export function LeafletMapCore({ initialCenter, onMapReady, onMapClick, onBoundsChange }: LeafletMapCoreProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const mapRef = useRef<LeafletMap | null>(null);
 
@@ -70,21 +77,33 @@ export function LeafletMapCore({ onMapReady, onMapClick, onBoundsChange }: Leafl
 				shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 			});
 
-			// Build base tile layers
+			// 1. Standard Street Layer (OpenStreetMap)
 			const streetLayer = L.tileLayer(TILE_LAYERS.street.url, {
 				attribution: TILE_LAYERS.street.attribution,
 				maxZoom: TILE_LAYERS.street.maxZoom,
 			});
 
-			const satelliteLayer = L.tileLayer(TILE_LAYERS.satellite.url, {
+			// 2. Hybrid Satellite Layer (Esri Satellite + World Boundaries/Places Labels Overlay)
+			const satelliteBase = L.tileLayer(TILE_LAYERS.satellite.url, {
 				attribution: TILE_LAYERS.satellite.attribution,
 				maxZoom: TILE_LAYERS.satellite.maxZoom,
 			});
 
-			// Initialize map
+			const labelsOverlay = L.tileLayer(TILE_LAYERS.labels.url, {
+				maxZoom: TILE_LAYERS.labels.maxZoom,
+				pane: 'shadowPane', // Renders transparent street & place labels overlay
+			});
+
+			const hybridSatelliteLayer = L.layerGroup([satelliteBase, labelsOverlay]);
+
+			// Determine center coordinates and zoom
+			const centerCoords: [number, number] = initialCenter ? [initialCenter.lat, initialCenter.lng] : DEFAULT_CENTER;
+			const initialZoom = initialCenter ? 15 : DEFAULT_ZOOM;
+
+			// Initialize map with street as default base layer
 			const map = L.map(containerRef.current, {
-				center: DEFAULT_CENTER,
-				zoom: DEFAULT_ZOOM,
+				center: centerCoords,
+				zoom: initialZoom,
 				zoomControl: false,
 				attributionControl: true,
 				layers: [streetLayer],
@@ -95,7 +114,7 @@ export function LeafletMapCore({ onMapReady, onMapClick, onBoundsChange }: Leafl
 				.layers(
 					{
 						'🗺️ Street': streetLayer,
-						'🛰️ Satellite': satelliteLayer,
+						'🛰️ Satellite': hybridSatelliteLayer,
 					},
 					{},
 					{ position: 'topright', collapsed: false },
