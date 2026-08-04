@@ -46,6 +46,7 @@ export default async function RootLayout({
 	return (
 		<html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">
 			<body
+				suppressHydrationWarning
 				className={`${geistSans.variable} ${geistMono.variable} bg-grid-pattern bg-background text-foreground antialiased selection:bg-primary/20`}
 			>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
