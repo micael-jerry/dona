@@ -8,7 +8,7 @@ import { setAuthCookieAction } from '@/app/actions/auth';
 import { whoami as apiWhoami } from '@/lib/api';
 import { Loader2, ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link, useRouter } from '@/i18n/routing';
+import { Link } from '@/i18n/routing';
 
 export default function GoogleSuccessPage({
 	searchParams,
@@ -17,7 +17,6 @@ export default function GoogleSuccessPage({
 }) {
 	const tAuth = useTranslations('Auth');
 	const tLogin = useTranslations('LoginPage');
-	const router = useRouter();
 	const resolvedSearchParams = use(searchParams);
 
 	const [status, setStatus] = useState<'verifying' | 'error'>('verifying');
@@ -27,17 +26,32 @@ export default function GoogleSuccessPage({
 		let isMounted = true;
 
 		async function handleOAuthSuccess() {
-			let token = typeof resolvedSearchParams.token === 'string' ? resolvedSearchParams.token : undefined;
+			// ── 1. Extract token from all possible sources ─────────────────────
+			let token: string | undefined;
 
-			if (!token) {
-				const rawKeys = Object.keys(resolvedSearchParams);
-				const tokenKey = rawKeys.find((key) => key.startsWith('token=') || key.startsWith('token%3D'));
-				if (tokenKey) {
-					const parts = tokenKey.split(/=|%3D/i);
-					token = parts[1];
-				}
+			// 1a. Next.js searchParams (query string parsed server-side)
+			if (typeof resolvedSearchParams.token === 'string') {
+				token = resolvedSearchParams.token;
 			}
 
+			// 1b. Client-side window.location.search (fallback for SSR mismatches)
+			if (!token && typeof window !== 'undefined') {
+				const urlParams = new URLSearchParams(window.location.search);
+				token = urlParams.get('token') ?? undefined;
+			}
+
+			// 1c. URL hash fragment (e.g. #token=eyJ... or #access_token=eyJ...)
+			if (!token && typeof window !== 'undefined' && window.location.hash) {
+				const hashParams = new URLSearchParams(window.location.hash.substring(1));
+				token =
+					hashParams.get('token') ??
+					hashParams.get('access_token') ??
+					hashParams.get('accessToken') ??
+					hashParams.get('jwt') ??
+					undefined;
+			}
+
+			// ── 2. No token found anywhere ────────────────────────────────────
 			if (!token) {
 				if (isMounted) {
 					setStatus('error');
@@ -47,17 +61,18 @@ export default function GoogleSuccessPage({
 			}
 
 			try {
-				// 1. Set token in client memory and document.cookie synchronously
+				// ── 3. Persist token in client cookie BEFORE calling whoami ───
+				//       This makes the Axios interceptor send the Authorization header
 				setAuthToken(token);
 
-				// 2. Verify token against whoami endpoint
+				// ── 4. Verify token against whoami endpoint ────────────────────
 				const res = await apiWhoami();
 
 				if (res.data && 'id' in res.data && !res.error) {
-					// 3. Store cookie permanently in Next.js Server Action
+					// ── 5. Also persist in Next.js server cookie store ─────────
 					await setAuthCookieAction(token).catch(() => {});
 
-					// 4. Update Zustand store state
+					// ── 6. Update Zustand store ────────────────────────────────
 					useAuthStore.setState({
 						token,
 						user: res.data,
@@ -65,9 +80,13 @@ export default function GoogleSuccessPage({
 						isLoading: false,
 					});
 
-					// 5. Navigate directly to dashboard via router
+					// ── 7. Hard-navigate so middleware re-reads fresh cookies ──
+					//       router.replace() is a SPA nav that races with the
+					//       server cookie being available in the next request.
+					//       window.location.href forces a full page reload with
+					//       the cookie already set in document.cookie.
 					if (isMounted) {
-						router.replace('/dashboard');
+						window.location.href = '/dashboard';
 					}
 				} else {
 					if (isMounted) {
@@ -76,7 +95,7 @@ export default function GoogleSuccessPage({
 					}
 				}
 			} catch (err: unknown) {
-				console.error(err);
+				console.error('[GoogleSuccess] OAuth error:', err);
 				if (isMounted) {
 					setStatus('error');
 					setErrorMessage(tAuth('genericError'));
@@ -89,7 +108,6 @@ export default function GoogleSuccessPage({
 		return () => {
 			isMounted = false;
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [resolvedSearchParams, tAuth]);
 
 	if (status === 'verifying') {
