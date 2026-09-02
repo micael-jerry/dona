@@ -32,16 +32,12 @@ export default function GoogleSuccessPage({
 			// 1a. Next.js searchParams (query string parsed server-side)
 			if (typeof resolvedSearchParams.token === 'string') {
 				token = resolvedSearchParams.token;
-			} else if (typeof resolvedSearchParams.accessToken === 'string') {
-				token = resolvedSearchParams.accessToken;
-			} else if (typeof resolvedSearchParams.jwt === 'string') {
-				token = resolvedSearchParams.jwt;
 			}
 
 			// 1b. Client-side window.location.search (fallback for SSR mismatches)
 			if (!token && typeof window !== 'undefined') {
 				const urlParams = new URLSearchParams(window.location.search);
-				token = urlParams.get('token') ?? urlParams.get('accessToken') ?? urlParams.get('jwt') ?? undefined;
+				token = urlParams.get('token') ?? undefined;
 			}
 
 			// 1c. URL hash fragment (e.g. #token=eyJ... or #access_token=eyJ...)
