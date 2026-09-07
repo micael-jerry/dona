@@ -1,12 +1,12 @@
 'use client';
 
-import { useMapContext } from './map-provider';
-import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Clock, MapPin, CheckCircle2, XCircle, ShieldCheck, Share2, AlertTriangle } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
+import { AlertTriangle, CheckCircle2, Clock, MapPin, Share2, ShieldCheck, XCircle } from 'lucide-react';
+import { useMapContext } from './map-provider';
 
 export function EventDetailSheet() {
 	const { selectedEvent, setSelectedEvent } = useMapContext();
