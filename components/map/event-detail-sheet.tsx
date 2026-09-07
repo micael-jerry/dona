@@ -37,7 +37,7 @@ export function EventDetailSheet() {
 									className="flex items-center gap-1 bg-emerald-500/90 font-bold text-white shadow-md"
 								>
 									<ShieldCheck className="h-3.5 w-3.5" />
-									Officiel
+									Vérifié
 								</Badge>
 							)}
 						</div>
@@ -57,7 +57,7 @@ export function EventDetailSheet() {
 								className="flex items-center gap-1 bg-emerald-500 font-bold text-white shadow-md"
 							>
 								<ShieldCheck className="h-3.5 w-3.5" />
-								Validé par Officiel
+								Vérifié
 							</Badge>
 						)}
 					</div>
