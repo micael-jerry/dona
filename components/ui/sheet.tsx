@@ -28,7 +28,7 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
 		<SheetPrimitive.Backdrop
 			data-slot="sheet-overlay"
 			className={cn(
-				'fixed inset-0 z-50 bg-black/10 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-xs',
+				'fixed inset-0 z-50 bg-black/10 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0',
 				className,
 			)}
 			{...props}
@@ -101,4 +101,14 @@ function SheetDescription({ className, ...props }: SheetPrimitive.Description.Pr
 	);
 }
 
-export { Sheet, SheetTrigger, SheetClose, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription };
+export {
+	Sheet,
+	SheetTrigger,
+	SheetClose,
+	SheetOverlay,
+	SheetContent,
+	SheetHeader,
+	SheetFooter,
+	SheetTitle,
+	SheetDescription,
+};
