@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
+import { AuthProvider } from '@/components/providers/auth-provider';
+import { ThemeProvider } from '@/components/theme-provider';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { routing } from '@/i18n/routing';
+import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
-import { ThemeProvider } from '@/components/theme-provider';
-import { AuthProvider } from '@/components/providers/auth-provider';
-import { TooltipProvider } from '@/components/ui/tooltip';
 
 import { UserSettingsInitializer } from '@/components/settings/user-settings-initializer';
 
@@ -18,6 +18,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
 	variable: '--font-mono',
+	subsets: ['latin'],
+});
+
+const inter = Inter({
+	variable: '--font-custom-sans',
 	subsets: ['latin'],
 });
 
@@ -44,10 +49,10 @@ export default async function RootLayout({
 	const messages = await getMessages();
 
 	return (
-		<html lang={locale} suppressHydrationWarning data-scroll-behavior="smooth">
+		<html lang={locale} className={`${inter.variable}`} suppressHydrationWarning data-scroll-behavior="smooth">
 			<body
 				suppressHydrationWarning
-				className={`${geistSans.variable} ${geistMono.variable} bg-grid-pattern bg-background text-foreground antialiased selection:bg-primary/20`}
+				className={`bg-grid-pattern bg-background font-sans text-foreground antialiased selection:bg-primary/20`}
 			>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<NextIntlClientProvider messages={messages}>
