@@ -245,7 +245,7 @@
 		"mainGroup": "Navegación",
 		"adminGroup": "Administración",
 		"dashboard": "Espacio Personal",
-		"map": "Volver al Mapa",
+		"map": "Mapa",
 		"account": "Mi Cuenta",
 		"leaderboard": "Clasificación",
 		"users": "Usuarios",
@@ -260,5 +260,30 @@
 		"themeDark": "Oscuro",
 		"themeSystem": "Sistema",
 		"savedSuccess": "¡Ajustes guardados!"
+	},
+	"EventDetailSheet": {
+		"eventPresenceQuest": "¿Sigue ahí el aviso?",
+		"stillThereButton": "Todavía aquí",
+		"resolvingButton": "Resuelto"
+	},
+	"EventCreateSheet": {
+		"title": "Informe de incidente",
+		"description": "Comparta información en tiempo real.",
+		"titleFieldTitle": "Título",
+		"titleFieldPlaceholder": "Ej.: Calzada resbaladiza y baches",
+		"categoryFieldTitle": "Categoría",
+		"severityFieldTitle": "Gravedad / Impacto",
+		"eventCategory": {
+			"accident": "Accidente",
+			"traffic_jam": "Atasco",
+			"police": "Policía",
+			"hazard": "Peligro / Obstáculo",
+			"closure": "Vía cerrada"
+		},
+		"severityLevel": {
+			"minor": "Menor",
+			"moderate": "Moderado",
+			"major": "Importante"
+		}
 	}
 }

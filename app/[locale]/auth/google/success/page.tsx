@@ -2,7 +2,7 @@
 
 import { useEffect, useState, use } from 'react';
 import { useTranslations } from 'next-intl';
-import { useAuthStore } from '@/store/use-auth-store';
+import { useAuthStore } from '@/stores/use-auth-store';
 import { setAuthToken } from '@/lib/token';
 import { setAuthCookieAction } from '@/app/actions/auth';
 import { whoami as apiWhoami } from '@/lib/api';

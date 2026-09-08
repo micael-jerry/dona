@@ -1,4 +1,4 @@
-import { useAuthStore, type AuthResult } from '@/store/use-auth-store';
+import { useAuthStore, type AuthResult } from '@/stores/use-auth-store';
 
 /**
  * Interface Segregation Principle (ISP): Granular hooks preventing unneeded component re-renders.

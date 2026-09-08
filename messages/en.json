@@ -245,7 +245,7 @@
 		"mainGroup": "Navigation",
 		"adminGroup": "Administration",
 		"dashboard": "Personal Space",
-		"map": "Back to Map",
+		"map": "Map",
 		"account": "My Account",
 		"leaderboard": "Leaderboard",
 		"users": "Users",
@@ -260,5 +260,30 @@
 		"themeDark": "Dark",
 		"themeSystem": "System",
 		"savedSuccess": "Settings saved!"
+	},
+	"EventDetailSheet": {
+		"eventPresenceQuest": "Is the report still there?",
+		"stillThereButton": "Still there",
+		"resolvingButton": "Resolved"
+	},
+	"EventCreateSheet": {
+		"title": "Incident Report",
+		"description": "Share information in real time",
+		"titleFieldTitle": "Title",
+		"titleFieldPlaceholder": "e.g. Slippery road & Potholes",
+		"categoryFieldTitle": "Category",
+		"severityFieldTitle": "Severity / Impact",
+		"eventCategory": {
+			"accident": "Accident",
+			"traffic_jam": "Traffic Jam",
+			"police": "Police",
+			"hazard": "Hazard",
+			"closure": "Closure"
+		},
+		"severityLevel": {
+			"minor": "Minor",
+			"moderate": "Moderate",
+			"major": "Major"
+		}
 	}
 }

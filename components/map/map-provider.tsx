@@ -10,6 +10,7 @@ interface MapContextValue {
 	allEvents: DonaEvent[];
 	filteredEvents: DonaEvent[];
 	selectedEvent: DonaEvent | null;
+	createEvent: any | null;
 	hoveredEventId: string | null;
 	filters: MapFilterState;
 	userLocation: GeoLocation | null;
@@ -21,6 +22,7 @@ interface MapContextValue {
 
 	// Actions
 	setSelectedEvent: (event: DonaEvent | null) => void;
+	setCreateEvent: (event: any | null) => void;
 	setHoveredEventId: (id: string | null) => void;
 	setCategoryFilter: (category: EventCategory | 'all') => void;
 	setSearchQuery: (query: string) => void;
@@ -35,6 +37,7 @@ const MapContext = createContext<MapContextValue | undefined>(undefined);
 export function MapProvider({ children }: { children: React.ReactNode }) {
 	const [allEvents] = useState<DonaEvent[]>(MOCK_DONA_EVENTS);
 	const [selectedEvent, setSelectedEvent] = useState<DonaEvent | null>(null);
+	const [createEvent, setCreateEvent] = useState<any | null>(null);
 	const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
 	const [isCreatingEvent, setIsCreatingEvent] = useState<boolean>(false);
 	const [newLocation, setNewLocation] = useState<GeoLocation | null>(null);
@@ -87,6 +90,7 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			allEvents,
 			filteredEvents,
 			selectedEvent,
+			createEvent,
 			hoveredEventId,
 			filters,
 			userLocation,
@@ -97,6 +101,7 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			newLocation,
 
 			setSelectedEvent,
+			setCreateEvent,
 			setHoveredEventId,
 			setCategoryFilter,
 			setSearchQuery,
@@ -109,6 +114,7 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			allEvents,
 			filteredEvents,
 			selectedEvent,
+			createEvent,
 			hoveredEventId,
 			filters,
 			userLocation,

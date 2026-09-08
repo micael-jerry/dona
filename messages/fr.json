@@ -260,5 +260,30 @@
 		"themeDark": "Sombre",
 		"themeSystem": "Système",
 		"savedSuccess": "Paramètres sauvegardés !"
+	},
+	"EventDetailSheet": {
+		"eventPresenceQuest": "Le signalement est-il toujours là ?",
+		"stillThereButton": "Encore là",
+		"resolvingButton": "Résolu"
+	},
+	"EventCreateSheet": {
+		"title": "Signalement d'incident",
+		"description": "Partagez des informations en temps réel",
+		"titleFieldTitle": "Titre",
+		"titleFieldPlaceholder": "ex: Chaussée glissante & Nids de poule",
+		"categoryFieldTitle": "Catégorie",
+		"severityFieldTitle": "Gravité / Impact",
+		"eventCategory": {
+			"accident": "Accident",
+			"traffic_jam": "Embouteillage",
+			"police": "Police",
+			"hazard": "Danger / Obstacle",
+			"closure": "Voie fermée"
+		},
+		"severityLevel": {
+			"minor": "Mineure",
+			"moderate": "Modérée",
+			"major": "Majeure"
+		}
 	}
 }

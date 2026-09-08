@@ -7,8 +7,10 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '
 import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
 import { AlertTriangle, CheckCircle2, Clock, MapPin, Share2, ShieldCheck, XCircle } from 'lucide-react';
 import { useMapContext } from './map-provider';
+import { useTranslations } from 'next-intl';
 
 export function EventDetailSheet() {
+	const t = useTranslations('EventDetailSheet');
 	const { selectedEvent, setSelectedEvent } = useMapContext();
 
 	if (!selectedEvent) return null;
@@ -116,19 +118,19 @@ export function EventDetailSheet() {
 					{/* Waze-style Quick Reaction Buttons */}
 					<div className="space-y-2 pt-2">
 						<p className="text-xs font-bold tracking-wider text-muted-foreground uppercase">
-							Le signalement est-il toujours là ?
+							{t('eventPresenceQuest')}
 						</p>
 						<div className="flex items-center gap-2">
 							<Button className="flex-1 bg-emerald-600 font-bold text-white shadow-md hover:bg-emerald-700">
 								<CheckCircle2 className="mr-2 h-4 w-4" />
-								Encore là ({selectedEvent.confirmationsCount})
+								{t('stillThereButton')} ({selectedEvent.confirmationsCount})
 							</Button>
 							<Button
 								variant="outline"
 								className="flex-1 border-rose-500/40 font-bold text-rose-600 hover:bg-rose-500/10"
 							>
 								<XCircle className="mr-2 h-4 w-4" />
-								Résolu ({selectedEvent.resolutionsCount})
+								{t('resolvingButton')} ({selectedEvent.resolutionsCount})
 							</Button>
 							<Button variant="outline" size="icon" className="shrink-0" title="Partager">
 								<Share2 className="h-4 w-4" />

@@ -1,8 +1,8 @@
-import { create } from 'zustand';
-import { login as apiLogin, whoami as apiWhoami, type UserResponse, type LoginRequest } from '@/lib/api';
-import { getAuthToken, setAuthToken, removeAuthToken } from '@/lib/token';
-import { setAuthCookieAction, removeAuthCookieAction } from '@/app/actions/auth';
+import { removeAuthCookieAction, setAuthCookieAction } from '@/app/actions/auth';
+import { login as apiLogin, whoami as apiWhoami, type LoginRequest, type UserResponse } from '@/lib/api';
 import { extractErrorMessage } from '@/lib/errors';
+import { getAuthToken, removeAuthToken, setAuthToken } from '@/lib/token';
+import { create } from 'zustand';
 
 export interface AuthResult {
 	success: boolean;

@@ -8,4 +8,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 }
 
 export { useAuth } from '@/hooks/use-auth';
-export type { AuthResult } from '@/store/use-auth-store';
+export type { AuthResult } from '@/stores/use-auth-store';
