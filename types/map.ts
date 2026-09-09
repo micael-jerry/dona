@@ -49,6 +49,7 @@ export interface DonaEvent {
 	isOfficialValidated?: boolean; // Validated by Traffic Police / Ministry
 	createdAt: string;
 	reportedBy: {
+		isOwner: boolean;
 		name: string;
 		avatarUrl?: string;
 		reputationScore?: number;
