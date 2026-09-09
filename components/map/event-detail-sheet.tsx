@@ -19,7 +19,7 @@ export function EventDetailSheet() {
 
 	return (
 		<Sheet open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
-			<SheetContent side="right" className="w-full overflow-y-auto p-0 sm:max-w-md">
+			<SheetContent hideOverlay={true} side="right" className="w-full overflow-y-auto p-0 sm:max-w-md">
 				{/* Road Event Header Image or Banner */}
 				{selectedEvent.imageUrl ? (
 					<div className="relative h-48 w-full bg-muted">
