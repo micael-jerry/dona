@@ -1,9 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
-import type { DonaEvent, EventCategory, MapFilterState, GeoLocation } from '@/types/map';
-import { MOCK_DONA_EVENTS } from '@/lib/mock-events';
 import { useUserLocation } from '@/hooks/use-user-location';
+import type { DonaEvent, EventCategory, GeoLocation, MapFilterState } from '@/types/map';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 interface MapContextValue {
 	// State
@@ -21,6 +20,7 @@ interface MapContextValue {
 	newLocation: GeoLocation | null;
 
 	// Actions
+	setAllEvents: (events: DonaEvent[]) => void;
 	setSelectedEvent: (event: DonaEvent | null) => void;
 	setCreateEvent: (event: any | null) => void;
 	setHoveredEventId: (id: string | null) => void;
@@ -35,7 +35,7 @@ interface MapContextValue {
 const MapContext = createContext<MapContextValue | undefined>(undefined);
 
 export function MapProvider({ children }: { children: React.ReactNode }) {
-	const [allEvents] = useState<DonaEvent[]>(MOCK_DONA_EVENTS);
+	const [allEvents, setAllEvents] = useState<DonaEvent[]>([]);
 	const [selectedEvent, setSelectedEvent] = useState<DonaEvent | null>(null);
 	const [createEvent, setCreateEvent] = useState<any | null>(null);
 	const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
@@ -100,6 +100,7 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			isCreatingEvent,
 			newLocation,
 
+			setAllEvents,
 			setSelectedEvent,
 			setCreateEvent,
 			setHoveredEventId,
