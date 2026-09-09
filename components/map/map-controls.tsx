@@ -1,13 +1,16 @@
 'use client';
 
-import type { Map as LeafletMap } from 'leaflet';
-import { useMapContext } from './map-provider';
-import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
-import type { EventCategory } from '@/types/map';
-import { Search, Navigation, Plus, Minus, MapPin, X } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
+import { eventService } from '@/services/event.service';
+import { useAuthStore } from '@/stores/use-auth-store';
+import type { DonaEvent, EventCategory } from '@/types/map';
+import type { Map as LeafletMap } from 'leaflet';
+import { MapPin, Minus, Navigation, Plus, Search, X } from 'lucide-react';
+import { useEffect } from 'react';
+import { useMapContext } from './map-provider';
 
 interface MapControlsProps {
 	map: LeafletMap | null;
@@ -26,6 +29,7 @@ export function MapControls({ map }: MapControlsProps) {
 	const {
 		filteredEvents,
 		allEvents,
+		setAllEvents,
 		filters,
 		userLocation,
 		requestUserLocation,
@@ -36,6 +40,15 @@ export function MapControls({ map }: MapControlsProps) {
 		newLocation,
 		setNewLocation,
 	} = useMapContext();
+
+	const { token } = useAuthStore();
+
+	useEffect(() => {
+		(async () => {
+			const data: DonaEvent[] = await eventService.getAllPersonalized(token!);
+			setAllEvents(data);
+		})();
+	}, []);
 
 	const handleZoomIn = () => {
 		map?.zoomIn();
