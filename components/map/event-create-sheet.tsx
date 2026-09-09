@@ -83,7 +83,11 @@ export function EventCreateSheet() {
 			}}
 			modal={false}
 		>
-			<SheetContent side="right" className="pointer-events-auto w-full overflow-y-auto p-0 sm:max-w-md">
+			<SheetContent
+				side="right"
+				className="pointer-events-auto w-full overflow-y-auto p-0 sm:max-w-md"
+				hideOverlay={true}
+			>
 				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-6">
 					<SheetHeader className="space-y-1 p-0 text-left">
 						<SheetTitle className="text-xl font-bold">{t('title')}</SheetTitle>
