@@ -1,4 +1,5 @@
 import { EventModel, CreateEventInput, UpdateEventInput } from '@/types/event.type';
+import { DonaEvent } from '@/types/map';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
@@ -7,6 +8,23 @@ export const eventService = {
 		const response = await fetch(`${API_BASE_URL}/events`, {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json' },
+		});
+
+		if (!response.ok) {
+			throw new Error('Erreur lors de la récupération des événements');
+		}
+
+		return response.json();
+	},
+
+	async getAllPersonalized(token?: string): Promise<DonaEvent[]> {
+		const headers: Record<string, string> = {
+			'Content-Type': 'application/json',
+		};
+		if (token) headers['Authorization'] = `Bearer ${token}`;
+		const response = await fetch(`${API_BASE_URL}/events/dona`, {
+			method: 'GET',
+			headers,
 		});
 
 		if (!response.ok) {
