@@ -22,6 +22,7 @@ export const MOCK_DONA_EVENTS: DonaEvent[] = [
 		isOfficialValidated: true,
 		createdAt: 'Il y a 12 min',
 		reportedBy: {
+			isOwner: false,
 			name: 'Rasoa Driver',
 			avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop',
 			reputationScore: 480,
@@ -44,6 +45,7 @@ export const MOCK_DONA_EVENTS: DonaEvent[] = [
 		isOfficialValidated: false,
 		createdAt: 'Il y a 25 min',
 		reportedBy: {
+			isOwner: false,
 			name: 'Haja Commuter',
 			reputationScore: 210,
 		},
@@ -63,6 +65,7 @@ export const MOCK_DONA_EVENTS: DonaEvent[] = [
 		isOfficialValidated: true,
 		createdAt: 'Il y a 8 min',
 		reportedBy: {
+			isOwner: false,
 			name: 'Police Nationale (Officiel)',
 			reputationScore: 1500,
 		},
@@ -82,6 +85,7 @@ export const MOCK_DONA_EVENTS: DonaEvent[] = [
 		resolutionsCount: 1,
 		createdAt: 'Il y a 45 min',
 		reportedBy: {
+			isOwner: false,
 			name: 'Andry Moto',
 			reputationScore: 340,
 		},
@@ -101,6 +105,7 @@ export const MOCK_DONA_EVENTS: DonaEvent[] = [
 		isOfficialValidated: true,
 		createdAt: 'Il y a 2h',
 		reportedBy: {
+			isOwner: false,
 			name: 'Ministère des Travaux Publics',
 			reputationScore: 2000,
 		},
@@ -120,6 +125,7 @@ export const MOCK_DONA_EVENTS: DonaEvent[] = [
 		isOfficialValidated: true,
 		createdAt: 'Il y a 15 min',
 		reportedBy: {
+			isOwner: false,
 			name: 'Jean Driver',
 			reputationScore: 620,
 		},
@@ -138,6 +144,7 @@ export const MOCK_DONA_EVENTS: DonaEvent[] = [
 		resolutionsCount: 1,
 		createdAt: 'Il y a 30 min',
 		reportedBy: {
+			isOwner: false,
 			name: 'Marie VTC',
 			reputationScore: 410,
 		},
