@@ -30,7 +30,7 @@ export interface MapBounds {
  */
 export type EventCategory = 'accident' | 'traffic_jam' | 'police' | 'hazard' | 'closure' | 'other';
 
-export type EventSeverity = 'minor' | 'moderate' | 'major';
+export type EventSeverity = 'low' | 'medium' | 'high' | 'critical';
 
 export type EventStatus = 'active' | 'resolving' | 'expired';
 
