@@ -281,9 +281,10 @@
 			"closure": "Voie fermée"
 		},
 		"severityLevel": {
-			"minor": "Mineure",
-			"moderate": "Modérée",
-			"major": "Majeure"
+			"low": "Faible",
+			"medium": "Modérée",
+			"high": "Élevée",
+			"critical": "Critique"
 		}
 	}
 }
