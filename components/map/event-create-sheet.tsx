@@ -38,13 +38,10 @@ export function EventCreateSheet() {
 		},
 	});
 
-	// Synchroniser les coordonnées cliquées sur la carte avec React Hook Form
 	useEffect(() => {
 		if (newLocation) {
 			form.setValue('latitude', newLocation.lat);
 			form.setValue('longitude', newLocation.lng);
-			// Exemple : pré-remplir l'adresse sous forme textuelle si souhaité
-			form.setValue('address', `${newLocation.lat.toFixed(5)}, ${newLocation.lng.toFixed(5)}`);
 		}
 	}, [newLocation, form]);
 
@@ -60,7 +57,6 @@ export function EventCreateSheet() {
 			await createEvent(data, token!);
 			setFormSuccess('Signalement publié avec succès !');
 
-			// Réinitialiser le formulaire et fermer la sheet après 1.5s
 			setTimeout(() => {
 				form.reset();
 				setNewLocation(null);
@@ -135,21 +131,33 @@ export function EventCreateSheet() {
 							<Controller
 								control={form.control}
 								name="eventCategoryId"
-								render={({ field }) => (
-									<Select onValueChange={field.onChange} value={field.value}>
-										<SelectTrigger id="eventCategoryId">
-											<SelectValue placeholder="Sélectionner une catégorie" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem value="cat_accident_01">Accident</SelectItem>
-											<SelectItem value="cat_traffic_02">Embouteillage</SelectItem>
-											<SelectItem value="cat_hazard_04">Danger / Obstacle</SelectItem>
-											<SelectItem value="cat_police_03">Contrôle de police</SelectItem>
-											<SelectItem value="cat_closure_05">Route fermée</SelectItem>
-											<SelectItem value="cat_other_06">Autre</SelectItem>
-										</SelectContent>
-									</Select>
-								)}
+								render={({ field }) => {
+									const CATEGORY_LABELS: Record<string, string> = {
+										cat_accident_01: 'Accident',
+										cat_traffic_02: 'Embouteillage',
+										cat_hazard_04: 'Danger / Obstacle',
+										cat_police_03: 'Contrôle de police',
+										cat_closure_05: 'Route fermée',
+										cat_other_06: 'Autre',
+									};
+
+									return (
+										<Select onValueChange={field.onChange} value={field.value || undefined}>
+											<SelectTrigger id="eventCategoryId">
+												<SelectValue placeholder="Sélectionner une catégorie">
+													{field.value ? CATEGORY_LABELS[field.value] : null}
+												</SelectValue>
+											</SelectTrigger>
+											<SelectContent>
+												{Object.entries(CATEGORY_LABELS).map(([val, label]) => (
+													<SelectItem key={val} value={val}>
+														{label}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									);
+								}}
 							/>
 							{form.formState.errors.eventCategoryId && (
 								<p className="text-xs text-destructive">{form.formState.errors.eventCategoryId.message}</p>
@@ -163,19 +171,31 @@ export function EventCreateSheet() {
 							<Controller
 								control={form.control}
 								name="severity"
-								render={({ field }) => (
-									<Select onValueChange={field.onChange} value={field.value}>
-										<SelectTrigger id="severity">
-											<SelectValue placeholder="Sélectionner la sévérité" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem value={EventSeverity.LOW}>Faible (LOW)</SelectItem>
-											<SelectItem value={EventSeverity.MEDIUM}>Moyenne (MEDIUM)</SelectItem>
-											<SelectItem value={EventSeverity.HIGH}>Élevée (HIGH)</SelectItem>
-											<SelectItem value={EventSeverity.CRITICAL}>Critique (CRITICAL)</SelectItem>
-										</SelectContent>
-									</Select>
-								)}
+								render={({ field }) => {
+									const SEVERITY_LABELS: Record<string, string> = {
+										[EventSeverity.LOW]: 'Faible (LOW)',
+										[EventSeverity.MEDIUM]: 'Moyenne (MEDIUM)',
+										[EventSeverity.HIGH]: 'Élevée (HIGH)',
+										[EventSeverity.CRITICAL]: 'Critique (CRITICAL)',
+									};
+
+									const currentValue = field.value || EventSeverity.LOW;
+
+									return (
+										<Select onValueChange={field.onChange} value={currentValue}>
+											<SelectTrigger id="severity">
+												<SelectValue>{SEVERITY_LABELS[currentValue]}</SelectValue>
+											</SelectTrigger>
+											<SelectContent>
+												{Object.entries(SEVERITY_LABELS).map(([val, label]) => (
+													<SelectItem key={val} value={val}>
+														{label}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									);
+								}}
 							/>
 							{form.formState.errors.severity && (
 								<p className="text-xs text-destructive">{form.formState.errors.severity.message}</p>
