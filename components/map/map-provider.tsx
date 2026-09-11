@@ -1,17 +1,16 @@
 'use client';
 
 import { useUserLocation } from '@/hooks/use-user-location';
+import { useEventStore } from '@/stores/event.store';
 import type { DonaEvent, EventCategory, GeoLocation, MapFilterState } from '@/types/map';
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 export type UpdateEventPayload = Partial<DonaEvent> & { id: string };
 
 interface MapContextValue {
-	// State
 	allEvents: DonaEvent[];
 	filteredEvents: DonaEvent[];
 	selectedEvent: DonaEvent | null;
-	createEvent: any | null;
 	hoveredEventId: string | null;
 	filters: MapFilterState;
 	userLocation: GeoLocation | null;
@@ -22,10 +21,8 @@ interface MapContextValue {
 	isEditingEvent: boolean;
 	newLocation: GeoLocation | null;
 
-	// Actions
-	setAllEvents: (events: DonaEvent[]) => void;
+	addEvent: (event: DonaEvent) => void;
 	setSelectedEvent: (event: DonaEvent | null) => void;
-	setCreateEvent: (event: any | null) => void;
 	setHoveredEventId: (id: string | null) => void;
 	setCategoryFilter: (category: EventCategory | 'all') => void;
 	setSearchQuery: (query: string) => void;
@@ -40,15 +37,14 @@ interface MapContextValue {
 const MapContext = createContext<MapContextValue | undefined>(undefined);
 
 export function MapProvider({ children }: { children: React.ReactNode }) {
-	const [allEvents, setAllEvents] = useState<DonaEvent[]>([]);
+	const allEvents = useEventStore((state) => state.events);
+
 	const [selectedEvent, setSelectedEvent] = useState<DonaEvent | null>(null);
-	const [createEvent, setCreateEvent] = useState<any | null>(null);
 	const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
 	const [isCreatingEvent, setIsCreatingEvent] = useState<boolean>(false);
 	const [isEditingEvent, setIsEditingEvent] = useState<boolean>(false);
 	const [newLocation, setNewLocation] = useState<GeoLocation | null>(null);
 
-	// Real-time geolocation tracking hook
 	const {
 		coords: userLocation,
 		accuracy: userAccuracy,
@@ -76,28 +72,39 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 		setFilters({ category: 'all', searchQuery: '' });
 	}, []);
 
+	const addEvent = useCallback((event: DonaEvent) => {
+		useEventStore.setState((state) => ({
+			events: [event, ...state.events.filter((e) => e.id !== event.id)],
+		}));
+	}, []);
+
 	const updateEvent = useCallback(async (payload: UpdateEventPayload) => {
-		setAllEvents((prevEvents) =>
-			prevEvents.map((event) => (event.id === payload.id ? { ...event, ...payload } : event)),
-		);
+		useEventStore.setState((state) => ({
+			events: state.events.map((event) => (event.id === payload.id ? { ...event, ...payload } : event)),
+		}));
 
 		setSelectedEvent((prevSelected) =>
 			prevSelected && prevSelected.id === payload.id ? { ...prevSelected, ...payload } : prevSelected,
 		);
-
-		// TODO: Add API request like await api.updateEvent(payload) here... if necessary
 	}, []);
 
-	// Filter events based on active category and search query
 	const filteredEvents = useMemo(() => {
+		if (!Array.isArray(allEvents)) return [];
+
 		return allEvents.filter((event) => {
-			const matchesCategory = filters.category === 'all' || event.category === filters.category;
+			if (!event) return false;
+
+			const matchesCategory =
+				filters.category === 'all' ||
+				event.category === filters.category ||
+				(typeof event.category === 'object' && (event.category as any)?.id === filters.category);
+
 			const query = filters.searchQuery.trim().toLowerCase();
 			const matchesSearch =
 				!query ||
-				event.title.toLowerCase().includes(query) ||
-				event.description.toLowerCase().includes(query) ||
-				event.addressName.toLowerCase().includes(query);
+				(event.title && event.title.toLowerCase().includes(query)) ||
+				(event.description && event.description.toLowerCase().includes(query)) ||
+				(event.addressName && event.addressName.toLowerCase().includes(query));
 
 			return matchesCategory && matchesSearch;
 		});
@@ -108,7 +115,6 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			allEvents,
 			filteredEvents,
 			selectedEvent,
-			createEvent,
 			hoveredEventId,
 			filters,
 			userLocation,
@@ -119,9 +125,8 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			isEditingEvent,
 			newLocation,
 
-			setAllEvents,
+			addEvent,
 			setSelectedEvent,
-			setCreateEvent,
 			setHoveredEventId,
 			setCategoryFilter,
 			setSearchQuery,
@@ -136,7 +141,6 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			allEvents,
 			filteredEvents,
 			selectedEvent,
-			createEvent,
 			hoveredEventId,
 			filters,
 			userLocation,
@@ -146,6 +150,7 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			isCreatingEvent,
 			isEditingEvent,
 			newLocation,
+			addEvent,
 			setCategoryFilter,
 			setSearchQuery,
 			updateEvent,
