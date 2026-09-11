@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { useCallback, useState } from 'react';
 import { EventCreateSheet } from './event-create-sheet';
 import { EventDetailSheet } from './event-detail-sheet';
+import { EventUpdateSheet } from './event-update-sheet';
 import { MapControls } from './map-controls';
 import { MapEventsLayer } from './map-events-layer';
 import { MapProvider, useMapContext } from './map-provider';
@@ -27,7 +28,7 @@ const LeafletMapCore = dynamic(() => import('./leaflet-map-core').then((m) => m.
  */
 function MapViewContent() {
 	const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
-	const { isCreatingEvent, setNewLocation, userLocation, newLocation } = useMapContext();
+	const { isCreatingEvent, isEditingEvent, setNewLocation, userLocation, newLocation } = useMapContext();
 
 	const handleMapReady = useCallback((map: LeafletMap) => {
 		setMapInstance(map);
@@ -55,7 +56,13 @@ function MapViewContent() {
 					<MapUserLocationLayer map={mapInstance} showMarker={false} />
 					<MapEventsLayer map={mapInstance} />
 					<MapControls map={mapInstance} />
-					{isCreatingEvent && newLocation ? <EventCreateSheet /> : <EventDetailSheet />}
+					{isCreatingEvent && newLocation ? (
+						<EventCreateSheet />
+					) : isEditingEvent ? (
+						<EventUpdateSheet />
+					) : (
+						<EventDetailSheet />
+					)}
 				</>
 			)}
 		</div>
