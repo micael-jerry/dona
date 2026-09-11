@@ -34,6 +34,23 @@ export const eventService = {
 		return response.json();
 	},
 
+	async getOnePersonalized(id: string, token?: string): Promise<DonaEvent> {
+		const headers: Record<string, string> = {
+			'Content-Type': 'application/json',
+		};
+		if (token) headers['Authorization'] = `Bearer ${token}`;
+		const response = await fetch(`${API_BASE_URL}/events/dona/${id}`, {
+			method: 'GET',
+			headers,
+		});
+
+		if (!response.ok) {
+			throw new Error('Erreur lors de la récupération des événements');
+		}
+
+		return response.json();
+	},
+
 	async getById(id: string): Promise<EventModel> {
 		const response = await fetch(`${API_BASE_URL}/events/${id}`, {
 			method: 'GET',
