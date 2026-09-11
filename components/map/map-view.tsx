@@ -1,10 +1,12 @@
 'use client';
 
+import { useEventStore } from '@/stores/event.store';
+import { useAuthStore } from '@/stores/use-auth-store';
 import type { GeoLocation } from '@/types/map';
 import type { Map as LeafletMap } from 'leaflet';
 import { Loader2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { EventCreateSheet } from './event-create-sheet';
 import { EventDetailSheet } from './event-detail-sheet';
 import { EventUpdateSheet } from './event-update-sheet';
@@ -29,6 +31,13 @@ const LeafletMapCore = dynamic(() => import('./leaflet-map-core').then((m) => m.
 function MapViewContent() {
 	const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
 	const { isCreatingEvent, isEditingEvent, setNewLocation, userLocation, newLocation } = useMapContext();
+
+	const { token } = useAuthStore();
+	const { fetchEvents } = useEventStore();
+
+	useEffect(() => {
+		fetchEvents(token ?? undefined);
+	}, [fetchEvents, token]);
 
 	const handleMapReady = useCallback((map: LeafletMap) => {
 		setMapInstance(map);
