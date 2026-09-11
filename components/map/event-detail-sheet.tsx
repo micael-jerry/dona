@@ -5,20 +5,24 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
-import { AlertTriangle, CheckCircle2, Clock, MapPin, Share2, ShieldCheck, XCircle } from 'lucide-react';
-import { useMapContext } from './map-provider';
+import { AlertTriangle, CheckCircle2, Clock, MapPin, Pencil, Share2, ShieldCheck, XCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useMapContext } from './map-provider';
 
 export function EventDetailSheet() {
 	const t = useTranslations('EventDetailSheet');
-	const { selectedEvent, setSelectedEvent } = useMapContext();
+	const { selectedEvent, setSelectedEvent, isEditingEvent, setIsEditingEvent } = useMapContext();
 
-	if (!selectedEvent) return null;
+	if (!selectedEvent || isEditingEvent) return null;
 
 	const categoryConfig = CATEGORY_COLORS[selectedEvent.category] || CATEGORY_COLORS.other;
 
+	const handleOpenEdit = () => {
+		setIsEditingEvent(true);
+	};
+
 	return (
-		<Sheet open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
+		<Sheet open={!!selectedEvent && !isEditingEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
 			<SheetContent hideOverlay={true} side="right" className="w-full overflow-y-auto p-0 sm:max-w-md">
 				{/* Road Event Header Image or Banner */}
 				{selectedEvent.imageUrl ? (
@@ -67,7 +71,18 @@ export function EventDetailSheet() {
 
 				<div className="space-y-6 p-6">
 					<SheetHeader className="space-y-2 p-0 text-left">
-						<SheetTitle className="text-xl leading-tight font-bold">{selectedEvent.title}</SheetTitle>
+						<div className="flex items-start justify-between gap-3">
+							<SheetTitle className="text-xl leading-tight font-bold">{selectedEvent.title}</SheetTitle>
+							<Button
+								variant="outline"
+								size="icon"
+								onClick={handleOpenEdit}
+								className="h-8 w-8 shrink-0 rounded-lg border-border/80"
+								title="Modifier le signalement"
+							>
+								<Pencil className="h-4 w-4 text-muted-foreground" />
+							</Button>
+						</div>
 						<SheetDescription className="text-sm text-muted-foreground">{selectedEvent.description}</SheetDescription>
 					</SheetHeader>
 
