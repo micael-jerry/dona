@@ -25,14 +25,41 @@ export function EventUpdateSheet() {
 	const [formError, setFormError] = useState<string | null>(null);
 	const [formSuccess, setFormSuccess] = useState<string | null>(null);
 
+	const mapCategoryToFormId = (backendCategory?: string) => {
+		if (!backendCategory) return '';
+
+		const categoryMap: Record<string, string> = {
+			accident: 'cat_accident_01',
+			traffic_jam: 'cat_traffic_02',
+			traffic: 'cat_traffic_02',
+			police: 'cat_police_03',
+			hazard: 'cat_hazard_04',
+			closure: 'cat_closure_05',
+			other: 'cat_other_06',
+		};
+
+		return categoryMap[backendCategory] || backendCategory;
+	};
+
+	const mapSeverityToFormEnum = (backendSeverity?: string): EventSeverity => {
+		if (!backendSeverity) return EventSeverity.LOW;
+
+		const upper = backendSeverity.toUpperCase();
+		if (Object.values(EventSeverity).includes(upper as EventSeverity)) {
+			return upper as EventSeverity;
+		}
+
+		return EventSeverity.LOW;
+	};
+
 	const form = useForm<UpdateEventInput>({
 		resolver: zodResolver(updateEventSchema),
 		values: {
 			title: selectedEvent?.title || '',
 			description: selectedEvent?.description || '',
 			address: selectedEvent?.addressName || '',
-			eventCategoryId: selectedEvent?.category || '',
-			severity: (selectedEvent?.severity as EventSeverity) || EventSeverity.LOW,
+			eventCategoryId: mapCategoryToFormId(selectedEvent?.category),
+			severity: mapSeverityToFormEnum(selectedEvent?.severity),
 		},
 	});
 
@@ -123,21 +150,33 @@ export function EventUpdateSheet() {
 							<Controller
 								control={form.control}
 								name="eventCategoryId"
-								render={({ field }) => (
-									<Select onValueChange={field.onChange} value={field.value}>
-										<SelectTrigger id="edit-eventCategoryId">
-											<SelectValue placeholder="Sélectionner une catégorie" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem value="cat_accident_01">Accident</SelectItem>
-											<SelectItem value="cat_traffic_02">Embouteillage</SelectItem>
-											<SelectItem value="cat_hazard_04">Danger / Obstacle</SelectItem>
-											<SelectItem value="cat_police_03">Contrôle de police</SelectItem>
-											<SelectItem value="cat_closure_05">Route fermée</SelectItem>
-											<SelectItem value="cat_other_06">Autre</SelectItem>
-										</SelectContent>
-									</Select>
-								)}
+								render={({ field }) => {
+									const CATEGORY_LABELS: Record<string, string> = {
+										cat_accident_01: 'Accident',
+										cat_traffic_02: 'Embouteillage',
+										cat_hazard_04: 'Danger / Obstacle',
+										cat_police_03: 'Contrôle de police',
+										cat_closure_05: 'Route fermée',
+										cat_other_06: 'Autre',
+									};
+
+									return (
+										<Select onValueChange={field.onChange} value={field.value || ''}>
+											<SelectTrigger id="edit-eventCategoryId">
+												<SelectValue placeholder="Sélectionner une catégorie">
+													{field.value ? CATEGORY_LABELS[field.value] : undefined}
+												</SelectValue>
+											</SelectTrigger>
+											<SelectContent>
+												{Object.entries(CATEGORY_LABELS).map(([val, label]) => (
+													<SelectItem key={val} value={val}>
+														{label}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									);
+								}}
 							/>
 							{form.formState.errors.eventCategoryId && (
 								<p className="text-xs text-destructive">{form.formState.errors.eventCategoryId.message}</p>
@@ -154,19 +193,31 @@ export function EventUpdateSheet() {
 							<Controller
 								control={form.control}
 								name="severity"
-								render={({ field }) => (
-									<Select onValueChange={field.onChange} value={field.value}>
-										<SelectTrigger id="edit-severity">
-											<SelectValue placeholder="Sélectionner la sévérité" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem value={EventSeverity.LOW}>Faible (LOW)</SelectItem>
-											<SelectItem value={EventSeverity.MEDIUM}>Moyenne (MEDIUM)</SelectItem>
-											<SelectItem value={EventSeverity.HIGH}>Élevée (HIGH)</SelectItem>
-											<SelectItem value={EventSeverity.CRITICAL}>Critique (CRITICAL)</SelectItem>
-										</SelectContent>
-									</Select>
-								)}
+								render={({ field }) => {
+									const SEVERITY_LABELS: Record<string, string> = {
+										[EventSeverity.LOW]: 'Faible (LOW)',
+										[EventSeverity.MEDIUM]: 'Moyenne (MEDIUM)',
+										[EventSeverity.HIGH]: 'Élevée (HIGH)',
+										[EventSeverity.CRITICAL]: 'Critique (CRITICAL)',
+									};
+
+									const currentValue = field.value || EventSeverity.LOW;
+
+									return (
+										<Select onValueChange={field.onChange} value={currentValue}>
+											<SelectTrigger id="edit-severity">
+												<SelectValue>{SEVERITY_LABELS[currentValue]}</SelectValue>
+											</SelectTrigger>
+											<SelectContent>
+												{Object.entries(SEVERITY_LABELS).map(([val, label]) => (
+													<SelectItem key={val} value={val}>
+														{label}
+													</SelectItem>
+												))}
+											</SelectContent>
+										</Select>
+									);
+								}}
 							/>
 							{form.formState.errors.severity && (
 								<p className="text-xs text-destructive">{form.formState.errors.severity.message}</p>
