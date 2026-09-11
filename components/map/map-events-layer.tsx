@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import type { Map as LeafletMap, Marker as LeafletMarker, LayerGroup } from 'leaflet';
+import L from 'leaflet';
 import { useMapContext } from './map-provider';
 import { createMarkerHtml } from '@/lib/map-marker-utils';
 
@@ -33,19 +34,13 @@ export function MapEventsLayer({ map }: MapEventsLayerProps) {
 	useEffect(() => {
 		if (!map) return;
 
-		import('leaflet').then((L) => {
-			if (!layerGroupRef.current) {
-				const group = L.layerGroup().addTo(map);
-				layerGroupRef.current = group;
-			}
-		});
+		const group = L.layerGroup().addTo(map);
+		layerGroupRef.current = group;
 
 		return () => {
-			if (layerGroupRef.current) {
-				layerGroupRef.current.clearLayers();
-				layerGroupRef.current.remove();
-				layerGroupRef.current = null;
-			}
+			group.clearLayers();
+			group.remove();
+			layerGroupRef.current = null;
 		};
 	}, [map]);
 
@@ -56,38 +51,39 @@ export function MapEventsLayer({ map }: MapEventsLayerProps) {
 		const group = layerGroupRef.current;
 		group.clearLayers();
 
-		import('leaflet').then((L) => {
-			filteredEvents.forEach((event) => {
-				const isSelected = selectedEvent?.id === event.id;
-				const isHovered = hoveredEventId === event.id;
+		filteredEvents.forEach((event) => {
+			if (!event?.location?.lat || !event?.location?.lng) {
+				return;
+			}
 
-				const html = createMarkerHtml(event.category, isSelected, isHovered);
+			const isSelected = selectedEvent?.id === event.id;
+			const isHovered = hoveredEventId === event.id;
 
-				const icon = L.divIcon({
-					html,
-					className: 'custom-event-marker-wrapper',
-					iconSize: [40, 40],
-					iconAnchor: [20, 40],
-				});
+			const html = createMarkerHtml(event.category, isSelected, isHovered);
 
-				const marker = L.marker([event.location.lat, event.location.lng], { icon });
-
-				// Event handlers
-				marker.on('click', (e) => {
-					L.DomEvent.stopPropagation(e);
-					setSelectedEvent(event);
-				});
-
-				marker.on('mouseover', () => {
-					setHoveredEventId(event.id);
-				});
-
-				marker.on('mouseout', () => {
-					setHoveredEventId(null);
-				});
-
-				marker.addTo(group);
+			const icon = L.divIcon({
+				html,
+				className: 'custom-event-marker-wrapper',
+				iconSize: [40, 40],
+				iconAnchor: [20, 40],
 			});
+
+			const marker = L.marker([event.location.lat, event.location.lng], { icon });
+
+			marker.on('click', (e) => {
+				L.DomEvent.stopPropagation(e);
+				setSelectedEvent(event);
+			});
+
+			marker.on('mouseover', () => {
+				setHoveredEventId(event.id);
+			});
+
+			marker.on('mouseout', () => {
+				setHoveredEventId(null);
+			});
+
+			marker.addTo(group);
 		});
 	}, [map, filteredEvents, selectedEvent, hoveredEventId, setSelectedEvent, setHoveredEventId]);
 
@@ -103,28 +99,26 @@ export function MapEventsLayer({ map }: MapEventsLayerProps) {
 			return;
 		}
 
-		import('leaflet').then((L) => {
-			if (creationMarkerRef.current) {
-				creationMarkerRef.current.setLatLng([newLocation.lat, newLocation.lng]);
-			} else {
-				const icon = L.divIcon({
-					html: `
-            <div class="relative flex items-center justify-center">
-              <div class="h-6 w-6 rounded-full bg-primary/40 animate-ping absolute"></div>
-              <div class="h-8 w-8 rounded-full bg-primary border-2 border-white shadow-xl flex items-center justify-center text-white text-xs font-bold">
-                📍
-              </div>
+		if (creationMarkerRef.current) {
+			creationMarkerRef.current.setLatLng([newLocation.lat, newLocation.lng]);
+		} else {
+			const icon = L.divIcon({
+				html: `
+          <div class="relative flex items-center justify-center">
+            <div class="h-6 w-6 rounded-full bg-primary/40 animate-ping absolute"></div>
+            <div class="h-8 w-8 rounded-full bg-primary border-2 border-white shadow-xl flex items-center justify-center text-white text-xs font-bold">
+              📍
             </div>
-          `,
-					className: 'creation-marker',
-					iconSize: [32, 32],
-					iconAnchor: [16, 16],
-				});
+          </div>
+        `,
+				className: 'creation-marker',
+				iconSize: [32, 32],
+				iconAnchor: [16, 16],
+			});
 
-				const marker = L.marker([newLocation.lat, newLocation.lng], { icon }).addTo(map);
-				creationMarkerRef.current = marker;
-			}
-		});
+			const marker = L.marker([newLocation.lat, newLocation.lng], { icon }).addTo(map);
+			creationMarkerRef.current = marker;
+		}
 	}, [map, isCreatingEvent, newLocation]);
 
 	return null;
