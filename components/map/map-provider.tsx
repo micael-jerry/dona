@@ -4,6 +4,8 @@ import { useUserLocation } from '@/hooks/use-user-location';
 import type { DonaEvent, EventCategory, GeoLocation, MapFilterState } from '@/types/map';
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
+export type UpdateEventPayload = Partial<DonaEvent> & { id: string };
+
 interface MapContextValue {
 	// State
 	allEvents: DonaEvent[];
@@ -17,6 +19,7 @@ interface MapContextValue {
 	isTrackingUser: boolean;
 	locationError: string | null;
 	isCreatingEvent: boolean;
+	isEditingEvent: boolean;
 	newLocation: GeoLocation | null;
 
 	// Actions
@@ -27,7 +30,9 @@ interface MapContextValue {
 	setCategoryFilter: (category: EventCategory | 'all') => void;
 	setSearchQuery: (query: string) => void;
 	setIsCreatingEvent: (active: boolean) => void;
+	setIsEditingEvent: (active: boolean) => void;
 	setNewLocation: (location: GeoLocation | null) => void;
+	updateEvent: (payload: UpdateEventPayload) => Promise<void>;
 	requestUserLocation: () => void;
 	resetFilters: () => void;
 }
@@ -40,6 +45,7 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 	const [createEvent, setCreateEvent] = useState<any | null>(null);
 	const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
 	const [isCreatingEvent, setIsCreatingEvent] = useState<boolean>(false);
+	const [isEditingEvent, setIsEditingEvent] = useState<boolean>(false);
 	const [newLocation, setNewLocation] = useState<GeoLocation | null>(null);
 
 	// Real-time geolocation tracking hook
@@ -70,6 +76,18 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 		setFilters({ category: 'all', searchQuery: '' });
 	}, []);
 
+	const updateEvent = useCallback(async (payload: UpdateEventPayload) => {
+		setAllEvents((prevEvents) =>
+			prevEvents.map((event) => (event.id === payload.id ? { ...event, ...payload } : event)),
+		);
+
+		setSelectedEvent((prevSelected) =>
+			prevSelected && prevSelected.id === payload.id ? { ...prevSelected, ...payload } : prevSelected,
+		);
+
+		// TODO: Add API request like await api.updateEvent(payload) here... if necessary
+	}, []);
+
 	// Filter events based on active category and search query
 	const filteredEvents = useMemo(() => {
 		return allEvents.filter((event) => {
@@ -98,6 +116,7 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			isTrackingUser,
 			locationError,
 			isCreatingEvent,
+			isEditingEvent,
 			newLocation,
 
 			setAllEvents,
@@ -107,7 +126,9 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			setCategoryFilter,
 			setSearchQuery,
 			setIsCreatingEvent,
+			setIsEditingEvent,
 			setNewLocation,
+			updateEvent,
 			requestUserLocation,
 			resetFilters,
 		}),
@@ -123,9 +144,11 @@ export function MapProvider({ children }: { children: React.ReactNode }) {
 			isTrackingUser,
 			locationError,
 			isCreatingEvent,
+			isEditingEvent,
 			newLocation,
 			setCategoryFilter,
 			setSearchQuery,
+			updateEvent,
 			requestUserLocation,
 			resetFilters,
 		],
