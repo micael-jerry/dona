@@ -1,13 +1,13 @@
 'use client';
 
-import type { Map as LeafletMap } from 'leaflet';
-import { useMapContext } from './map-provider';
-import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
-import type { EventCategory } from '@/types/map';
-import { Search, Navigation, Plus, Minus, MapPin, X } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
+import type { EventCategory } from '@/types/map';
+import type { Map as LeafletMap } from 'leaflet';
+import { MapPin, Minus, Navigation, Plus, Search, X } from 'lucide-react';
+import { useMapContext } from './map-provider';
 
 interface MapControlsProps {
 	map: LeafletMap | null;

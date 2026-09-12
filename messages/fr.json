@@ -245,7 +245,7 @@
 		"mainGroup": "Navigation",
 		"adminGroup": "Administration",
 		"dashboard": "Espace Personnel",
-		"map": "Retour à la Carte",
+		"map": "Carte",
 		"account": "Mon compte",
 		"leaderboard": "Classement",
 		"users": "Utilisateurs",
@@ -260,5 +260,32 @@
 		"themeDark": "Sombre",
 		"themeSystem": "Système",
 		"savedSuccess": "Paramètres sauvegardés !"
+	},
+	"EventDetailSheet": {
+		"eventPresenceQuest": "Le signalement est-il toujours là ?",
+		"stillThereButton": "Encore là",
+		"resolvingButton": "Résolu",
+		"reported": "{value, plural, =0 {Signalé à l'instant} =1 {Signalé il y a une {time}} other {Signalé il y a {value} {time, select, minutes {minutes} hours {heures} days {jours} other {}}}}"
+	},
+	"EventCreateSheet": {
+		"title": "Signalement d'incident",
+		"description": "Partagez des informations en temps réel",
+		"titleFieldTitle": "Titre",
+		"titleFieldPlaceholder": "ex: Chaussée glissante & Nids de poule",
+		"categoryFieldTitle": "Catégorie",
+		"severityFieldTitle": "Gravité / Impact",
+		"eventCategory": {
+			"accident": "Accident",
+			"traffic_jam": "Embouteillage",
+			"police": "Police",
+			"hazard": "Danger / Obstacle",
+			"closure": "Voie fermée"
+		},
+		"severityLevel": {
+			"low": "Faible",
+			"medium": "Modérée",
+			"high": "Élevée",
+			"critical": "Critique"
+		}
 	}
 }

@@ -30,7 +30,7 @@ export interface MapBounds {
  */
 export type EventCategory = 'accident' | 'traffic_jam' | 'police' | 'hazard' | 'closure' | 'other';
 
-export type EventSeverity = 'minor' | 'moderate' | 'major';
+export type EventSeverity = 'low' | 'medium' | 'high' | 'critical';
 
 export type EventStatus = 'active' | 'resolving' | 'expired';
 
@@ -47,8 +47,10 @@ export interface DonaEvent {
 	confirmationsCount: number; // "Still there" votes
 	resolutionsCount: number; // "Resolved" votes
 	isOfficialValidated?: boolean; // Validated by Traffic Police / Ministry
+	hasUserConfirmed?: boolean;
 	createdAt: string;
 	reportedBy: {
+		isOwner: boolean;
 		name: string;
 		avatarUrl?: string;
 		reputationScore?: number;

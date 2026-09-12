@@ -1,15 +1,19 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import { useCallback, useState } from 'react';
+import { useEventStore } from '@/stores/event.store';
+import { useAuthStore } from '@/stores/use-auth-store';
+import type { GeoLocation } from '@/types/map';
 import type { Map as LeafletMap } from 'leaflet';
 import { Loader2 } from 'lucide-react';
-import { MapProvider, useMapContext } from './map-provider';
+import dynamic from 'next/dynamic';
+import { useCallback, useEffect, useState } from 'react';
+import { EventCreateSheet } from './event-create-sheet';
+import { EventDetailSheet } from './event-detail-sheet';
+import { EventUpdateSheet } from './event-update-sheet';
 import { MapControls } from './map-controls';
 import { MapEventsLayer } from './map-events-layer';
+import { MapProvider, useMapContext } from './map-provider';
 import { MapUserLocationLayer } from './map-user-location-layer';
-import { EventDetailSheet } from './event-detail-sheet';
-import type { GeoLocation } from '@/types/map';
 
 // ─── Dynamic import: Leaflet must never run on the server ─────────────────────
 const LeafletMapCore = dynamic(() => import('./leaflet-map-core').then((m) => m.LeafletMapCore), {
@@ -26,7 +30,14 @@ const LeafletMapCore = dynamic(() => import('./leaflet-map-core').then((m) => m.
  */
 function MapViewContent() {
 	const [mapInstance, setMapInstance] = useState<LeafletMap | null>(null);
-	const { isCreatingEvent, setNewLocation, userLocation } = useMapContext();
+	const { isCreatingEvent, isEditingEvent, setNewLocation, userLocation, newLocation } = useMapContext();
+
+	const { token } = useAuthStore();
+	const { fetchEvents } = useEventStore();
+
+	useEffect(() => {
+		fetchEvents(token ?? undefined);
+	}, [fetchEvents, token]);
 
 	const handleMapReady = useCallback((map: LeafletMap) => {
 		setMapInstance(map);
@@ -34,9 +45,7 @@ function MapViewContent() {
 
 	const handleMapClick = useCallback(
 		(coords: GeoLocation) => {
-			if (isCreatingEvent) {
-				setNewLocation(coords);
-			}
+			setNewLocation(isCreatingEvent ? coords : null);
 		},
 		[isCreatingEvent, setNewLocation],
 	);
@@ -56,7 +65,13 @@ function MapViewContent() {
 					<MapUserLocationLayer map={mapInstance} showMarker={false} />
 					<MapEventsLayer map={mapInstance} />
 					<MapControls map={mapInstance} />
-					<EventDetailSheet />
+					{isCreatingEvent && newLocation ? (
+						<EventCreateSheet />
+					) : isEditingEvent ? (
+						<EventUpdateSheet />
+					) : (
+						<EventDetailSheet />
+					)}
 				</>
 			)}
 		</div>
