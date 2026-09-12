@@ -264,7 +264,8 @@
 	"EventDetailSheet": {
 		"eventPresenceQuest": "Le signalement est-il toujours là ?",
 		"stillThereButton": "Encore là",
-		"resolvingButton": "Résolu"
+		"resolvingButton": "Résolu",
+		"reported": "{value, plural, =0 {Signalé à l'instant} =1 {Signalé il y a une {time}} other {Signalé il y a {value} {time, select, minutes {minutes} hours {heures} days {jours} other {}}}}"
 	},
 	"EventCreateSheet": {
 		"title": "Signalement d'incident",
