@@ -19,7 +19,7 @@ import {
 	XCircle,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMapContext } from './map-provider';
 
 export function EventDetailSheet() {
@@ -28,12 +28,32 @@ export function EventDetailSheet() {
 	const { confirmEvent } = useEventStore();
 	const { token } = useAuthStore();
 	const [isConfirming, setIsConfirming] = useState(false);
+	const [reportedTimestamp, setReportedTimestamp] = useState({ time: 'juste_maintenant', value: 0 });
+
+	useEffect(() => {
+		if (!selectedEvent?.createdAt) return;
+		const reportedAt = new Date(selectedEvent.createdAt);
+		const secondes = Math.floor((Date.now() - reportedAt.getTime()) / 1000);
+
+		if (secondes < 60) {
+			setReportedTimestamp({ time: 'juste_maintenant', value: 0 });
+		} else if (secondes < 3600) {
+			const mins = Math.floor(secondes / 60);
+			setReportedTimestamp({ time: mins === 1 ? 'minute' : 'minutes', value: mins });
+		} else if (secondes < 86400) {
+			const hours = Math.floor(secondes / 3600);
+			setReportedTimestamp({ time: hours === 1 ? 'hour' : 'hours', value: hours });
+		} else {
+			const days = Math.floor(secondes / 86400);
+			setReportedTimestamp({ time: days === 1 ? 'day' : 'days', value: days });
+		}
+		console.log(reportedTimestamp);
+	}, [selectedEvent?.createdAt]);
 
 	if (!selectedEvent || isEditingEvent) return null;
 
 	const categoryConfig = CATEGORY_COLORS[selectedEvent.category] || CATEGORY_COLORS.other;
 
-	// Désactivation si l'utilisateur est le créateur OU s'il a déjà confirmé
 	const isOwner = selectedEvent.reportedBy.isOwner;
 	const hasConfirmed = selectedEvent.hasUserConfirmed;
 	const isConfirmDisabled = isOwner || hasConfirmed || isConfirming;
@@ -148,7 +168,7 @@ export function EventDetailSheet() {
 						</div>
 						<div className="flex items-center gap-2.5 text-foreground">
 							<Clock className="h-4 w-4 shrink-0 text-sky-500" />
-							<span>Signalé {selectedEvent.createdAt?.toString()}</span>
+							<span>{t('reported', { time: reportedTimestamp.time, value: reportedTimestamp.value })}</span>
 						</div>
 					</div>
 
