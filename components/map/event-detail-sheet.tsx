@@ -5,20 +5,54 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { CATEGORY_COLORS } from '@/lib/map-marker-utils';
-import { AlertTriangle, CheckCircle2, Clock, MapPin, Pencil, Share2, ShieldCheck, XCircle } from 'lucide-react';
+import { useEventStore } from '@/stores/event.store';
+import { useAuthStore } from '@/stores/use-auth-store';
+import {
+	AlertTriangle,
+	CheckCircle2,
+	Clock,
+	Loader2,
+	MapPin,
+	Pencil,
+	Share2,
+	ShieldCheck,
+	XCircle,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { useMapContext } from './map-provider';
 
 export function EventDetailSheet() {
 	const t = useTranslations('EventDetailSheet');
 	const { selectedEvent, setSelectedEvent, isEditingEvent, setIsEditingEvent } = useMapContext();
+	const { confirmEvent } = useEventStore();
+	const { token } = useAuthStore();
+	const [isConfirming, setIsConfirming] = useState(false);
 
 	if (!selectedEvent || isEditingEvent) return null;
 
 	const categoryConfig = CATEGORY_COLORS[selectedEvent.category] || CATEGORY_COLORS.other;
 
+	// Désactivation si l'utilisateur est le créateur OU s'il a déjà confirmé
+	const isOwner = selectedEvent.reportedBy.isOwner;
+	const hasConfirmed = selectedEvent.hasUserConfirmed;
+	const isConfirmDisabled = isOwner || hasConfirmed || isConfirming;
+
 	const handleOpenEdit = () => {
 		setIsEditingEvent(true);
+	};
+
+	const handleConfirmPresence = async () => {
+		if (isConfirmDisabled || !token) return;
+
+		try {
+			setIsConfirming(true);
+			await confirmEvent(selectedEvent.id, token);
+		} catch (error) {
+			console.error('Erreur lors de la confirmation :', error);
+		} finally {
+			setIsConfirming(false);
+		}
 	};
 
 	return (
@@ -31,7 +65,10 @@ export function EventDetailSheet() {
 						<img src={selectedEvent.imageUrl} alt={selectedEvent.title} className="h-full w-full object-cover" />
 						<div className="absolute top-3 left-3 flex gap-2">
 							<Badge
-								style={{ backgroundColor: categoryConfig.bg, color: categoryConfig.text }}
+								style={{
+									backgroundColor: categoryConfig.bg,
+									color: categoryConfig.text,
+								}}
 								className="font-bold shadow-md"
 							>
 								{categoryConfig.icon} {categoryConfig.label}
@@ -51,7 +88,10 @@ export function EventDetailSheet() {
 				) : (
 					<div className="flex h-24 w-full items-center justify-between bg-gradient-to-r from-slate-900 to-slate-800 p-4 text-white">
 						<Badge
-							style={{ backgroundColor: categoryConfig.bg, color: categoryConfig.text }}
+							style={{
+								backgroundColor: categoryConfig.bg,
+								color: categoryConfig.text,
+							}}
 							className="font-bold shadow-md"
 						>
 							{categoryConfig.icon} {categoryConfig.label}
@@ -108,7 +148,7 @@ export function EventDetailSheet() {
 						</div>
 						<div className="flex items-center gap-2.5 text-foreground">
 							<Clock className="h-4 w-4 shrink-0 text-sky-500" />
-							<span>Signalé {selectedEvent.createdAt}</span>
+							<span>Signalé {selectedEvent.createdAt?.toString()}</span>
 						</div>
 					</div>
 
@@ -136,10 +176,23 @@ export function EventDetailSheet() {
 							{t('eventPresenceQuest')}
 						</p>
 						<div className="flex items-center gap-2">
-							<Button className="flex-1 bg-emerald-600 font-bold text-white shadow-md hover:bg-emerald-700">
-								<CheckCircle2 className="mr-2 h-4 w-4" />
-								{t('stillThereButton')} ({selectedEvent.confirmationsCount})
+							<Button
+								disabled={isConfirmDisabled}
+								onClick={handleConfirmPresence}
+								className={`flex-1 font-bold shadow-md transition-all ${
+									hasConfirmed
+										? 'bg-emerald-700 text-white hover:bg-emerald-700'
+										: 'bg-emerald-600 text-white hover:bg-emerald-700'
+								}`}
+							>
+								{isConfirming ? (
+									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+								) : (
+									<CheckCircle2 className="mr-2 h-4 w-4" />
+								)}
+								{hasConfirmed ? 'Déjà confirmé' : t('stillThereButton')} ({selectedEvent.confirmationsCount})
 							</Button>
+
 							<Button
 								variant="outline"
 								className="flex-1 border-rose-500/40 font-bold text-rose-600 hover:bg-rose-500/10"
@@ -151,6 +204,9 @@ export function EventDetailSheet() {
 								<Share2 className="h-4 w-4" />
 							</Button>
 						</div>
+						{isOwner && (
+							<p className="pt-1 text-[11px] text-muted-foreground italic">Vous êtes l'auteur de ce signalement.</p>
+						)}
 					</div>
 				</div>
 			</SheetContent>
