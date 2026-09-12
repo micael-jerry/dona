@@ -47,6 +47,7 @@ export interface DonaEvent {
 	confirmationsCount: number; // "Still there" votes
 	resolutionsCount: number; // "Resolved" votes
 	isOfficialValidated?: boolean; // Validated by Traffic Police / Ministry
+	hasUserConfirmed?: boolean;
 	createdAt: string;
 	reportedBy: {
 		isOwner: boolean;
