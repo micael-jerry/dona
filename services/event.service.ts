@@ -1,4 +1,4 @@
-import { EventModel, CreateEventInput, UpdateEventInput } from '@/types/event.type';
+import { CreateEventInput, EventModel, UpdateEventInput } from '@/types/event.type';
 import { DonaEvent } from '@/types/map';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
@@ -79,6 +79,25 @@ export const eventService = {
 		if (!response.ok) {
 			const errorData = await response.json().catch(() => ({}));
 			throw new Error(errorData.message || 'Échec de la création de l’événement');
+		}
+
+		return response.json();
+	},
+
+	async confirm(id: string, token?: string): Promise<DonaEvent> {
+		const headers: Record<string, string> = {
+			'Content-Type': 'application/json',
+		};
+		if (token) headers['Authorization'] = `Bearer ${token}`;
+
+		const response = await fetch(`${API_BASE_URL}/events/${id}/confirm`, {
+			method: 'POST',
+			headers,
+		});
+
+		if (!response.ok) {
+			const errorData = await response.json().catch(() => ({}));
+			throw new Error(errorData.message || 'Échec de la confirmation de l’événement');
 		}
 
 		return response.json();
