@@ -264,7 +264,8 @@
 	"EventDetailSheet": {
 		"eventPresenceQuest": "¿Sigue ahí el aviso?",
 		"stillThereButton": "Todavía aquí",
-		"resolvingButton": "Resuelto"
+		"resolvingButton": "Resuelto",
+		"reported": "{value, plural, =0 {Reportado hace un momento} =1 {Reportado hace 1 {time}} other {Reportado hace {value} {time, select, minutes {minutos} hours {horas} days {días} other {}}}}"
 	},
 	"EventCreateSheet": {
 		"title": "Informe de incidente",
