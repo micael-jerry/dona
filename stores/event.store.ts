@@ -13,6 +13,7 @@ interface EventState {
 	fetchEvents: (token?: string) => Promise<void>;
 	fetchEventById: (id: string) => Promise<void>;
 	createEvent: (data: CreateEventInput, token?: string) => Promise<DonaEvent>;
+	confirmEvent: (eventId: string, token: string) => Promise<void>;
 	updateEvent: (id: string, data: UpdateEventInput, token?: string) => Promise<void>;
 	deleteEvent: (id: string, token?: string) => Promise<void>;
 	setSelectedEvent: (event: EventModel | null) => void;
@@ -34,7 +35,7 @@ export const useEventStore = create<EventState>((set) => ({
 			const events = await eventService.getAllPersonalized(token);
 			set({ events, isLoading: false });
 		} catch (err: unknown) {
-			const errorMessage = err instanceof Error ? err.message : 'Une erreur est survenue';
+			const errorMessage = err instanceof Error ? err.message : 'An error occurred while fetching events.';
 			set({ error: errorMessage, isLoading: false });
 		}
 	},
@@ -45,7 +46,7 @@ export const useEventStore = create<EventState>((set) => ({
 			const event = await eventService.getById(id);
 			set({ selectedEvent: event, isLoading: false });
 		} catch (err: unknown) {
-			const errorMessage = err instanceof Error ? err.message : 'Une erreur est survenue';
+			const errorMessage = err instanceof Error ? err.message : 'An error occurred while fetching events.';
 			set({ error: errorMessage, isLoading: false });
 		}
 	},
@@ -64,8 +65,22 @@ export const useEventStore = create<EventState>((set) => ({
 
 			return personalizedEvent;
 		} catch (err: unknown) {
-			const errorMessage = err instanceof Error ? err.message : 'Une erreur est survenue';
+			const errorMessage = err instanceof Error ? err.message : 'An error occurred while fetching events.';
 			set({ error: errorMessage, isLoading: false });
+			throw err;
+		}
+	},
+
+	confirmEvent: async (eventId: string, token: string) => {
+		try {
+			const updatedEvent = await eventService.confirm(eventId, token);
+
+			set((state) => ({
+				events: state.events.map((e) => (e.id === eventId ? updatedEvent : e)),
+				selectedEvent: state.selectedEvent?.id === eventId ? (updatedEvent as any) : state.selectedEvent,
+			}));
+		} catch (err: unknown) {
+			console.error('Error confirming event:', err);
 			throw err;
 		}
 	},
@@ -82,7 +97,7 @@ export const useEventStore = create<EventState>((set) => ({
 				isLoading: false,
 			}));
 		} catch (err: unknown) {
-			const errorMessage = err instanceof Error ? err.message : 'Une erreur est survenue';
+			const errorMessage = err instanceof Error ? err.message : 'An error occurred while fetching events.';
 			set({ error: errorMessage, isLoading: false });
 			throw err;
 		}
@@ -98,7 +113,7 @@ export const useEventStore = create<EventState>((set) => ({
 				isLoading: false,
 			}));
 		} catch (err: unknown) {
-			const errorMessage = err instanceof Error ? err.message : 'Une erreur est survenue';
+			const errorMessage = err instanceof Error ? err.message : 'An error occurred while fetching events.';
 			set({ error: errorMessage, isLoading: false });
 			throw err;
 		}
