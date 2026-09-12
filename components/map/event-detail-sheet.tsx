@@ -133,15 +133,17 @@ export function EventDetailSheet() {
 					<SheetHeader className="space-y-2 p-0 text-left">
 						<div className="flex items-start justify-between gap-3">
 							<SheetTitle className="text-xl leading-tight font-bold">{selectedEvent.title}</SheetTitle>
-							<Button
-								variant="outline"
-								size="icon"
-								onClick={handleOpenEdit}
-								className="h-8 w-8 shrink-0 rounded-lg border-border/80"
-								title="Modifier le signalement"
-							>
-								<Pencil className="h-4 w-4 text-muted-foreground" />
-							</Button>
+							{selectedEvent.reportedBy.isOwner && (
+								<Button
+									variant="outline"
+									size="icon"
+									onClick={handleOpenEdit}
+									className="h-8 w-8 shrink-0 rounded-lg border-border/80"
+									title="Modifier le signalement"
+								>
+									<Pencil className="h-4 w-4 text-muted-foreground" />
+								</Button>
+							)}
 						</div>
 						<SheetDescription className="text-sm text-muted-foreground">{selectedEvent.description}</SheetDescription>
 					</SheetHeader>
@@ -157,7 +159,9 @@ export function EventDetailSheet() {
 								</p>
 							</div>
 						</div>
-						<span className="text-lg font-black text-sky-600 dark:text-sky-400">{selectedEvent.veracityScore}%</span>
+						<span className="text-lg font-black text-sky-600 dark:text-sky-400">
+							{selectedEvent.veracityScore?.toFixed(2)}%
+						</span>
 					</div>
 
 					{/* Signal Location & Time */}
