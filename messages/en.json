@@ -264,7 +264,8 @@
 	"EventDetailSheet": {
 		"eventPresenceQuest": "Is the report still there?",
 		"stillThereButton": "Still there",
-		"resolvingButton": "Resolved"
+		"resolvingButton": "Resolved",
+		"reported": "{value, plural, =0 {Reported just now} =1 {Reported 1 {time} ago} other {Reported {value} {time, select, minutes {minutes} hours {hours} days {days} other {}} ago}}"
 	},
 	"EventCreateSheet": {
 		"title": "Incident Report",
